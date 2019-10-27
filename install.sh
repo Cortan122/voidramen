@@ -8,6 +8,7 @@ cp -r .[!.]* * ~
 
 cd ~
 rm -f ~/.bash_logout ~/.bash_profile ~/install.sh
+rm -rf ~/.git
 chmod +x ~/.local/bin/*
 
 cd ~/Programs/st
