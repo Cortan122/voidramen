@@ -84,7 +84,7 @@ PS1+='@\[\e[92m\]\h\[\e[0m\]:\[\e[94m\]\w\[\e[0m\]\$ '
 # If this is an xterm set the title to '{command} user@host:dir'
 if [[ "$TERM" != linux* ]]; then
   PS1_TITLE="\u@\h: \w"
-  [ "$(uname -o)" == "Android" ] && PS1_TITLE="\w"
+  [ "$(tput cols)" -le 50 ] && PS1_TITLE="\w"
   PS1="\[\e]0;$PS1_TITLE\a\]$PS1"
   if [[ ${BASH_VERSINFO[0]} -ge 5 || ${BASH_VERSINFO[0]} == 4 && ${BASH_VERSINFO[1]} -ge 4 ]]; then
     trap 'printf "\033]0;{%s} %s\007" "${BASH_COMMAND//[^[:print:]]/}" "${PS1_TITLE@P}"' DEBUG

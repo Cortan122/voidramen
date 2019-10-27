@@ -58,4 +58,4 @@ fi
 
 sudo pip install numpy sympy matplotlib gTTS speedtest-cli
 
-rm -rf -- "$(dirname -- $0)"
+[ "$1" == "--delete" ] && rm -rf -- "$(dirname -- $0)"
