@@ -1,0 +1,60 @@
+{
+  "win10": {
+    "font": "Consolas",
+    "color0": "#0c0c0c",
+    "color1": "#c50f1f",
+    "color2": "#13a10e",
+    "color3": "#c19c00",
+    "color4": "#0037da",
+    "color5": "#881798",
+    "color6": "#3a96dd",
+    "color7": "#cccccc",
+    "color8": "#767676",
+    "color9": "#e74856",
+    "color10": "#16c60c",
+    "color11": "#f9f1a5",
+    "color12": "#3b78ff",
+    "color13": "#b4009e",
+    "color14": "#61d6d6",
+    "color15": "#f2f2f2",
+    "background": "#0c0c0c",
+    "foreground": "#cccccc",
+    "cursorColor": "#ffffff"
+  },
+  "ubuntu": {
+    "font": "Ubuntu Mono",
+    "color0": "#2e3436",
+    "color1": "#cc0000",
+    "color2": "#4e9a06",
+    "color3": "#c4a000",
+    "color4": "#3465a4",
+    "color5": "#75507b",
+    "color6": "#06989a",
+    "color7": "#d3d7cf",
+    "color8": "#555753",
+    "color9": "#ef2929",
+    "color10": "#8ae234",
+    "color11": "#fce94f",
+    "color12": "#729fcf",
+    "color13": "#ad7fa8",
+    "color14": "#34e2e2",
+    "color15": "#eeeeec",
+    "background": "#300a24",
+    "foreground": "#fdf6e3",
+    "cursorColor": "#fdf6e3"
+  },
+  "_fonts": {
+    "WSL": {
+      "Consolas": "Consolas:pixelsize=14:antialias=true:autohint=true",
+      "Ubuntu Mono": "Ubuntu Mono:pixelsize=15:antialias=true:autohint=true",
+      "mono": "Bitstream Vera Sans Mono-13",
+      "_alpha": -1
+    },
+    "Linux": {
+      "Consolas": "Consolas-12",
+      "Ubuntu Mono": "Ubuntu Mono-12",
+      "Inconsolata": "Inconsolata-12",
+      "_alpha": 0.9
+    }
+  }
+}
