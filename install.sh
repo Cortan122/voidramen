@@ -3,6 +3,7 @@
 cd -- "$(dirname -- "$0")"
 find . -type d -name '.git' -prune -o -type f -exec chmod 644 {} \;
 find . -type d -name '.git' -prune -o -type d -exec chmod 755 {} \;
+chmod +x install.sh
 cp -r .[!.]* * ~
 
 cd ~
