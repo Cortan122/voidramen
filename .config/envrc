@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# This file sets environmental variables.
+
+# Return if we alredy have all the vars.
+[ -z "$TERMINAL" ] || return
+
+# set PATH so it includes user's private bin if it exists
+[ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
+[ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
+[ -d "$HOME/.cargo/bin" ] && PATH="$HOME/.cargo/bin:$PATH"
+export PATH
+
+export EDITOR="nano"
+export TERMINAL="st"
+export LC_NUMERIC="en_US.UTF-8"
+export LC_TIME="ru_RU.UTF-8"
+[ -z "$DISPLAY" ] && export DISPLAY=127.0.0.1:0
+[ -z "$PULSE_SERVER" ] && export PULSE_SERVER=tcp:127.0.0.1
+export NODE_PATH=/usr/local/lib/node_modules
+
+# ~/ Clean-up:
+# export HISTFILE="$HOME/.config/bash_history"
+export LESSHISTFILE="$HOME/.config/less_history"
+export INPUTRC="$HOME/.config/inputrc"
+export ZDOTDIR="$HOME/.config/zsh"
+export NODE_REPL_HISTORY="$HOME/.config/node_repl_history"
+export NPM_CONFIG_USERCONFIG="$HOME/.config/npmrc"
+
+# less/man colors
+export LESS=-R
+export LESS_TERMCAP_mb="$(printf '%b' '[1;31m')"; a="${a%_}"
+export LESS_TERMCAP_md="$(printf '%b' '[1;36m')"; a="${a%_}"
+export LESS_TERMCAP_me="$(printf '%b' '[0m')"; a="${a%_}"
+export LESS_TERMCAP_so="$(printf '%b' '[01;44;33m')"; a="${a%_}"
+export LESS_TERMCAP_se="$(printf '%b' '[0m')"; a="${a%_}"
+export LESS_TERMCAP_us="$(printf '%b' '[1;32m')"; a="${a%_}"
+export LESS_TERMCAP_ue="$(printf '%b' '[0m')"; a="${a%_}"

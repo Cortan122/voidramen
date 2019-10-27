@@ -1,0 +1,26 @@
+#!/bin/sh
+
+case $BLOCK_BUTTON in
+	1) notify-send "🖥 CPU hogs" "$(ps axch -o cmd:15,%cpu --sort=-%cpu | head)" ;;
+  2) notify-send "🌡️ CPU temperature" "$(sensors | awk '/Core 0/ {print $3}')" ;;
+	3) notify-send "🖥 CPU module " "\- Shows CPU <s>temperature</s>.
+- Click to show intensive processes.
+- Middle click to show CPU temperature.
+- % is of single core." ;;
+esac
+
+tmp="$(LC_ALL="en_US" mpstat 1 1 | awk '/^Average:/ {print $NF}')"
+tmp1="$(echo '100 -' $tmp | bc)"
+tmp2="$(echo "$tmp1" | sed 's/\.//g')"
+
+if [ "$tmp2" -ge 8000 ]; then
+  color="#ff0000"
+elif [ "$tmp2" -ge 5000 ]; then
+  color="#fffc00"
+else
+  color="#ffffff"
+fi
+
+printf "<span color='%s'>%s%%</span>" "$color" "$tmp1"
+
+# $(sensors | awk '/Core 0/ {print $3}')
