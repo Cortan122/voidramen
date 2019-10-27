@@ -7,7 +7,13 @@ cp -r .[!.]* * ~
 
 cd ~
 rm -f ~/.bash_logout ~/.bash_profile ~/install.sh
-chmod +x .local/bin/*
+chmod +x ~/.local/bin/*
+
+cd ~/Programs/st
+chmod +x *.sh st st-copyout
+cd ~
+
+[ -z "$PREFIX" ] || echo "include $PREFIX/share/nano/*" > ~/.nanorc
 
 command -v sudo >/dev/null || exit 0
 
@@ -16,9 +22,6 @@ if [[ "$(< /proc/version)" == *@(Microsoft|WSL)* ]]; then
   ln -Ts /mnt/b/костя/видухи ~/Videos
   ln -Ts "$(wslpath "$(cmd.exe /c echo %USERPROFILE%\\Downloads)" | tr '\r' '/')" ~/Downloads
 fi
-
-cd ~/Programs/st
-chmod +x *.sh st st-copyout
 
 sudo ln -s ~/.nanorc /root
 

@@ -11,10 +11,13 @@
 [ -d "$HOME/.cargo/bin" ] && PATH="$HOME/.cargo/bin:$PATH"
 export PATH
 
+if command -v locale >/dev/null; then
+  export LC_TIME="ru_RU.UTF-8"
+  export LC_NUMERIC="en_US.UTF-8"
+fi
+
 export EDITOR="nano"
 export TERMINAL="st"
-export LC_NUMERIC="en_US.UTF-8"
-export LC_TIME="ru_RU.UTF-8"
 [ -z "$DISPLAY" ] && export DISPLAY=127.0.0.1:0
 [ -z "$PULSE_SERVER" ] && export PULSE_SERVER=tcp:127.0.0.1
 export NODE_PATH=/usr/local/lib/node_modules
