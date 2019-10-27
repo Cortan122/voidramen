@@ -16,6 +16,7 @@ chmod +x *.sh st st-copyout
 cd ~
 
 [ -z "$PREFIX" ] || echo "include $PREFIX/share/nano/*" > ~/.nanorc
+[ "$(uname -o)" == "Android" ] && rm -f ~/.profile #fixme
 
 command -v sudo >/dev/null || exit 0
 
