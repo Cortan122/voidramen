@@ -1,0 +1,130 @@
+#!/usr/bin/env jitcc
+
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <time.h>
+#include <unistd.h>
+
+typedef struct {
+  int a;
+  int b;
+} intPair;
+
+void printEscape(double x){
+  x -= floor(x);
+  const double pi = 3.14159265359;
+  double red    = sin(x*10*pi + 0) * 127 + 128;
+  double green  = sin(x*10*pi + 2*pi/3) * 127 + 128;
+  double blue   = sin(x*10*pi + 4*pi/3) * 127 + 128;
+  printf("\e[48;2;%d;%d;%dm ", (int)red, (int)green, (int)blue);
+}
+
+intPair sttySize(){
+  char buf[100];
+  FILE* proc;
+  if(0 == (proc = popen("stty size", "r"))){
+    perror("stty size failed");
+    exit(1);
+  }
+  fgets(buf, sizeof(buf), proc);
+  pclose(proc);
+  int a;
+  int b;
+  sscanf(buf, "%d %d", &a, &b);
+  intPair r;
+  r.a = a;
+  r.b = b;
+  return r;
+}
+
+int main(int argc, char* argv[]){
+  argv[0] = "lsd";
+  srand(time(0));
+
+  intPair size = sttySize();
+  int seed = rand();
+  // int animationSpeed = 1;
+  double xfreq = 1;
+  double yfreq = 3;
+  uint8_t altscreen = 0;
+  uint8_t verbose = 0;
+  // uint8_t animation = 0;
+
+  char c;
+  while((c = getopt(argc, argv, "havS:x:y:")) != -1){
+    switch(c){
+      case 'a':
+        altscreen = 1;
+        break;
+      // case 'A':
+      //   animation = 1;
+      //   break;
+      case 'v':
+        verbose = 1;
+        break;
+      case 'x':
+        xfreq = atof(optarg);
+        break;
+      case 'y':
+        yfreq = atof(optarg);
+        break;
+      case 'S':
+        seed = atoi(optarg);
+        break;
+      case '?':
+        return 1;
+      case 'h':
+        fprintf(stderr,
+          "\n"
+          "Usage: lsd [OPTION]...\n"
+          "\n"
+          "Fill the entire screen with RAINBOWS!!\n"
+          "\n"
+          "  -x <f>\t Horizontal rainbow frequency (default: 1.0)\n"
+          "  -y <f>\t Vertical rainbow frequency (default: 3.0)\n"
+          "  -S <i>\t Rainbow seed (default: random)\n"
+          "  -a    \t Use alt screen mode\n"
+          // "  -A    \t Enable psychedelics\n"
+          // "  -d\t Animation duration (default: 12)\n"
+          // "  -s\t Animation speed (default: 20.0)\n"
+          "  -v    \t Print some extra info\n"
+          "  -h    \t Show this message\n"
+          "\n"
+        );
+        return 0;
+      default:
+        abort();
+    }
+  }
+
+  if(verbose)printf(
+    "size={%d, %d}; seed=%d; xfreq=%g; yfreq=%g; altscreen=%s\n",
+    size.a,
+    size.b,
+    seed,
+    xfreq,
+    yfreq,
+    altscreen?"true":"false"
+  );
+
+  if(altscreen)printf("\e[?1049h");
+  for(int i = 0; i < size.a; i++){
+    for(int j = 0; j < size.b; j++){
+      printEscape((i*yfreq + j*xfreq + seed)*.001);
+    }
+  }
+  fflush(0);
+  printf("\e[0m");
+  if(altscreen){
+    printf("\e[?25l");
+    system("stty raw");
+    getchar();
+    system("stty -raw");
+    printf("\e[?25h");
+    printf("\e[?1049l");
+  }
+
+  return 0;
+}
