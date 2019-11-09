@@ -21,14 +21,17 @@ cd ~
 command -v sudo >/dev/null || exit 0
 
 if [[ "$(< /proc/version)" == *@(Microsoft|WSL)* ]]; then
+  pushd /mnt/c > /dev/null
   ln -Ts /mnt/b/apache/www ~/www
   ln -Ts /mnt/b/костя/видухи ~/Videos
   ln -Ts "$(wslpath "$(cmd.exe /c echo %USERPROFILE%\\Downloads)" | tr '\r' '/')" ~/Downloads
+  popd > /dev/null
 fi
 
 sudo ln -s ~/.nanorc /root
 
 if command -v pacman >/dev/null && ! { command -v yay >/dev/null; }; then
+  # todo: manjaro
   sudo pacman -Syyuu --noconfirm
   echo -e 'n\n\n' | sudo pacman -S git base-devel --needed
   cd ~/Programs
@@ -47,6 +50,12 @@ if command -v pacman >/dev/null && ! { locale -a | grep ru_RU >/dev/null; }; the
   sudo sed -i 's/^#ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen
   # После сохранения файла сгенерируйте выбранные локали командой:
   sudo locale-gen
+fi
+
+if sudo [ ! -f "/etc/sudoers.d/000-cortan122" ]; then
+  echo "cortan122 ALL=(ALL) NOPASSWD: ALL" | sudo tee "/etc/sudoers.d/000-cortan122"
+  sudo chmod 440 "/etc/sudoers.d/000-cortan122"
+  sudo chown root:root "/etc/sudoers.d/000-cortan122"
 fi
 
 packageList="npm nodejs python2 python3 bash-completion ffmpeg youtube-dl imagemagick lolcat php openssh python-pip feh qrencode sxiv"

@@ -52,7 +52,7 @@ int main(int argc, char* argv[]){
   uint8_t verbose = 0;
   // uint8_t animation = 0;
 
-  char c;
+  signed char c;
   while((c = getopt(argc, argv, "havS:x:y:")) != -1){
     switch(c){
       case 'a':
