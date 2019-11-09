@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ~/.config/envrc
+[ -f "$HOME/.config/envrc" ] && source "$HOME/.config/envrc"
 
 # If not running interactively, don't do anything
 [ -z "$BASH_VERSION" ] && return
@@ -36,7 +36,7 @@ HISTCONTROL=ignoreboth:erasedups
 stty -ixon # Disable ctrl-s and ctrl-q.
 
 if [[ "$(< /proc/version)" == *@(Microsoft|WSL)* ]]; then
-  [ "${PWD,,}" == "/mnt/c/windows/system32" ] && cd ~
+  [ "$(echo "$PWD" | awk '{print tolower($0)}')" == "/mnt/c/windows/system32" ] && cd ~
   winpath () { wslpath -ma "$1" 2>/dev/null || echo "C:/Debian/rootfs"$(readlink -f "$1") ;}
   Code () {  cmd.exe /C "code.cmd" "$(winpath "$1")" ;}
   subl () { "/mnt/c/Program Files/Sublime Text 3/sublime_text.exe" "$(winpath "$1")" &}
@@ -77,7 +77,7 @@ else
 fi
 
 PS1='\[\e[?25h\e[0;92m\]\u'
-PS1+='\[$(t=$? ;[ $t == 130 ] && echo -e "\e[93m" || ( [ $t != 0 ] && echo -e "\e[91m" ))\]'
+PS1+='\[$(t=$? ;[ $t "==" 130 ] && echo -e "\e[93m" || ( [ $t != 0 ] && echo -e "\e[91m" ))\]'
 PS1+='@\[\e[92m\]\h\[\e[0m\]:\[\e[94m\]\w\[\e[0m\]\$ '
 [ "$(tput cols)" -le 50 ] && PS1='\[\e[?25h\e[0m\]\$'
 
