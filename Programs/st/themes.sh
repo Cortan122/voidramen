@@ -25,8 +25,8 @@ jq ".$name|to_entries|map([.[]|tostring]|join(\":\t\"))[]" themes.json --raw-out
   alpha="$(jq "._fonts.$sys._alpha" themes.json --raw-output)"
   echo -e "alpha:\t$alpha"
 ) | awk '{print "/*st*/ *.St."$0}' | column -t -s $'\t' \
-| cat <(grep -v '^\/\*st\*\/ \*\.St\.' ~/.Xresources) - | sponge ~/.Xresources
-xrdb ~/.Xresources
+| cat <(grep -v '^\/\*st\*\/ \*\.St\.' ~/.Xdefaults) - | sponge ~/.Xdefaults
+xrdb ~/.Xdefaults
 
 jq "{\
   \"colors\": (.$name | to_entries | map(select(.key | startswith(\"color\"))) | from_entries),\

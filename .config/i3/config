@@ -187,7 +187,7 @@ hide_edge_borders vertical
 exec --no-startup-id xcompmgr -n
 exec --no-startup-id setbg &
 exec --no-startup-id xinput --disable
-exec --no-startup-id xrdb ~/.Xresources
+exec --no-startup-id xrdb ~/.Xdefaults
 bindsym $mod+m workspace M
 
 # Start i3bar to display a workspace bar (plus the system information i3status
