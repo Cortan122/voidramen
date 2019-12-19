@@ -7,6 +7,7 @@
 [[ $- != *i* ]] && return
 
 [ -f "$PREFIX/etc/profile.d/bash_completion.sh" ] && . "$PREFIX/etc/profile.d/bash_completion.sh"
+[ -f "/usr/share/doc/pkgfile/command-not-found.bash" ] && . /usr/share/doc/pkgfile/command-not-found.bash
 
 # enable color support of ls
 [ -x "$(command -v dircolors)" ] && eval $( [ -e ~/.config/dircolors ] && dircolors -b ~/.config/dircolors || dircolors -b )
@@ -16,6 +17,7 @@ alias la='ls -lAuGh --file-type'
 alias ffmpeg='ffmpeg -hide_banner'
 alias ffprobe='ffprobe -hide_banner'
 alias grep='grep --color=auto'
+alias R='R --quiet --no-save'
 
 # ~/.inputrc
 bind '"\e[1;5C":shell-forward-word'
