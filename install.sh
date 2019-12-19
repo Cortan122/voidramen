@@ -31,14 +31,20 @@ fi
 sudo ln -s ~/.nanorc /root
 
 if command -v pacman >/dev/null && ! { command -v yay >/dev/null; }; then
-  # todo: manjaro
   sudo pacman -Syyuu --noconfirm
-  echo -e 'n\n\n' | sudo pacman -S git base-devel --needed
-  cd ~/Programs
-  git clone https://aur.archlinux.org/yay.git
-  cd yay
-  makepkg -si --noconfirm
-  cd ~
+
+  if pacman -Si yay >/dev/null 2>&1; then
+    # yay can be installed from the repos on manjaro
+    sudo pacman -S yay --noconfirm --needed
+  else
+    # installing yay from the aur
+    echo -e 'n\n\n' | sudo pacman -S git base-devel --needed
+    cd ~/Programs
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si --noconfirm
+    cd ~
+  fi
 
   yay --noeditmenu --nodiffmenu --save
 fi
