@@ -64,7 +64,19 @@ if sudo [ ! -f "/etc/sudoers.d/000-cortan122" ]; then
   sudo chown root:root "/etc/sudoers.d/000-cortan122"
 fi
 
-packageList="npm nodejs python2 python3 bash-completion ffmpeg youtube-dl imagemagick lolcat php openssh python-pip feh qrencode sxiv"
+if ! { command -v st >/dev/null; }; then
+  cd ~/Programs/st
+  make
+  sudo make install
+  cd ~
+fi
+
+if ! { command -v jitcc >/dev/null; } || [ ~/.local/bin/jitcc -ot ~/.local/bin/jitcc.c ]; then
+  gcc -lcrypto ~/.local/bin/jitcc.c -o ~/.local/bin/jitcc
+fi
+
+# todo: this is slow, put it in some kind of if
+packageList="npm nodejs python2 python3 bash-completion ffmpeg youtube-dl imagemagick php openssh python-pip feh qrencode sxiv"
 if command -v pacman >/dev/null; then
   sudo pacman --needed --noconfirm -S $packageList
 elif command -v apt >/dev/null; then
