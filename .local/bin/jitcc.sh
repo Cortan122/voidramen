@@ -1,8 +1,8 @@
 #!/bin/bash
 
-## ist faster if we dont check
-# ifinstalled openssl gcc realpath || exit 1
-# [ -z "$1" ] && exit 1
+## its faster if we dont check
+ifinstalled openssl gcc realpath || exit 1
+[ -z "$1" ] && exit 1
 
 hash="$(echo -n "$(realpath -- "$1")" | openssl dgst -binary -sha1 | openssl base64 | tr '/+' '_-' | sed 's/=//g')"
 cachepath="$HOME/.cache/jitcc"
