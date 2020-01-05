@@ -2,4 +2,4 @@
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login exists.
 
 # include .bashrc if it exists
-[ -f ~/.bashrc ] && source "$HOME/.bashrc"
+[ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
