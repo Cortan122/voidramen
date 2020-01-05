@@ -46,6 +46,7 @@ int istty = 0;
 int hasLine = 0;
 int printNewlines = 1;
 int useUTF8 = 0;
+int escapeUTF8 = 0;
 
 #define COLOR_UTF8 (istty?"\x1b[34m":"")
 #define COLOR_SET (istty?"\x1b[33m":"")
@@ -88,6 +89,7 @@ void cat(FILE* fp, char *s){
     if(ch&0x80 && useUTF8 || utf8bufind){
       utf8buf[utf8bufind++] = ch;
       decode(&utf8state, &utf8codepoint, ch);
+
       if(utf8state == UTF8_REJECT){
         for(int i = 0; i < utf8bufind; i++){
           catChar(utf8buf[i]);
@@ -95,8 +97,18 @@ void cat(FILE* fp, char *s){
         utf8bufind = utf8state = utf8codepoint = 0;
       }else if(utf8state == UTF8_ACCEPT){
         utf8buf[utf8bufind++] = '\0';
+
+        if(escapeUTF8){
+          if(utf8codepoint<=0xffff){
+            printf("%s\\u%04x%s", COLOR_UTF8, utf8codepoint, COLOR_RESET);
+          }else{
+            printf("%s\\U%08x%s", COLOR_UTF8, utf8codepoint, COLOR_RESET);
+          }
+        }else{
+          printf("%s%s%s", COLOR_UTF8, utf8buf, COLOR_RESET);
+        }
+
         utf8bufind = utf8state = utf8codepoint = 0;
-        printf("%s%s%s", COLOR_UTF8, utf8buf, COLOR_RESET);
       }
     }else{
       catChar(ch);
@@ -109,7 +121,7 @@ int main(int argc, char *argv[]){
   istty = isatty(1);
 
   signed char c;
-  while((c = getopt(argc, argv, "fnuh")) != -1){
+  while((c = getopt(argc, argv, "fnuUh")) != -1){
     switch(c){
       case 'f':
         istty = 1;
@@ -117,6 +129,9 @@ int main(int argc, char *argv[]){
       case 'n':
         printNewlines = 0;
         break;
+      case 'U':
+        escapeUTF8 = 1;
+        /* FALLTHROUGH; */
       case 'u':
         useUTF8 = 1;
         break;
@@ -130,11 +145,13 @@ int main(int argc, char *argv[]){
           "With no FILE, or when FILE is -, read standard input.\n"
           "\n"
           "  -u    \t Print utf8 characters as %scharacters%s\n"
+          "  -U    \t Print utf8 characters as %s\\U0001f914%s\n"
           "  -n    \t Print newlines as %s\\n%s\n"
           "  -f    \t Force color even when stdout is not a tty\n"
           "  -h    \t Show this message\n"
           "\n",
           COLOR_SET, COLOR_RESET,
+          COLOR_UTF8, COLOR_RESET,
           COLOR_UTF8, COLOR_RESET,
           COLOR_SET, COLOR_RESET
         );
