@@ -7,6 +7,7 @@
 [[ $- != *i* ]] && return
 
 [ -f "$PREFIX/etc/profile.d/bash_completion.sh" ] && source "$PREFIX/etc/profile.d/bash_completion.sh"
+PKGFILE_PROMPT_INSTALL_MISSING=y
 [ -f "/usr/share/doc/pkgfile/command-not-found.bash" ] && source /usr/share/doc/pkgfile/command-not-found.bash
 
 # enable color support of ls
