@@ -1236,7 +1236,10 @@ xinit(int cols, int rows)
 		XGetWindowAttributes(xw.dpy, parent, &attr);
 		xw.depth = attr.depth;
 	}
+  if (opt_alpha)
+		alpha = strtof(opt_alpha, NULL);
   if(alpha < 0 || alpha > 1){
+    fprintf(stderr, "Ignoring alpha %f\n", alpha);
     xw.depth = XDefaultDepth(xw.dpy, xw.scr);
     alpha = 1;
   }
