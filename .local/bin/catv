@@ -80,7 +80,7 @@ void cat(FILE* fp, char *s){
 	if(fp == stdin && feof(stdin))clearerr(stdin);
 
   uint32_t utf8codepoint;
-  int utf8state;
+  int utf8state = 0;
   uint8_t utf8buf[10];
   int utf8bufind = 0;
   int t;
