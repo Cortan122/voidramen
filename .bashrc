@@ -13,6 +13,7 @@ PKGFILE_PROMPT_INSTALL_MISSING=y
 # enable color support of ls
 [ -x "$(command -v dircolors)" ] && eval $( [ -e ~/.config/dircolors ] && dircolors -b ~/.config/dircolors || dircolors -b )
 alias cls='clear'
+alias where='whereis'
 alias ls='ls --color=auto --group-directories-first'
 alias la='ls -lAuGh --file-type'
 alias ffmpeg='ffmpeg -hide_banner'
