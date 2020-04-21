@@ -9,6 +9,19 @@
 [ -f "$PREFIX/etc/profile.d/bash_completion.sh" ] && source "$PREFIX/etc/profile.d/bash_completion.sh"
 PKGFILE_PROMPT_INSTALL_MISSING=y
 [ -f "/usr/share/doc/pkgfile/command-not-found.bash" ] && source /usr/share/doc/pkgfile/command-not-found.bash
+declare -f original_command_not_found_handle >/dev/null || {
+  declare -f command_not_found_handle >/dev/null || command_not_found_handle () {
+    printf "bash: %s: command not found\n" "$cmd";
+  }
+  eval "original_$(declare -f command_not_found_handle)"
+
+  command_not_found_handle () {
+    eval "$(ru2en.c "$@")"
+  }
+  св () {
+    eval "$(ru2en.c св "$@")"
+  }
+}
 
 # enable color support of ls
 [ -x "$(command -v dircolors)" ] && eval $( [ -e ~/.config/dircolors ] && dircolors -b ~/.config/dircolors || dircolors -b )
