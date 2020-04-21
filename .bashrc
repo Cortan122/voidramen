@@ -23,24 +23,7 @@ declare -f original_command_not_found_handle >/dev/null || {
   }
 }
 
-# enable color support of ls
-[ -x "$(command -v dircolors)" ] && eval $( [ -e ~/.config/dircolors ] && dircolors -b ~/.config/dircolors || dircolors -b )
-alias cls='clear'
-alias where='whereis'
-alias whitch='which'
-alias py='python'
-alias gits='git status'
-alias ls='ls --color=auto --group-directories-first'
-alias la='ls -lAuGh --file-type'
-alias ffmpeg='ffmpeg -hide_banner'
-alias ffprobe='ffprobe -hide_banner'
-alias grep='grep --color=auto'
-alias R='R --quiet --no-save'
-alias ln='ln --symbolic --interactive --verbose'
-alias cp='cp --interactive --verbose'
-alias mv='mv --interactive --verbose'
-alias rm='rm --verbose'
-alias mkd='mkdir --parents --verbose'
+[ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
 
 # ~/.inputrc
 bind '"\e[1;5C":shell-forward-word'
