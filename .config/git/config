@@ -1,3 +1,5 @@
+[core]
+	quotepath = off
 [user]
 	email = Cortan122@gmail.com
 	name = Cortan122
