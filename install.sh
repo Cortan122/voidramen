@@ -22,13 +22,13 @@ command -v sudo >/dev/null || exit 0
 
 if [[ "$(< /proc/version)" == *@(Microsoft|WSL)* ]]; then
   pushd /mnt/c > /dev/null
-  ln -Ts /mnt/b/apache/www ~/www
-  ln -Ts /mnt/b/костя/видухи ~/Videos
-  ln -Ts "$(wslpath "$(cmd.exe /c echo %USERPROFILE%\\Downloads)" | tr '\r' '/')" ~/Downloads
+  ln -Tfs /mnt/b/apache/www ~/www
+  ln -Tfs /mnt/b/костя/видухи ~/Videos
+  ln -Tfs "$(wslpath "$(cmd.exe /c echo %USERPROFILE%\\Downloads)" | tr -d '\r')" ~/Downloads
   popd > /dev/null
 fi
 
-sudo ln -s ~/.nanorc /root
+sudo ln -fs ~/.nanorc /root
 
 if command -v pacman >/dev/null && ! { command -v yay >/dev/null; }; then
   sudo pacman -Syyuu --noconfirm
