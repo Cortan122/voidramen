@@ -22,6 +22,12 @@ declare -f original_command_not_found_handle >/dev/null || {
     eval "$(ru2en.c св "$@")"
   }
 }
+_пшеCompletion() {
+  local res="$(ru2en.c "${COMP_WORDS[0]}")"
+  [[ "$res" == original_command_not_found_handle* ]] && res="${COMP_WORDS[0]}"
+  COMPREPLY=($(compgen -c "$res"))
+}
+complete -F _пшеCompletion -I
 
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
 
