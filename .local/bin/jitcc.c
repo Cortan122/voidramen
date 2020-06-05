@@ -166,7 +166,7 @@ int main(int argc, char* argv[]){
 
     execFileSync("sed", ARGV("1s/^#!.*//", argv[1]), (int[]){-1, fd[1]});
     close(fd[1]);
-    execFileSync("gcc", ARGV("-lcrypto","-lm","-x","c","-","-o", filename), (int[]){fd[0], -1});
+    execFileSync("gcc", ARGV("-O3","-lcrypto","-lm","-x","c","-","-o", filename), (int[]){fd[0], -1});
     close(fd[0]);
   }
 
