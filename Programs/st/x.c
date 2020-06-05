@@ -164,7 +164,7 @@ static void cresize(int, int);
 static void xresize(int, int);
 static void xhints(void);
 static int xloadcolor(int, const char *, Color *);
-static int xloadfont(Font *, FcPattern *);
+static int xloadfont(Font *, FcPattern *, int);
 static void xloadfonts(char *, double);
 static int xloadsparefont(FcPattern *, int);
 static void xloadsparefonts(void);
@@ -919,7 +919,7 @@ xgeommasktogravity(int mask)
 }
 
 int
-xloadfont(Font *f, FcPattern *pattern)
+xloadfont(Font *f, FcPattern *pattern, int doMessureExtents)
 {
 	FcPattern *configured;
 	FcPattern *match;
@@ -973,7 +973,7 @@ xloadfont(Font *f, FcPattern *pattern)
 		}
 	}
 
-	XftTextExtentsUtf8(xw.dpy, f->match,
+	if(doMessureExtents)XftTextExtentsUtf8(xw.dpy, f->match,
 		(const FcChar8 *) ascii_printable,
 		strlen(ascii_printable), &extents);
 
@@ -1028,7 +1028,7 @@ xloadfonts(char *fontstr, double fontsize)
 		defaultfontsize = usedfontsize;
 	}
 
-	if (xloadfont(&dc.font, pattern))
+	if (xloadfont(&dc.font, pattern, 1))
 		die("can't open font %s\n", fontstr);
 
 	if (usedfontsize < 0) {
@@ -1046,17 +1046,17 @@ xloadfonts(char *fontstr, double fontsize)
 
 	FcPatternDel(pattern, FC_SLANT);
 	FcPatternAddInteger(pattern, FC_SLANT, FC_SLANT_ITALIC);
-	if (xloadfont(&dc.ifont, pattern))
+	if (xloadfont(&dc.ifont, pattern, 0))
 		die("can't open font %s\n", fontstr);
 
 	FcPatternDel(pattern, FC_WEIGHT);
 	FcPatternAddInteger(pattern, FC_WEIGHT, FC_WEIGHT_BOLD);
-	if (xloadfont(&dc.ibfont, pattern))
+	if (xloadfont(&dc.ibfont, pattern, 0))
 		die("can't open font %s\n", fontstr);
 
 	FcPatternDel(pattern, FC_SLANT);
 	FcPatternAddInteger(pattern, FC_SLANT, FC_SLANT_ROMAN);
-	if (xloadfont(&dc.bfont, pattern))
+	if (xloadfont(&dc.bfont, pattern, 0))
 		die("can't open font %s\n", fontstr);
 
 	FcPatternDestroy(pattern);
