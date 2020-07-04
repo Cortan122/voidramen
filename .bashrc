@@ -45,6 +45,7 @@ bind '"\C-e":glob-expand-word'
 shopt -s checkwinsize
 shopt -s autocd
 shopt -s histappend
+shopt -s globstar
 HISTSIZE= HISTFILESIZE=
 HISTCONTROL=ignoreboth:erasedups
 stty -ixon # Disable ctrl-s and ctrl-q.
