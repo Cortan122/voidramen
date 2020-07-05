@@ -1,2 +1,7 @@
 set bell-style none
 set echo-control-characters Off
+
+# Color files by types
+# Note that this may cause completion text blink in some terminals (e.g. xterm).
+set colored-stats On
+set colored-completion-prefix On
