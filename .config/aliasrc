@@ -14,6 +14,7 @@ alias ls='ls --color=auto --group-directories-first'
 alias la='ls -lAuGh --file-type'
 alias ffmpeg='ffmpeg -hide_banner'
 alias ffprobe='ffprobe -hide_banner'
+alias ffplay='ffplay -hide_banner'
 alias grep='grep --color=auto'
 alias R='R --quiet --no-save'
 alias ln='ln --symbolic --interactive --verbose'
@@ -21,3 +22,5 @@ alias cp='cp --interactive --verbose'
 alias mv='mv --interactive --verbose'
 alias rm='rm --verbose'
 alias mkd='mkdir --parents --verbose'
+alias yt="youtube-dl --add-metadata --ignore-errors"
+alias yta="yt -x -f bestaudio/best"
