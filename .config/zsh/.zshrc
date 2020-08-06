@@ -27,7 +27,7 @@ PS1+=$'@%{\e[92m%}%m%{\e[0m%}:%{\e[94m%}%~%{\e[0m%}$ ' # PS1+='@\[\e[92m\]\h\[\e
 HISTFILE=~/.config/zsh_history
 HISTSIZE=10000000
 SAVEHIST=10000000
-setopt BANG_HIST                 # Treat the '!' character specially during expansion.
+# setopt BANG_HIST               # Treat the '!' character specially during expansion.
 # setopt EXTENDED_HISTORY        # Write the history file in the ":start:elapsed;command" format.
 setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
 setopt SHARE_HISTORY             # Share history between all sessions.

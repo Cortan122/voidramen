@@ -108,7 +108,7 @@ void execFileSync(char* name, char* arr[], int pipe[2]){
     // error, failed to fork()
     fprintf(stderr, "can't fork()\n");
     exit(1);
-  }else if (pid > 0){
+  }else if(pid > 0){
     int status;
     waitpid(pid, &status, 0);
     if(status){

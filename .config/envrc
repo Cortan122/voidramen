@@ -25,6 +25,7 @@ export NODE_PATH=/usr/lib/node_modules:/usr/local/lib/node_modules
 
 # ~/ Clean-up:
 # export HISTFILE="$HOME/.config/bash_history"
+export RLWRAP_HOME="$HOME/.config"
 export LESSHISTFILE="$HOME/.config/less_history"
 export INPUTRC="$HOME/.config/inputrc"
 export ZDOTDIR="$HOME/.config/zsh"

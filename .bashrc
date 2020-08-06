@@ -42,6 +42,7 @@ bind '"\e[3;6~":kill-word'
 bind '"\e[127;6u":backward-kill-word' # only works in st
 bind '"\C-e":glob-expand-word'
 
+set +H # disable ! style history substitution
 shopt -s checkwinsize
 shopt -s autocd
 shopt -s histappend
