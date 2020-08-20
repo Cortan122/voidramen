@@ -51,18 +51,18 @@ HISTSIZE= HISTFILESIZE=
 HISTCONTROL=ignoreboth:erasedups
 stty -ixon # Disable ctrl-s and ctrl-q.
 
-if [[ "$(< /proc/version)" == *@(Microsoft|WSL)* ]]; then
-  [ "$(echo "$PWD" | awk '{print tolower($0)}')" == "/mnt/c/windows/system32" ] && cd ~
-  [ "$PWD" == "/" ] && cd ~
-  winpath () { wslpath -ma "$1" 2>/dev/null || echo "C:/Debian/rootfs"$(readlink -f "$1") ;}
-  Code () {  cmd.exe /C "code.cmd" "$(winpath "$1")" ;}
-  subl () { "/mnt/c/Program Files/Sublime Text 3/sublime_text.exe" "$(winpath "$1")" &}
-fi
-
 if [ "$(uname -o)" == "Android" ]; then
+  mkdir -p /storage/emulated/0/Code
   [ "$PWD" == "/data/data/com.termux/files/home" ] && cd /storage/emulated/0/Code
   PROMPT_COMMAND='history -a'
 else
+  if [[ "$(< /proc/version)" == *@(Microsoft|WSL)* ]]; then
+    [ "$(echo "$PWD" | awk '{print tolower($0)}')" == "/mnt/c/windows/system32" ] && cd ~
+    [ "$PWD" == "/" ] && cd ~
+    winpath () { wslpath -ma "$1" 2>/dev/null || echo "C:/Debian/rootfs"$(readlink -f "$1") ;}
+    Code () {  cmd.exe /C "code.cmd" "$(winpath "$1")" ;}
+    subl () { "/mnt/c/Program Files/Sublime Text 3/sublime_text.exe" "$(winpath "$1")" &}
+  fi
   umask 0022
   if command -v apt >/dev/null; then
     pm () {

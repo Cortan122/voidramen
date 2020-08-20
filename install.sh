@@ -11,6 +11,22 @@ rm -f ~/.bash_logout ~/.bash_profile ~/install.sh
 rm -rf ~/.git
 chmod +x ~/.local/bin/*
 
+if [ "$(uname -o)" == "Android" ] && ! { command -v gcc >/dev/null; }; then
+  pkg install clang make ncurses-utils
+  termux-setup-storage || echo Run: termux-setup-storage
+fi
+
+if ! { command -v st >/dev/null; }; then
+  cd ~/Programs/st
+  make
+  sudo make install
+  cd ~
+fi
+
+if ! { command -v jitcc >/dev/null; } || [ ~/.local/bin/jitcc -ot ~/.local/bin/jitcc.c ]; then
+  gcc -lcrypto ~/.local/bin/jitcc.c -o ~/.local/bin/jitcc
+fi
+
 cd ~/Programs/st
 chmod +x *.sh st st-copyout
 cd ~
@@ -62,17 +78,6 @@ if sudo [ ! -f "/etc/sudoers.d/000-cortan122" ]; then
   echo "cortan122 ALL=(ALL) NOPASSWD: ALL" | sudo tee "/etc/sudoers.d/000-cortan122"
   sudo chmod 440 "/etc/sudoers.d/000-cortan122"
   sudo chown root:root "/etc/sudoers.d/000-cortan122"
-fi
-
-if ! { command -v st >/dev/null; }; then
-  cd ~/Programs/st
-  make
-  sudo make install
-  cd ~
-fi
-
-if ! { command -v jitcc >/dev/null; } || [ ~/.local/bin/jitcc -ot ~/.local/bin/jitcc.c ]; then
-  gcc -lcrypto ~/.local/bin/jitcc.c -o ~/.local/bin/jitcc
 fi
 
 # todo: this is slow, put it in some kind of if
