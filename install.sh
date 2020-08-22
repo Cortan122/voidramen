@@ -12,7 +12,8 @@ rm -rf ~/.git
 chmod +x ~/.local/bin/*
 
 if [ "$(uname -o)" == "Android" ] && ! { command -v make >/dev/null; }; then
-  pkg install clang make ncurses-utils
+  pkg install clang make ncurses-utils pkg-config
+  cat > "$PREFIX/etc/motd"
   termux-setup-storage || echo Run: termux-setup-storage
 fi
 
@@ -21,8 +22,8 @@ if ! { command -v jitcc >/dev/null; } || [ ~/.local/bin/jitcc -ot ~/.local/bin/j
 fi
 
 cd ~/Programs/st
-[ -f st ] || make
-chmod +x *.sh st st-copyout
+chmod +x *.sh st-copyout
+[ -f st ] && chmod +x st
 cd ~
 
 [ -z "$PREFIX" ] || echo "include $PREFIX/share/nano/*" > ~/.nanorc
