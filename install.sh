@@ -31,7 +31,7 @@ cd ~
 
 command -v sudo >/dev/null || exit 0
 
-if [[ "$(< /proc/version)" == *@(Microsoft|WSL)* ]]; then
+if [[ "$(< /proc/version)" == *@(microsoft|Microsoft|WSL)* ]]; then
   pushd /mnt/c > /dev/null
   ln -Tfs /mnt/b/apache/www ~/www
   ln -Tfs /mnt/b/костя/видухи ~/Videos

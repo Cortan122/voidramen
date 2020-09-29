@@ -56,7 +56,7 @@ if [ "$(uname -o)" == "Android" ]; then
   [ "$PWD" == "/data/data/com.termux/files/home" ] && cd /storage/emulated/0/Code
   PROMPT_COMMAND='history -a'
 else
-  if [[ "$(< /proc/version)" == *@(Microsoft|WSL)* ]]; then
+  if [[ "$(< /proc/version)" == *@(microsoft|Microsoft|WSL)* ]]; then
     [ "$(echo "$PWD" | awk '{print tolower($0)}')" == "/mnt/c/windows/system32" ] && cd ~
     [ "$PWD" == "/" ] && cd ~
     winpath () { wslpath -ma "$1" 2>/dev/null || echo "C:/Debian/rootfs"$(readlink -f "$1") ;}
