@@ -36,6 +36,8 @@ if [[ "$(< /proc/version)" == *@(microsoft|Microsoft|WSL)* ]]; then
   ln -Tfs /mnt/b/apache/www ~/www
   ln -Tfs /mnt/b/костя/видухи ~/Videos
   ln -Tfs "$(wslpath "$(cmd.exe /c echo %USERPROFILE%\\Downloads)" | tr -d '\r')" ~/Downloads
+  ln -Tfs "$(wslpath "$(cmd.exe /c echo %USERPROFILE%\\OneDrive\\dz2019)" | tr -d '\r')" ~/dz2019
+  ln -Tfs "$(wslpath "$(cmd.exe /c echo %USERPROFILE%\\OneDrive\\dz2020)" | tr -d '\r')" ~/dz2020
   popd > /dev/null
 fi
 
