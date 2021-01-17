@@ -28,6 +28,8 @@ _пшеCompletion() {
   COMPREPLY=($(compgen -c "$res"))
 }
 complete -F _пшеCompletion -I
+complete -F _minimal g++
+complete -F _minimal gcc
 
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
 
