@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# git pull --recurse-submodules
+
 cd -- "$(dirname -- "$0")"
 find . -type d -name '.git' -prune -o -type f -exec chmod 644 {} \;
 find . -type d -name '.git' -prune -o -type d -exec chmod 755 {} \;
@@ -85,13 +87,13 @@ if ! { command -v st >/dev/null; }; then
 fi
 
 # todo: this is slow, put it in some kind of if
-packageList="npm nodejs python2 python3 bash-completion ffmpeg youtube-dl imagemagick php openssh python-pip feh qrencode sxiv"
+packageList="npm nodejs python2 python3 bash-completion ffmpeg youtube-dl imagemagick php openssh python-pip feh qrencode sxiv python-numpy python-scipy python-matplotlib speedtest-cli tcc"
 if command -v pacman >/dev/null; then
   sudo pacman --needed --noconfirm -S $packageList
 elif command -v apt >/dev/null; then
   sudo apt install -y $packageList
 fi
 
-sudo pip install numpy sympy matplotlib gTTS speedtest-cli
+# sudo pip install gTTS
 
 [ "$1" == "--delete" ] && rm -rf -- "$(dirname -- $0)"
