@@ -6,6 +6,8 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <errno.h>
+#include <stdlib.h>
 
 #define UTF8_ACCEPT 0
 #define UTF8_REJECT 12
@@ -75,7 +77,7 @@ void catChar(uint8_t ch){
   }
 }
 
-void cat(FILE* fp, char *s){
+void cat(FILE* fp){
   /* Reset EOF condition on stdin. */
 	if(fp == stdin && feof(stdin))clearerr(stdin);
 
@@ -164,25 +166,27 @@ int main(int argc, char *argv[]){
   argc -= optind-1;
 
   if(argc == 1){
-    cat(stdin, "<stdin>");
+    cat(stdin);
   }else{
     for(int i = 1; i < argc; i++){
-      int fd = STDIN_FILENO;
-      char* name = "<stdin>";
+      FILE* fp = stdin;
       if(strcmp(argv[i], "-") != 0){
-        fd = open(argv[i], O_RDONLY);
-        name = argv[i];
+        fp = fopen(argv[i], "r");
       }
 
-      if(fd < 0){
-        if(hasLine)printf("\n");
-        fprintf(stderr, "can't open %s\n", argv[i]);
-        exit(3);
+      if(fp == NULL){
+        if(errno == ENOENT && strchr(argv[i], '/') == NULL){
+          setenv("file", argv[i], 1);
+          system("catv \"$(which \"$file\")\"");
+        }else{
+          if(hasLine)printf("\n");
+          fprintf(stderr, "can't open %s\n", argv[i]);
+          perror(argv[i]);
+          exit(3);
+        }
       }else{
-        FILE* fp = fdopen(fd, "r");
-        cat(fp, name);
+        cat(fp);
         fclose(fp);
-        close(fd);
       }
     }
   }

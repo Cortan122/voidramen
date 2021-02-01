@@ -1,5 +1,6 @@
 #!/bin/bash
 
+[ "$1" == "--help" ] && cat -- "$0" && exit
 # Usage:
 # ./youtube-dl-range.sh URL [[STRAT_TIME] STRAT_TIME_2] DURATION
 
