@@ -87,7 +87,7 @@ if ! { command -v st >/dev/null; }; then
 fi
 
 # todo: this is slow, put it in some kind of if
-packageList="npm nodejs python2 python3 bash-completion ffmpeg youtube-dl imagemagick php openssh python-pip feh qrencode sxiv python-numpy python-scipy python-matplotlib speedtest-cli tcc"
+packageList="npm nodejs python3 bash-completion ffmpeg youtube-dl imagemagick php openssh python-pip feh qrencode sxiv python-numpy python-scipy python-matplotlib speedtest-cli tcc"
 if command -v pacman >/dev/null; then
   sudo pacman --needed --noconfirm -S $packageList
 elif command -v apt >/dev/null; then

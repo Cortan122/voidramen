@@ -8,7 +8,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <limits.h> /* PATH_MAX */
+#include <linux/limits.h> /* PATH_MAX */
 
 #define ARGV(...) ((char* []){"",##__VA_ARGS__,NULL})
 
@@ -152,6 +152,14 @@ char* getFilename(char* name){
   return strdup(filename);
 }
 
+int endsWith(const char* str, const char* suffix){
+  if(!str || !suffix)return 0;
+  size_t lenstr = strlen(str);
+  size_t lensuffix = strlen(suffix);
+  if(lensuffix > lenstr)return 0;
+  return strncmp(str + lenstr - lensuffix, suffix, lensuffix) == 0;
+}
+
 int main(int argc, char* argv[]){
   if(argv[1] == NULL)argv[1] = "utf8.c"; // todo
 
@@ -166,14 +174,17 @@ int main(int argc, char* argv[]){
 
     execFileSync("sed", ARGV("1s/^#!.*//", argv[1]), (int[]){-1, fd[1]});
     close(fd[1]);
-    execFileSync("gcc", ARGV("-O3","-lcrypto","-lm","-x","c","-","-o", filename), (int[]){fd[0], -1});
+    if(endsWith(argv[1], ".cpp")){
+      execFileSync("g++", ARGV("-O3","-pthread","-lcrypto","-lm","-x","c++","-","-o", filename), (int[]){fd[0], -1});
+    }else{
+      execFileSync("gcc", ARGV("-O3","-pthread","-lcrypto","-lm","-x","c","-","-o", filename), (int[]){fd[0], -1});
+    }
     close(fd[0]);
   }
 
   // printf("%s %s\n", res, filename); // todo
-
-  execFileSync(filename, argv+1, (int[]){-1, -1});
-  free(filename);
-
-  return 0;
+  execvp(filename, argv+1);
+  perror("execvp");
+  fprintf(stderr, "can't run %s\n", filename);
+  return 1;
 }
