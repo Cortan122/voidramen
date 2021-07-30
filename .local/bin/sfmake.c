@@ -52,6 +52,7 @@ typedef struct SourceFile {
 
 char* cachedir = NULL;
 StringList cflags = {0};
+SHA_CTX sha1context = {0};
 
 int endsWith(char* str, char* suffix){
   size_t lenstr = strlen(str);
@@ -94,7 +95,10 @@ char* expandTilde(char* path){
 char* genName(char* path, char* ext){
   uint8_t hash[SHA_DIGEST_LENGTH];
   char base64[4*((SHA_DIGEST_LENGTH+2)/3)+1];
-  SHA1((uint8_t*)path, strlen(path), hash);
+
+  SHA_CTX contextcopy = sha1context;
+  SHA1_Update(&contextcopy, (uint8_t*)path, strlen(path));
+  SHA1_Final(hash, &contextcopy);
   EVP_EncodeBlock((uint8_t*)base64, hash, SHA_DIGEST_LENGTH);
 
   for(size_t i = 0; i < sizeof(base64); i++){
@@ -103,7 +107,12 @@ char* genName(char* path, char* ext){
     if(base64[i] == '=')base64[i] = '\0';
   }
 
-  return aprintf("%s/%s%s", cachedir, base64, ext);
+  char* slashindex = strrchr(path, '/');
+  char* dotindex = strchr(slashindex, '.');
+  if(dotindex)*dotindex = '\0';
+  char* res = aprintf("%s/%.20s%s%s", cachedir, slashindex, base64, ext);
+  if(dotindex)*dotindex = '.';
+  return res;
 }
 
 void execFileSync(char* name, char** arr){
@@ -343,6 +352,8 @@ int main(int argc, char** argv){
     }
   }
 
+  SHA1_Init(&sha1context);
+
   char* arr[] = {
     "gcc", "-g",
     "-fdollars-in-identifiers", "-funsigned-char",
@@ -351,12 +362,14 @@ int main(int argc, char** argv){
   };
   for(int i = 0; arr[i]; i++){
     addString(&cflags, arr[i]);
+    SHA1_Update(&sha1context, (uint8_t*)arr[i], strlen(arr[i]));
   }
 
   int optargc = 1;
   for(; optargc < argc; optargc++){
     if(argv[optargc][0] == '-'){
       addString(&cflags, argv[optargc]);
+      SHA1_Update(&sha1context, (uint8_t*)argv[optargc], strlen(argv[optargc]));
     }else break;
   }
 

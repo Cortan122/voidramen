@@ -68,7 +68,7 @@ if command -v pacman >/dev/null && ! { locale -a | grep ru_RU >/dev/null; }; the
   # Uncomment the Color line in /etc/pacman.conf.
   sudo sed -i 's/^#Color$/Color/' /etc/pacman.conf
   # раскомментируйте ru_RU.UTF-8 UTF-8 в файле /etc/locale.gen
-  sudo sed -i 's/^#ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen
+  sudo sed -i 's/^# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen
   # После сохранения файла сгенерируйте выбранные локали командой:
   sudo locale-gen
 fi
@@ -87,7 +87,7 @@ if ! { command -v st >/dev/null; }; then
 fi
 
 # todo: this is slow, put it in some kind of if
-packageList="npm nodejs python3 bash-completion ffmpeg youtube-dl imagemagick php openssh python-pip feh qrencode sxiv python-numpy python-scipy python-matplotlib speedtest-cli tcc"
+packageList="npm nodejs python3 bash-completion ffmpeg youtube-dl imagemagick php openssh python-pip feh qrencode sxiv python-numpy python-scipy python-matplotlib speedtest-cli tcc jq"
 if command -v pacman >/dev/null; then
   sudo pacman --needed --noconfirm -S $packageList
 elif command -v apt >/dev/null; then

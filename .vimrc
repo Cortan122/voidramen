@@ -19,7 +19,6 @@ set mouse=a
 set nohlsearch
 set showcmd
 
-nnoremap q :q<CR>
 nnoremap <C-s> :w<CR>
 nnoremap <C-Z> u
 nnoremap <C-Y> <C-R>
