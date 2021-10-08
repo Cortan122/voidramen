@@ -2,7 +2,7 @@
 
 # enable color support of ls
 [ -x "$(command -v dircolors)" ] && eval $( [ -e ~/.config/dircolors ] && dircolors -b ~/.config/dircolors || dircolors -b )
-[ -x "$(command -v curl)" ] && alias wget='curl -O'
+[ -x "$(command -v curl)" ] && alias wget='curl -LO'
 
 alias cls='clear'
 alias where='whereis'
@@ -22,6 +22,7 @@ alias ln='ln --symbolic --interactive --verbose'
 alias cp='cp --interactive --verbose'
 alias mv='mv --interactive --verbose'
 alias rm='rm --verbose'
+alias df='df --human-readable'
 alias mkd='mkdir --parents --verbose'
 alias yt='youtube-dl --add-metadata --ignore-errors'
 alias yta='yt -x -f bestaudio/best'
