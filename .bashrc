@@ -44,6 +44,10 @@ else
       cmd.exe /C "code.cmd" "$(wslpath -ma "$1")"
     }
   fi
+  if [[ "$(< /proc/version)" == *@(microsoft|WSL2)* ]]; then
+    export DISPLAY="$(ip route list default | awk '{print $3}'):0"
+  fi
+  # todo: command -v apt is very slow
   if command -v apt >/dev/null; then
     pm () {
       if [[ $1 == "" ]]; then
