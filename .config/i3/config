@@ -185,10 +185,12 @@ bindsym --release button2 kill
 workspace_auto_back_and_forth yes
 hide_edge_borders vertical
 exec --no-startup-id xcompmgr -n
-exec --no-startup-id setbg &
-exec --no-startup-id xinput --disable
-exec --no-startup-id xrdb ~/.Xdefaults
+exec --no-startup-id ~/.fehbg &
+exec --no-startup-id xinput --disable 12 # disable touchpad
+exec --no-startup-id xrdb ~/.Xresources
 bindsym $mod+m workspace M
+
+bindsym $mod+Shift+s exec --no-startup-id sleep 0.2 && notify-send "$(import ~/.cache/screenshot.png 2>&1 && xclip -selection clipboard -t image/png -i ~/.cache/screenshot.png 2>&1)"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
