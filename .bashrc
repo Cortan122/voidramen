@@ -54,11 +54,13 @@ else
         sudo apt "$@"
       elif [[ "install" == $1* ]]; then
         sudo apt-get install "${@:2}"
-      elif [[ "up" == $1 && $# == 1 ]]; then
-        sudo apt-get update
-        sudo apt-get dist-upgrade
-        sudo apt-get autoremove
-      elif [[ "upgrade" == $1* ]]; then
+      elif [[ "up" == $1 && $# == 1 ]]; then (
+        export DEBIAN_FRONTEND=noninteractive
+        sudo apt-get update --yes
+        sudo apt-get dist-upgrade --yes
+        sudo apt-get autoremove --yes
+        sudo apt-get autoclean --yes
+      ) elif [[ "upgrade" == $1* ]]; then
         sudo apt-get upgrade "${@:2}"
       elif [[ "update" == $1* ]]; then
         sudo apt-get update "${@:2}"
