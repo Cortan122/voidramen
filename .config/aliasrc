@@ -3,6 +3,7 @@
 # enable color support of ls
 [ -x "$(command -v dircolors)" ] && eval $( [ -e ~/.config/dircolors ] && dircolors -b ~/.config/dircolors || dircolors -b )
 [ -x "$(command -v curl)" ] && alias wget='curl -LO'
+[ -x "$(command -v batcat)" ] && alias bat='batcat'
 
 mkd () {
   mkdir --parents --verbose "$@"
