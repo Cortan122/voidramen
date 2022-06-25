@@ -11,7 +11,7 @@ cp -r .[!.]* * ~
 cd ~
 rm -f ~/.bash_logout ~/.bash_profile ~/install.sh
 rm -rf ~/.git
-chmod +x ~/.local/bin/*
+chmod +x ~/.local/bin/*  ~/.local/bin/statusbar/*
 
 if [ "$(uname -o)" == "Android" ] && ! { command -v make >/dev/null; }; then
   pkg install clang make ncurses-utils pkg-config

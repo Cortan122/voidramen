@@ -6,6 +6,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <errno.h>
 #include <unistd.h>
 #include <sys/wait.h>
@@ -15,7 +16,7 @@
 #include <openssl/sha.h>
 #include <openssl/evp.h>
 
-enum ParserState {
+typedef enum ParserState {
   PS_NORMAL,
   PS_NEWLINE,
   PS_BACKSLASH = 1<<3,
@@ -24,13 +25,20 @@ enum ParserState {
   PS_STRING = 1<<6,
   PS_SHORT_STRING = 1<<7,
   PS_STR = PS_STRING|PS_LONG_COMMENT|PS_SHORT_COMMENT|PS_SHORT_STRING,
-};
+} ParserState;
 
-enum FileType {
+typedef enum FileType {
   FT_EXE = 1,
   FT_OBJ = 2,
   FT_HEADER = 4,
-};
+} FileType;
+
+typedef enum OutputMode {
+  OM_NORMAL = 0b00,
+  OM_IFTRUE,
+  OM_IFFALSE,
+  OM_IFUNKNOWN,
+} OutputMode;
 
 typedef struct StringList {
   int cap;
@@ -42,10 +50,12 @@ typedef struct SourceFile {
   FILE* f;
   char* name;
   char* dir;
-  int type;
+  FileType type;
   char* output;
   int depcount;
 
+  int lineNumber;
+  uint64_t outputMode;
   struct SourceFile* parent;
   struct StringList opt;
 } SourceFile;
@@ -54,10 +64,13 @@ char* cachedir = NULL;
 StringList cflags = {0};
 SHA_CTX sha1context = {0};
 
-int endsWith(char* str, char* suffix){
+const char* predefined_macros[] = {"amd64", "linux", "STDC", "unix", "x86_64", NULL};
+const char* undefined_macros[] = {"i386", "WIN32", "WIN64", NULL};
+
+bool endsWith(char* str, char* suffix){
   size_t lenstr = strlen(str);
   size_t lensuffix = strlen(suffix);
-  if(lensuffix > lenstr)return 0;
+  if(lensuffix > lenstr)return false;
   return strncmp(str + lenstr - lensuffix, suffix, lensuffix) == 0;
 }
 
@@ -137,7 +150,7 @@ void execFileSync(char* name, char** arr){
   }
 }
 
-SourceFile* treeFind(SourceFile* file, int type){
+SourceFile* treeFind(SourceFile* file, FileType type){
   while(file){
     if(file->type & type)return file;
     file = file->parent;
@@ -162,7 +175,7 @@ void addString(StringList* list, char* str){
   list->ptr[list->len] = NULL;
 }
 
-void addOption(SourceFile* file, char* opt, int type){
+void addOption(SourceFile* file, char* opt, FileType type){
   file = treeFind(file, type);
   if(file == NULL)return;
 
@@ -197,13 +210,13 @@ void buildFile(SourceFile* file){
   }
   fprintf(stderr, "\n");
   fflush(stderr);
-  execFileSync("gcc", args);
+  execFileSync(args[0], args);
   free(args);
 }
 
 void parseFile(SourceFile* file);
 
-int readFile(const char* name, int type, char** output, SourceFile* parent){
+int readFile(const char* name, FileType type, char** output, SourceFile* parent){
   FILE* f = fopen(name, "r");
   if(f == NULL){
     perror(name);
@@ -215,7 +228,7 @@ int readFile(const char* name, int type, char** output, SourceFile* parent){
   char* dir = strdup(fullname);
   *slashindex = '/';
 
-  SourceFile dto = {f, fullname, dir, type, NULL, 0, parent, {0}};
+  SourceFile dto = {f, fullname, dir, type, NULL, 0, 1, OM_NORMAL, parent, {0}};
   if(type != FT_HEADER){
     dto.output = genName(fullname, type==FT_OBJ ? ".o" : "");
     dto.depcount += isOlderThen(dto.output, fullname);
@@ -245,7 +258,7 @@ void include(SourceFile* file, char* name){
   if(strcmp(file->name, name) == 0)return;
 
   char* output = NULL;
-  int type = endsWith(name, ".c") ? FT_OBJ : FT_HEADER;
+  FileType type = endsWith(name, ".c") ? FT_OBJ : FT_HEADER;
   file->depcount += readFile(name, type, &output, file);
 
   if(file->output && isOlderThen(file->output, name)){
@@ -260,15 +273,90 @@ void include(SourceFile* file, char* name){
   }
 }
 
+void pushOutputMode(SourceFile* file, OutputMode new){
+  OutputMode prev = file->outputMode & 0b11;
+  if(prev == OM_IFFALSE)new = OM_IFFALSE;
+  if(prev == OM_IFUNKNOWN)new = OM_IFUNKNOWN;
+  file->outputMode = (file->outputMode << 2) | new;
+}
+
+OutputMode popOutputMode(SourceFile* file, const char* errstr){
+  OutputMode prev = file->outputMode & 0b11;
+  if(file->outputMode == OM_NORMAL){
+    fprintf(
+      stderr, "\x1b[35mWARNING\x1b[0m: \x1b[93msfmake.c\x1b[0m: unexpected \x1b[33m%s\x1b[0m "
+      "in file `\x1b[1m%s\x1b[0m` on line \x1b[36m%d\x1b[0m\n",
+      errstr, strrchr(file->name, '/')+1, file->lineNumber
+    );
+  }
+  file->outputMode >>= 2;
+  return prev;
+}
+
+OutputMode getMacroType(char* str){
+  while(str[0] <= ' ' || str[0] == '_')str++;
+  int len = strlen(str);
+  while(len && (str[len-1] <= ' ' || str[len-1] == '_'))len--;
+
+  for(const char** ptr = predefined_macros; *ptr; ptr++){
+    if(strlen(*ptr) == len && strncmp(*ptr, str, len) == 0){
+      return OM_IFTRUE;
+    }
+  }
+  for(const char** ptr = undefined_macros; *ptr; ptr++){
+    if(strlen(*ptr) == len && strncmp(*ptr, str, len) == 0){
+      return OM_IFFALSE;
+    }
+  }
+
+  return OM_IFUNKNOWN;
+}
+
+OutputMode invertOutputMode(OutputMode prev){
+  if(prev == OM_IFFALSE)return OM_IFTRUE;
+  if(prev == OM_IFTRUE)return OM_IFFALSE;
+  return prev;
+}
+
+bool checkDirective(SourceFile* file, char* line){
+  OutputMode type = file->outputMode & 0b11;
+  if(type == OM_IFTRUE || type == OM_NORMAL)return true;
+  if(type == OM_IFFALSE)return false;
+  fprintf(
+    stderr, "\x1b[35mWARNING\x1b[0m: \x1b[93msfmake.c\x1b[0m: directive \x1b[33m`%s`\x1b[0m "
+    "is located inside an ambiguous #if block "
+    "in file `\x1b[1m%s\x1b[0m` on line \x1b[36m%d\x1b[0m\n",
+    line, strrchr(file->name, '/')+1, file->lineNumber
+  );
+  return false;
+}
+
 void directiveCallback(SourceFile* file, char* line){
   while(line[0] <= ' ')line++;
   int len = strlen(line);
   while(len && line[len-1] <= ' ')len--;
 
-  if(strncmp(line, "include", 7) == 0 && len > 8){
+  if(strncmp(line, "endif", 5) == 0){
+    popOutputMode(file, "#endif");
+  }else if(strncmp(line, "ifndef", 6) == 0 && len > 7){
+    pushOutputMode(file, invertOutputMode(getMacroType(line+6)));
+  }else if(strncmp(line, "ifdef", 5) == 0 && len > 6){
+    pushOutputMode(file, getMacroType(line+5));
+  }else if(strncmp(line, "if", 2) == 0 && len > 3){
+    pushOutputMode(file, OM_IFUNKNOWN);
+  }else if(strncmp(line, "elif", 4) == 0){
+    popOutputMode(file, "#elif");
+    pushOutputMode(file, OM_IFUNKNOWN);
+  }else if(strncmp(line, "elseif", 6) == 0){
+    popOutputMode(file, "#elseif");
+    pushOutputMode(file, OM_IFUNKNOWN);
+  }else if(strncmp(line, "else", 4) == 0){
+    pushOutputMode(file, invertOutputMode(popOutputMode(file, "#else")));
+  }else if(strncmp(line, "include", 7) == 0 && len > 8){
     char* name = findStringInDirective(line);
     if(!name)return;
     if(!endsWith(name, ".h"))return;
+    if(!checkDirective(file, line))return;
 
     char* newname = aprintf("%s/%s", file->dir, name);
     include(file, newname);
@@ -278,12 +366,19 @@ void directiveCallback(SourceFile* file, char* line){
   }else if(strncmp(line, "pragma comment(dir", 18) == 0 && len > 20){
     char* dir = findStringInDirective(line);
     if(!dir)return;
+    if(!checkDirective(file, line))return;
     free(file->dir);
     file->dir = expandTilde(dir);
     addString(&cflags, aprintf("-I%s", file->dir));
+  }else if(strncmp(line, "pragma comment(option", 21) == 0 && len > 23){
+    char* opt = findStringInDirective(line);
+    if(!opt)return;
+    if(!checkDirective(file, line))return;
+    addString(&cflags, opt);
   }else if(strncmp(line, "pragma comment(lib", 18) == 0 && len > 20){
     char* lib = findStringInDirective(line);
     if(!lib)return;
+    if(!checkDirective(file, line))return;
     if(strcmp(lib, "pthread") == 0){
       addOption(file, aprintf("-%s", lib), FT_EXE);
     }else{
@@ -293,10 +388,11 @@ void directiveCallback(SourceFile* file, char* line){
 }
 
 void parseFile(SourceFile* file){
-  int ps = PS_NEWLINE;
+  ParserState ps = PS_NEWLINE;
   char prev = '\0';
   int t;
   while((t = getc(file->f)) >= 0){
+    if(t == '\n')file->lineNumber++;
     if(prev == '/' && t == '/' && (ps&PS_STR) == 0){
       ps |= PS_SHORT_COMMENT;
     }
@@ -342,7 +438,10 @@ void parseFile(SourceFile* file){
 }
 
 int main(int argc, char** argv){
-  if(argc < 2)return 1;
+  if(argc < 2){
+    fprintf(stderr, "\x1b[31mERROR\x1b[0m: \x1b[93msfmake.c\x1b[0m expects at least one argument\n");
+    return 1;
+  }
 
   cachedir = expandTilde("~/.cache/sfmake");
   if(mkdir(cachedir, 0755)){
@@ -355,7 +454,7 @@ int main(int argc, char** argv){
   SHA1_Init(&sha1context);
 
   char* arr[] = {
-    "gcc", "-g",
+    getenv("CC") ?: "gcc", "-g",
     "-fdollars-in-identifiers", "-funsigned-char",
     "-Wall", "-Wextra", "-Wno-parentheses", "-Wno-unknown-pragmas", "-Werror=vla",
     NULL
@@ -382,3 +481,6 @@ int main(int argc, char** argv){
   fprintf(stderr, "can't run %s\n", output);
   return 1;
 }
+
+// TODO: include stb libs
+// TODO: ignore shebang
