@@ -67,16 +67,20 @@ SHA_CTX sha1context = {0};
 const char* predefined_macros[] = {"amd64", "linux", "STDC", "unix", "x86_64", NULL};
 const char* undefined_macros[] = {"i386", "WIN32", "WIN64", NULL};
 
-bool endsWith(char* str, char* suffix){
+bool endsWith(const char* restrict str, const char* restrict suffix){
   size_t lenstr = strlen(str);
   size_t lensuffix = strlen(suffix);
   if(lensuffix > lenstr)return false;
   return strncmp(str + lenstr - lensuffix, suffix, lensuffix) == 0;
 }
 
-int isOlderThen(const char* file1, const char* file2){
+bool startsWith(const char* restrict str, const char* restrict prefix){
+  return strncmp(prefix, str, strlen(prefix)) == 0;
+}
+
+bool isOlderThen(const char* file1, const char* file2){
   struct stat b1, b2;
-  if(stat(file1, &b1) || stat(file2, &b2))return 1; // ture, since at least one stat failed
+  if(stat(file1, &b1) || stat(file2, &b2))return true; // true, since at least one stat failed
   return b1.st_mtime < b2.st_mtime;
 }
 
@@ -148,6 +152,22 @@ void execFileSync(char* name, char** arr){
     fprintf(stderr, "can't run %s\n", name);
     exit(1);
   }
+}
+
+char* expandRepoUrl(char* path){
+  if(
+    !startsWith(path, "https://") &&
+    !startsWith(path, "http://") &&
+    !startsWith(path, "ssh://") &&
+    !startsWith(path, "git@")
+  )return expandTilde(path);
+
+  char* dir = genName(path, "");
+  if(access(dir, R_OK) == 0)return dir;
+  fprintf(stderr, "git clone %s %s\n", path, dir);
+  fflush(stderr);
+  execFileSync("git", (char*[]){"git", "clone", path, dir, NULL});
+  return dir;
 }
 
 SourceFile* treeFind(SourceFile* file, FileType type){
@@ -336,23 +356,23 @@ void directiveCallback(SourceFile* file, char* line){
   int len = strlen(line);
   while(len && line[len-1] <= ' ')len--;
 
-  if(strncmp(line, "endif", 5) == 0){
+  if(startsWith(line, "endif")){
     popOutputMode(file, "#endif");
-  }else if(strncmp(line, "ifndef", 6) == 0 && len > 7){
+  }else if(startsWith(line, "ifndef") && len > 7){
     pushOutputMode(file, invertOutputMode(getMacroType(line+6)));
-  }else if(strncmp(line, "ifdef", 5) == 0 && len > 6){
+  }else if(startsWith(line, "ifdef") && len > 6){
     pushOutputMode(file, getMacroType(line+5));
-  }else if(strncmp(line, "if", 2) == 0 && len > 3){
+  }else if(startsWith(line, "if") && len > 3){
     pushOutputMode(file, OM_IFUNKNOWN);
-  }else if(strncmp(line, "elif", 4) == 0){
+  }else if(startsWith(line, "elif")){
     popOutputMode(file, "#elif");
     pushOutputMode(file, OM_IFUNKNOWN);
-  }else if(strncmp(line, "elseif", 6) == 0){
+  }else if(startsWith(line, "elseif")){
     popOutputMode(file, "#elseif");
     pushOutputMode(file, OM_IFUNKNOWN);
-  }else if(strncmp(line, "else", 4) == 0){
+  }else if(startsWith(line, "else")){
     pushOutputMode(file, invertOutputMode(popOutputMode(file, "#else")));
-  }else if(strncmp(line, "include", 7) == 0 && len > 8){
+  }else if(startsWith(line, "include") && len > 8){
     char* name = findStringInDirective(line);
     if(!name)return;
     if(!endsWith(name, ".h"))return;
@@ -363,19 +383,19 @@ void directiveCallback(SourceFile* file, char* line){
     newname[strlen(newname)-1] = 'c';
     include(file, newname);
     free(newname);
-  }else if(strncmp(line, "pragma comment(dir", 18) == 0 && len > 20){
+  }else if(startsWith(line, "pragma comment(dir") && len > 20){
     char* dir = findStringInDirective(line);
     if(!dir)return;
     if(!checkDirective(file, line))return;
     free(file->dir);
-    file->dir = expandTilde(dir);
+    file->dir = expandRepoUrl(dir);
     addString(&cflags, aprintf("-I%s", file->dir));
-  }else if(strncmp(line, "pragma comment(option", 21) == 0 && len > 23){
+  }else if(startsWith(line, "pragma comment(option") && len > 23){
     char* opt = findStringInDirective(line);
     if(!opt)return;
     if(!checkDirective(file, line))return;
     addString(&cflags, opt);
-  }else if(strncmp(line, "pragma comment(lib", 18) == 0 && len > 20){
+  }else if(startsWith(line, "pragma comment(lib") && len > 20){
     char* lib = findStringInDirective(line);
     if(!lib)return;
     if(!checkDirective(file, line))return;
