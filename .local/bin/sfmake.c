@@ -109,11 +109,10 @@ char* expandTilde(char* path){
   return realpath(path, NULL);
 }
 
-char* genName(char* path, char* ext){
+char* genName(char* path, char* ext, SHA_CTX contextcopy){
   uint8_t hash[SHA_DIGEST_LENGTH];
   char base64[4*((SHA_DIGEST_LENGTH+2)/3)+1];
 
-  SHA_CTX contextcopy = sha1context;
   SHA1_Update(&contextcopy, (uint8_t*)path, strlen(path));
   SHA1_Final(hash, &contextcopy);
   EVP_EncodeBlock((uint8_t*)base64, hash, SHA_DIGEST_LENGTH);
@@ -162,11 +161,11 @@ char* expandRepoUrl(char* path){
     !startsWith(path, "git@")
   )return expandTilde(path);
 
-  char* dir = genName(path, "");
+  char* dir = genName(path, "", (SHA_CTX){0});
   if(access(dir, R_OK) == 0)return dir;
   fprintf(stderr, "git clone %s %s\n", path, dir);
   fflush(stderr);
-  execFileSync("git", (char*[]){"git", "clone", path, dir, NULL});
+  execFileSync("git", (char*[]){"git", "clone", "--depth", "1", "--recurse-submodules", path, dir, NULL});
   return dir;
 }
 
@@ -250,7 +249,7 @@ int readFile(const char* name, FileType type, char** output, SourceFile* parent)
 
   SourceFile dto = {f, fullname, dir, type, NULL, 0, 1, OM_NORMAL, parent, {0}};
   if(type != FT_HEADER){
-    dto.output = genName(fullname, type==FT_OBJ ? ".o" : "");
+    dto.output = genName(fullname, type==FT_OBJ ? ".o" : "", sha1context);
     dto.depcount += isOlderThen(dto.output, fullname);
   }
   parseFile(&dto);
@@ -394,7 +393,7 @@ void directiveCallback(SourceFile* file, char* line){
     char* opt = findStringInDirective(line);
     if(!opt)return;
     if(!checkDirective(file, line))return;
-    addString(&cflags, opt);
+    addString(&cflags, strdup(opt));
   }else if(startsWith(line, "pragma comment(lib") && len > 20){
     char* lib = findStringInDirective(line);
     if(!lib)return;
