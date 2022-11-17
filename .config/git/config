@@ -5,3 +5,5 @@
 	name = Cortan122
 [push]
 	autoSetupRemote = true
+[init]
+	defaultBranch = master
