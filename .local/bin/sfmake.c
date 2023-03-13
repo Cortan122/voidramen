@@ -1,6 +1,7 @@
 #!/usr/bin/env jitcc
 
 #define _GNU_SOURCE
+#include <assert.h>
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdint.h>
@@ -64,8 +65,20 @@ char* cachedir = NULL;
 StringList cflags = {0};
 SHA_CTX sha1context = {0};
 
-const char* predefined_macros[] = {"amd64", "linux", "STDC", "unix", "x86_64", NULL};
-const char* undefined_macros[] = {"i386", "WIN32", "WIN64", NULL};
+const char* wsl_prefix = "//wsl.localhost/Arch";
+
+const char* predefined_macros_linux[] = {"amd64", "linux", "STDC", "unix", "x86_64", NULL};
+const char* undefined_macros_linux[] = {"i386", "WIN32", "WIN64", NULL};
+const char* predefined_macros_win[] = {"i386", "WIN32", "STDC", NULL};
+const char* undefined_macros_win[] = {"amd64", "linux", "unix", "x86_64", NULL};
+const char** predefined_macros = predefined_macros_linux;
+const char** undefined_macros = undefined_macros_linux;
+
+bool use_valgrind = false;
+bool use_callgrind = false;
+bool use_windows = false;
+bool dry_run = false;
+bool fancy_output = false;
 
 bool endsWith(const char* restrict str, const char* restrict suffix){
   size_t lenstr = strlen(str);
@@ -194,11 +207,26 @@ void addString(StringList* list, char* str){
   list->ptr[list->len] = NULL;
 }
 
+char* wslpath(char* path){
+  // TODO: call wslpath -m
+  if(startsWith(path, "/mnt/c/")){
+    return aprintf("C:/%s", path+7);
+  }else{
+    return aprintf("%s%s", wsl_prefix, path);
+  }
+}
+
 void addOption(SourceFile* file, char* opt, FileType type){
   file = treeFind(file, type);
   if(file == NULL)return;
 
   if(endsWith(opt, ".o")){
+    if(use_windows){
+      char* tmp = opt;
+      opt = wslpath(opt);
+      free(tmp);
+      // TODO: also check -I
+    }
     for(int i = 0; i < file->opt.len; i++){
       if(strcmp(file->opt.ptr[i], opt) == 0)return;
     }
@@ -208,6 +236,9 @@ void addOption(SourceFile* file, char* opt, FileType type){
 }
 
 void buildFile(SourceFile* file){
+  char* wslpath1 = NULL;
+  char* wslpath2 = NULL;
+
   char** args = calloc(file->opt.len+cflags.len+5, sizeof(char*));
   int argsi = 0;
 
@@ -217,8 +248,16 @@ void buildFile(SourceFile* file){
     memcpy(args+argsi, file->opt.ptr, file->opt.len*sizeof(char*));
     argsi += file->opt.len;
   }
-  memcpy(args+argsi, (char*[]){"-o", file->output, file->name}, 3*sizeof(char*));
-  argsi += 3;
+
+  if(use_windows){
+    args[argsi++] = "-o";
+    args[argsi++] = wslpath1 = wslpath(file->output);
+    args[argsi++] = wslpath2 = wslpath(file->name);
+  }else{
+    memcpy(args+argsi, (char*[]){"-o", file->output, file->name}, 3*sizeof(char*));
+    argsi += 3;
+  }
+
   if(file->type == FT_OBJ){
     memcpy(args+argsi++, (char*[]){"-c"}, sizeof(char*));
   }
@@ -231,6 +270,8 @@ void buildFile(SourceFile* file){
   fflush(stderr);
   execFileSync(args[0], args);
   free(args);
+  free(wslpath1);
+  free(wslpath2);
 }
 
 void parseFile(SourceFile* file);
@@ -249,7 +290,7 @@ int readFile(const char* name, FileType type, char** output, SourceFile* parent)
 
   SourceFile dto = {f, fullname, dir, type, NULL, 0, 1, OM_NORMAL, parent, {0}};
   if(type != FT_HEADER){
-    dto.output = genName(fullname, type==FT_OBJ ? ".o" : "", sha1context);
+    dto.output = genName(fullname, type==FT_OBJ ? ".o" : use_windows ? ".exe" : "", sha1context);
     dto.depcount += isOlderThen(dto.output, fullname);
   }
   parseFile(&dto);
@@ -403,6 +444,8 @@ void directiveCallback(SourceFile* file, char* line){
     }else{
       addOption(file, aprintf("-l%s", lib), FT_EXE);
     }
+  }else if(startsWith(line, "!/")){
+    fprintf(stderr, "\x1b[95mWARNING\x1b[0m: \x1b[93msfmake.c\x1b[0m: shebangs are not implemented yet\n");
   }
 }
 
@@ -456,24 +499,21 @@ void parseFile(SourceFile* file){
   }
 }
 
-int main(int argc, char** argv){
+int parseArgv(int argc, char** argv){
   if(argc < 2){
     fprintf(stderr, "\x1b[31mERROR\x1b[0m: \x1b[93msfmake.c\x1b[0m expects at least one argument\n");
-    return 1;
+    exit(1);
   }
 
-  cachedir = expandTilde("~/.cache/sfmake");
-  if(mkdir(cachedir, 0755)){
-    if(errno != EEXIST){
-      perror(cachedir);
-      exit(1);
-    }
+  char* CC = getenv("CC");
+  if(CC && endsWith(CC, ".exe")){
+    use_windows = true;
+    predefined_macros = predefined_macros_win;
+    undefined_macros = undefined_macros_win;
   }
-
-  SHA1_Init(&sha1context);
 
   char* arr[] = {
-    getenv("CC") ?: "gcc", "-g",
+    CC ?: "gcc", "-g",
     "-fdollars-in-identifiers", "-funsigned-char",
     "-Wall", "-Wextra", "-Wno-parentheses", "-Wno-unknown-pragmas", "-Werror=vla",
     NULL
@@ -485,15 +525,124 @@ int main(int argc, char** argv){
 
   int optargc = 1;
   for(; optargc < argc; optargc++){
-    if(argv[optargc][0] == '-'){
+    if(strcmp(argv[optargc], "--help") == 0){
+      printf(
+        "Usage: [CC=tcc] sfmake.c [options] [compiler options] <file.c> [program options]\n"
+        "\n"
+        "Options:\n"
+        "  --fancy-output  Copy the compiled program to the working directory\n"
+        "  --dry-run       Don't run the complied program\n"
+        "  --valgrind      Run resulting program through valgrind\n"
+        "  --callgrind     Run resulting program through callgrind and display the profile\n"
+        "  --help          Output usage information\n"
+      );
+      exit(0);
+    }else if(strcmp(argv[optargc], "--valgrind") == 0){
+      use_valgrind = true;
+    }else if(strcmp(argv[optargc], "--dry-run") == 0){
+      dry_run = true;
+    }else if(strcmp(argv[optargc], "--callgrind") == 0){
+      use_callgrind = true;
+    }else if(strcmp(argv[optargc], "--fancy-output") == 0){
+      fancy_output = true;
+    }else if(argv[optargc][0] == '-'){
       addString(&cflags, argv[optargc]);
       SHA1_Update(&sha1context, (uint8_t*)argv[optargc], strlen(argv[optargc]));
     }else break;
   }
 
+  return optargc;
+}
+
+void callCallgrind(int argc, char** argv, char** output){
+  char** args = calloc(argc+5, sizeof(char*));
+  args[0] = "valgrind";
+  args[1] = "--tool=callgrind";
+  char* outfile = aprintf("%s.callgrind", *output);
+  char* ansifile = aprintf("%s.ansi", *output);
+  args[2] = aprintf("--callgrind-out-file=%s", outfile);
+  args[3] = *output;
+  memcpy(args+4, argv+1, argc*sizeof(char*));
+
+  execFileSync(args[0], args);
+  free(*output);
+  free(args[2]);
+  free(args);
+
+  // TODO: don't use system
+  setenv("SFMAKE_ANSIFILE", ansifile, 1);
+  setenv("SFMAKE_INFILE", argv[0], 1);
+  setenv("SFMAKE_OUTFILE", outfile, 1);
+  if(system(
+    "bat --color=always --style plain \"$SFMAKE_INFILE\" > \"$SFMAKE_ANSIFILE\" &&"
+    "sed -i \"s|$SFMAKE_INFILE|$SFMAKE_ANSIFILE|\" \"$SFMAKE_OUTFILE\""
+  )){
+    perror("system");
+    fprintf(stderr, "can't run 'bat' and 'sed' commands\n");
+    exit(1);
+  }
+  free(ansifile);
+
+  execvp("callgrind_annotate", (char*[]){"callgrind_annotate", outfile, NULL});
+  perror("execvp");
+  fprintf(stderr, "can't run %s\n", output);
+  exit(1);
+}
+
+int main(int argc, char** argv){
+  cachedir = expandTilde("~/.cache/sfmake");
+  if(mkdir(cachedir, 0755)){
+    if(errno != EEXIST){
+      perror(cachedir);
+      exit(1);
+    }
+  }
+
+  SHA1_Init(&sha1context);
+
+  int optargc = parseArgv(argc, argv);
   char* output = NULL;
   readFile(argv[optargc], FT_EXE, &output, NULL);
   free(cachedir);
+
+  if(fancy_output){
+    char* input = strdup(argv[optargc]);
+    *strrchr(input, '.') = '\0';
+    char* new_output = aprintf("./%s%s", input, use_windows ? ".exe" : "");
+
+    setenv("SFMAKE_INFILE", output, 1);
+    setenv("SFMAKE_OUTFILE", new_output, 1);
+    if(system("cp -v \"$SFMAKE_INFILE\" \"$SFMAKE_OUTFILE\"")){
+      perror("system");
+      fprintf(stderr, "can't run 'cp' command\n");
+      exit(1);
+    }
+
+    free(input);
+    free(output);
+    output = new_output;
+  }
+
+  if(dry_run){
+    fprintf(stderr, "\x1b[36mINFO\x1b[0m: \x1b[93msfmake.c\x1b[0m: compiled program at \x1b[32m'%s'\x1b[0m\n", output);
+    free(output);
+    return 0;
+  }else if(use_valgrind){
+    assert(optargc >= 1);
+    argv[optargc--] = output;
+    output = "valgrind";
+  }else if(use_callgrind){
+    callCallgrind(argc-optargc, argv+optargc, &output);
+  }else if(use_windows){
+    chmod(output, 0755);
+    if(fancy_output){
+      assert(optargc >= 2);
+      argv[optargc--] = output+2;
+      argv[optargc--] = "/C";
+      argv[optargc] = "cmd.exe";
+      output = "cmd.exe";
+    }
+  }
 
   execvp(output, argv+optargc);
   perror("execvp");
