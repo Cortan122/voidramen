@@ -551,6 +551,11 @@ int parseArgv(int argc, char** argv){
     }else break;
   }
 
+  if(optargc == argc){
+    fprintf(stderr, "\x1b[31mERROR\x1b[0m: \x1b[93msfmake.c\x1b[0m: no filename given!\n");
+    exit(1);
+  }
+
   return optargc;
 }
 
