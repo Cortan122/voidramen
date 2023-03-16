@@ -2,6 +2,7 @@
 
 #define _GNU_SOURCE
 #include <assert.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdint.h>
@@ -32,6 +33,7 @@ typedef enum FileType {
   FT_EXE = 1,
   FT_OBJ = 2,
   FT_HEADER = 4,
+  FT_HEADER_ONLY_LIB = 8,
 } FileType;
 
 typedef enum OutputMode {
@@ -216,6 +218,21 @@ char* wslpath(char* path){
   }
 }
 
+char* holibImplementationDefine(char* name){
+  // todo: check if it was already defined manually
+  char* shortname = strdup(strrchr(name, '/')+1);
+  for(int i = 0; shortname[i]; i++){
+    if(shortname[i] == '.'){
+      shortname[i] = '\0';
+      break;
+    }
+    shortname[i] = toupper(shortname[i]);
+  }
+  char* res = aprintf("-D%s_IMPLEMENTATION", shortname);
+  free(shortname);
+  return res;
+}
+
 void addOption(SourceFile* file, char* opt, FileType type){
   file = treeFind(file, type);
   if(file == NULL)return;
@@ -238,6 +255,7 @@ void addOption(SourceFile* file, char* opt, FileType type){
 void buildFile(SourceFile* file){
   char* wslpath1 = NULL;
   char* wslpath2 = NULL;
+  char* holibdef = NULL;
 
   char** args = calloc(file->opt.len+cflags.len+5, sizeof(char*));
   int argsi = 0;
@@ -254,12 +272,16 @@ void buildFile(SourceFile* file){
     args[argsi++] = wslpath1 = wslpath(file->output);
     args[argsi++] = wslpath2 = wslpath(file->name);
   }else{
-    memcpy(args+argsi, (char*[]){"-o", file->output, file->name}, 3*sizeof(char*));
-    argsi += 3;
+    memcpy(args+argsi, (char*[]){"-o", file->output, "-x", "c", file->name}, 5*sizeof(char*));
+    argsi += 5;
   }
 
-  if(file->type == FT_OBJ){
+  if(file->type & FT_OBJ){
     memcpy(args+argsi++, (char*[]){"-c"}, sizeof(char*));
+  }
+  if(file->type & FT_HEADER_ONLY_LIB){
+    holibdef = holibImplementationDefine(file->name);
+    memcpy(args+argsi++, (char*[]){holibdef}, sizeof(char*));
   }
   memcpy(args+argsi, (char*[]){NULL}, sizeof(char*));
 
@@ -272,6 +294,7 @@ void buildFile(SourceFile* file){
   free(args);
   free(wslpath1);
   free(wslpath2);
+  free(holibdef);
 }
 
 void parseFile(SourceFile* file);
@@ -290,7 +313,7 @@ int readFile(const char* name, FileType type, char** output, SourceFile* parent)
 
   SourceFile dto = {f, fullname, dir, type, NULL, 0, 1, OM_NORMAL, parent, {0}};
   if(type != FT_HEADER){
-    dto.output = genName(fullname, type==FT_OBJ ? ".o" : use_windows ? ".exe" : "", sha1context);
+    dto.output = genName(fullname, type&FT_OBJ ? ".o" : use_windows ? ".exe" : "", sha1context);
     dto.depcount += isOlderThen(dto.output, fullname);
   }
   parseFile(&dto);
@@ -319,6 +342,17 @@ void include(SourceFile* file, char* name){
 
   char* output = NULL;
   FileType type = endsWith(name, ".c") ? FT_OBJ : FT_HEADER;
+
+  if(type == FT_OBJ && access(name, R_OK) != 0){
+    name[strlen(name)-1] = 'h';
+    if(access(name, R_OK) == 0){
+      type = FT_HEADER_ONLY_LIB|FT_OBJ;
+    }else{
+      name[strlen(name)-1] = 'c';
+      fprintf(stderr, "\x1b[35mWARNING\x1b[0m: \x1b[93msfmake.c\x1b[0m: file \x1b[32m'%s'\x1b[0m can't be included: %m\n", name);
+    }
+  }
+
   file->depcount += readFile(name, type, &output, file);
 
   if(file->output && isOlderThen(file->output, name)){
