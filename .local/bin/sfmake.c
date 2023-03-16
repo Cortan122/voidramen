@@ -423,14 +423,20 @@ void directiveCallback(SourceFile* file, char* line){
     newname[strlen(newname)-1] = 'c';
     include(file, newname);
     free(newname);
-  }else if(startsWith(line, "pragma comment(dir") && len > 20){
+  }else if(
+    (startsWith(line, "pragma comment(dir") && len > 20) ||
+    (startsWith(line, "pragma comment(user, dir") && len > 26)
+  ){
     char* dir = findStringInDirective(line);
     if(!dir)return;
     if(!checkDirective(file, line))return;
     free(file->dir);
     file->dir = expandRepoUrl(dir);
     addString(&cflags, aprintf("-I%s", file->dir));
-  }else if(startsWith(line, "pragma comment(option") && len > 23){
+  }else if(
+    (startsWith(line, "pragma comment(option") && len > 23) ||
+    (startsWith(line, "pragma comment(user, option") && len > 29)
+  ){
     char* opt = findStringInDirective(line);
     if(!opt)return;
     if(!checkDirective(file, line))return;
@@ -515,7 +521,8 @@ int parseArgv(int argc, char** argv){
   char* arr[] = {
     CC ?: "gcc", "-g",
     "-fdollars-in-identifiers", "-funsigned-char",
-    "-Wall", "-Wextra", "-Wno-parentheses", "-Wno-unknown-pragmas", "-Werror=vla",
+    "-Wall", "-Wextra", "-Wno-parentheses", "-Werror=vla",
+    "-Wno-unknown-pragmas", "-Wno-ignored-pragmas",
     NULL
   };
   for(int i = 0; arr[i]; i++){
