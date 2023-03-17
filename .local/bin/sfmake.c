@@ -242,7 +242,6 @@ void addOption(SourceFile* file, char* opt, FileType type){
       char* tmp = opt;
       opt = wslpath(opt);
       free(tmp);
-      // TODO: also check -I
     }
     for(int i = 0; i < file->opt.len; i++){
       if(strcmp(file->opt.ptr[i], opt) == 0)return;
@@ -253,11 +252,13 @@ void addOption(SourceFile* file, char* opt, FileType type){
 }
 
 void buildFile(SourceFile* file){
+  // TODO: this fucking memory management
+  // we already have a StringList...
   char* wslpath1 = NULL;
   char* wslpath2 = NULL;
   char* holibdef = NULL;
 
-  char** args = calloc(file->opt.len+cflags.len+5, sizeof(char*));
+  char** args = calloc(file->opt.len+cflags.len+8, sizeof(char*));
   int argsi = 0;
 
   memcpy(args, cflags.ptr, cflags.len*sizeof(char*));
@@ -268,9 +269,10 @@ void buildFile(SourceFile* file){
   }
 
   if(use_windows){
-    args[argsi++] = "-o";
-    args[argsi++] = wslpath1 = wslpath(file->output);
-    args[argsi++] = wslpath2 = wslpath(file->name);
+    wslpath1 = wslpath(file->output);
+    wslpath2 = wslpath(file->name);
+    memcpy(args+argsi, (char*[]){"-o", wslpath1, "-x", "c", wslpath2}, 5*sizeof(char*));
+    argsi += 5;
   }else{
     memcpy(args+argsi, (char*[]){"-o", file->output, "-x", "c", file->name}, 5*sizeof(char*));
     argsi += 5;
@@ -437,7 +439,9 @@ void directiveCallback(SourceFile* file, char* line){
   }else if(startsWith(line, "ifdef") && len > 6){
     pushOutputMode(file, getMacroType(line+5));
   }else if(startsWith(line, "if") && len > 3){
-    pushOutputMode(file, OM_IFUNKNOWN);
+    // TODO: handle #if 0 better
+    bool is_zero = strcmp(line, "if 0") == 0;
+    pushOutputMode(file, is_zero ? OM_IFFALSE : OM_IFUNKNOWN);
   }else if(startsWith(line, "elif")){
     popOutputMode(file, "#elif");
     pushOutputMode(file, OM_IFUNKNOWN);
@@ -466,7 +470,14 @@ void directiveCallback(SourceFile* file, char* line){
     if(!checkDirective(file, line))return;
     free(file->dir);
     file->dir = expandRepoUrl(dir);
-    addString(&cflags, aprintf("-I%s", file->dir));
+
+    if(use_windows){
+      char* tmp = wslpath(file->dir);
+      addString(&cflags, aprintf("-I%s", tmp));
+      free(tmp);
+    }else{
+      addString(&cflags, aprintf("-I%s", file->dir));
+    }
   }else if(
     (startsWith(line, "pragma comment(option") && len > 23) ||
     (startsWith(line, "pragma comment(user, option") && len > 29)
