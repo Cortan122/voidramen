@@ -81,6 +81,7 @@ bool use_callgrind = false;
 bool use_windows = false;
 bool dry_run = false;
 bool fancy_output = false;
+bool no_holib = false;
 
 bool endsWith(const char* restrict str, const char* restrict suffix){
   size_t lenstr = strlen(str);
@@ -355,7 +356,9 @@ void include(SourceFile* file, char* name){
     }
   }
 
-  file->depcount += readFile(name, type, &output, file);
+  if(!(type&FT_HEADER_ONLY_LIB) || !no_holib){
+    file->depcount += readFile(name, type, &output, file);
+  }
 
   if(file->output && isOlderThen(file->output, name)){
     file->depcount++;
@@ -584,6 +587,7 @@ int parseArgv(int argc, char** argv){
         "Options:\n"
         "  --fancy-output  Copy the compiled program to the working directory\n"
         "  --dry-run       Don't run the complied program\n"
+        "  --no-holib      Don't try to compile header only libraries\n"
         "  --valgrind      Run resulting program through valgrind\n"
         "  --callgrind     Run resulting program through callgrind and display the profile\n"
         "  --help          Output usage information\n"
@@ -597,6 +601,9 @@ int parseArgv(int argc, char** argv){
       use_callgrind = true;
     }else if(strcmp(argv[optargc], "--fancy-output") == 0){
       fancy_output = true;
+    }else if(strcmp(argv[optargc], "--no-holib") == 0){
+      no_holib = true;
+      SHA1_Update(&sha1context, (uint8_t*)argv[optargc], strlen(argv[optargc]));
     }else if(argv[optargc][0] == '-'){
       addString(&cflags, argv[optargc]);
       SHA1_Update(&sha1context, (uint8_t*)argv[optargc], strlen(argv[optargc]));
