@@ -26,6 +26,7 @@ typedef enum ParserState {
   PS_LONG_COMMENT = 1<<5,
   PS_STRING = 1<<6,
   PS_SHORT_STRING = 1<<7,
+  PS_JUST_STARTED = 1<<8,
   PS_STR = PS_STRING|PS_LONG_COMMENT|PS_SHORT_COMMENT|PS_SHORT_STRING,
 } ParserState;
 
@@ -466,6 +467,7 @@ void directiveCallback(SourceFile* file, char* line){
     free(newname);
   }else if(
     (startsWith(line, "pragma comment(dir") && len > 20) ||
+    (startsWith(line, "pragma directory(") && len > 19) ||
     (startsWith(line, "pragma comment(user, dir") && len > 26)
   ){
     char* dir = findStringInDirective(line);
@@ -483,6 +485,7 @@ void directiveCallback(SourceFile* file, char* line){
     }
   }else if(
     (startsWith(line, "pragma comment(option") && len > 23) ||
+    (startsWith(line, "pragma option(") && len > 16) ||
     (startsWith(line, "pragma comment(user, option") && len > 29)
   ){
     char* opt = findStringInDirective(line);
@@ -516,10 +519,10 @@ void parseFile(SourceFile* file){
       ps |= PS_LONG_COMMENT;
     }
     if(t == '\'' && (ps&PS_STR) == 0){
-      ps |= PS_SHORT_STRING;
+      ps |= PS_SHORT_STRING|PS_JUST_STARTED;
     }
     if(t == '"' && (ps&PS_STR) == 0){
-      ps |= PS_STRING;
+      ps |= PS_STRING|PS_JUST_STARTED;
     }
     if(ps&PS_BACKSLASH){
       ps &= ~PS_BACKSLASH;
@@ -540,15 +543,16 @@ void parseFile(SourceFile* file){
     if(t == '\n' && (ps == PS_NORMAL || (ps&PS_SHORT_COMMENT))){
       ps = PS_NEWLINE;
     }
-    if(t == '\'' && (ps&PS_SHORT_STRING)){
+    if(t == '\'' && (ps&PS_SHORT_STRING) && (ps&PS_JUST_STARTED) == 0){
       ps &= ~PS_SHORT_STRING;
     }
-    if(t == '"' && (ps&PS_STRING)){
+    if(t == '"' && (ps&PS_STRING) && (ps&PS_JUST_STARTED) == 0){
       ps &= ~PS_STRING;
     }
     if(prev == '*' && t == '/' && (ps&PS_LONG_COMMENT)){
       ps &= ~PS_LONG_COMMENT;
     }
+    ps &= ~PS_JUST_STARTED;
     prev = t;
   }
 }
@@ -714,5 +718,5 @@ int main(int argc, char** argv){
   return 1;
 }
 
-// TODO: include stb libs
+// TODO: include stb libs (but only when needed)
 // TODO: ignore shebang
