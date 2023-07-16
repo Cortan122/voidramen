@@ -31,6 +31,7 @@ export INPUTRC="$HOME/.config/inputrc"
 export ZDOTDIR="$HOME/.config/zsh"
 export NODE_REPL_HISTORY="$HOME/.config/node_repl_history"
 export NPM_CONFIG_USERCONFIG="$HOME/.config/npmrc"
+export PASSWORD_STORE_DIR="$HOME/.config/.password-store/"
 
 # less/man colors
 export LESS=-R
@@ -41,3 +42,8 @@ export LESS_TERMCAP_so=$'\x1b[1;44;33m'
 export LESS_TERMCAP_se=$'\x1b[0m'
 export LESS_TERMCAP_us=$'\x1b[1;32m'
 export LESS_TERMCAP_ue=$'\x1b[0m'
+export GROFF_NO_SGR=1
+
+# ssh over gpg
+export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+gpgconf --launch gpg-agent
