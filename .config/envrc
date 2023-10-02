@@ -27,11 +27,14 @@ export BAT_PAGER="less -RS"
 # export HISTFILE="$HOME/.config/bash_history"
 export RLWRAP_HOME="$HOME/.config"
 export LESSHISTFILE="$HOME/.config/less_history"
+export SQLITE_HISTORY="$HOME/.config/sqlite_history"
 export INPUTRC="$HOME/.config/inputrc"
 export ZDOTDIR="$HOME/.config/zsh"
 export NODE_REPL_HISTORY="$HOME/.config/node_repl_history"
 export NPM_CONFIG_USERCONFIG="$HOME/.config/npmrc"
-export PASSWORD_STORE_DIR="$HOME/.config/.password-store/"
+export PASSWORD_STORE_DIR="$HOME/.config/password-store/"
+export CARGO_HOME="$HOME/.local/share/cargo"
+export GOPATH="$HOME/.local/share/go"
 
 # less/man colors
 export LESS=-R

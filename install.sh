@@ -36,7 +36,7 @@ command -v sudo >/dev/null || exit 0
 if [[ "$(< /proc/version)" == *@(microsoft|Microsoft|WSL)* ]]; then
   pushd /mnt/c > /dev/null
   ln -Tfs /mnt/b/apache/www ~/www
-  ln -Tfs /mnt/b/костя/видухи ~/Videos
+  # ln -Tfs /mnt/b/костя/видухи ~/Videos
   ln -Tfs "$(wslpath "$(cmd.exe /c echo %USERPROFILE%\\Downloads)" | tr -d '\r')" ~/Downloads
   ln -Tfs "$(wslpath "$(cmd.exe /c echo %USERPROFILE%\\Desktop)" | tr -d '\r')" ~/Desktop
   ln -Tfs "$(wslpath "$(cmd.exe /c echo %USERPROFILE%\\OneDrive\\microrice)" | tr -d '\r')" ~/Programs/microrice
@@ -72,7 +72,7 @@ if command -v pacman >/dev/null && ! { locale -a | grep ru_RU >/dev/null; }; the
   # Uncomment the Color line in /etc/pacman.conf.
   sudo sed -i 's/^#Color$/Color/' /etc/pacman.conf
   # раскомментируйте ru_RU.UTF-8 UTF-8 в файле /etc/locale.gen
-  sudo sed -i 's/^# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen
+  sudo sed -i 's/^# *ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen
   # После сохранения файла сгенерируйте выбранные локали командой:
   sudo locale-gen
 fi
@@ -91,7 +91,7 @@ if ! { command -v st >/dev/null; }; then
 fi
 
 # todo: this is slow, put it in some kind of if
-packageList="npm nodejs python3 bash-completion ffmpeg youtube-dl imagemagick php openssh python-pip feh qrencode sxiv python-numpy python-scipy python-matplotlib speedtest-cli tcc jq"
+packageList="npm nodejs python3 bash-completion ffmpeg yt-dlp imagemagick php openssh python-pip feh qrencode sxiv python-numpy python-scipy python-matplotlib speedtest-cli tcc jq"
 if command -v pacman >/dev/null; then
   sudo pacman --needed --noconfirm -S $packageList
 elif command -v apt >/dev/null; then

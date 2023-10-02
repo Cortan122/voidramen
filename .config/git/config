@@ -3,7 +3,10 @@
 [user]
 	email = Cortan122@gmail.com
 	name = Cortan122
+	signingkey = cortan122@gmail.com
 [push]
 	autoSetupRemote = true
 [init]
 	defaultBranch = master
+[commit]
+	gpgsign = true

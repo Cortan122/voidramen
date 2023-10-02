@@ -6,6 +6,7 @@
 #include <string.h>
 #include <strings.h>
 #include <stdbool.h>
+#include <errno.h>
 
 char* gluePath(char* path1, char* path2){
   char* buf = malloc(strlen(path1) + strlen(path2) + 2); // 2 для '/' и '\0'
@@ -19,7 +20,7 @@ char* getShortPath(char* home, char* linkname, char* pwd){
   char* buf = gluePath(home, linkname);
   char* real = realpath(buf, NULL);
   if(!real){
-    perror("realpath");
+    fprintf(stderr, "realpath(%s): %s\n", buf, strerror(errno));
     exit(1);
   }
 
