@@ -79,6 +79,7 @@ else
   fi
 fi
 
+PROMPT_DIRTRIM=5
 PS1='\[\e[?25h\e[0;92m\]\u'
 PS1+='\[$(t=$? ;[ $t "==" 130 ] && echo -e "\e[93m" || ( [ $t != 0 ] && echo -e "\e[91m" ))\]'
 PS1+='@\[\e[92m\]\h\[\e[0m\]:\[\e[94m\]\w\[\e[0m\]\$ '
