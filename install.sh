@@ -6,11 +6,10 @@ cd -- "$(dirname -- "$0")"
 find . -type d -name '.git' -prune -o -type f -exec chmod 644 {} \;
 find . -type d -name '.git' -prune -o -type d -exec chmod 755 {} \;
 chmod +x install.sh
-cp -r .[!.]* * ~
+cp -r .config/ .local/ .bashrc .profile ~
 
 cd ~
-rm -f ~/.bash_logout ~/.bash_profile ~/install.sh ~/install_arch.sh
-rm -rf ~/.git
+rm -f ~/.bash_logout ~/.bash_profile
 chmod +x ~/.local/bin/*  ~/.local/bin/statusbar/*
 
 if [ "$(uname -o)" == "Android" ] && ! { command -v make >/dev/null; }; then
@@ -48,7 +47,7 @@ if [[ "$(< /proc/version)" == *@(microsoft|Microsoft|WSL)* ]]; then
   popd > /dev/null
 fi
 
-sudo ln -fs ~/.config/nano/nanorc /root
+sudo ln -fs ~/.config/nano/nanorc /root/.nanorc
 
 if command -v pacman >/dev/null && ! { command -v yay >/dev/null; }; then
   sudo pacman -Syyuu --noconfirm
