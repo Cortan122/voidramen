@@ -7,7 +7,7 @@ PKGFILE_PROMPT_INSTALL_MISSING=y
 if command -v ru2en.c >/dev/null; then
   declare -f original_command_not_found_handle >/dev/null || {
     declare -f command_not_found_handle >/dev/null || command_not_found_handle () {
-      printf "bash: %s: command not found\n" "$cmd";
+      printf "bash: %s: command not found\n" "$1";
     }
     eval "original_$(declare -f command_not_found_handle)"
 
@@ -22,7 +22,7 @@ if command -v ru2en.c >/dev/null; then
   _пшеCompletion() {
     local res="$(ru2en.c "${COMP_WORDS[0]}")"
     [[ "$res" == original_command_not_found_handle* ]] && res="${COMP_WORDS[0]}"
-    COMPREPLY=($(compgen -c "$res"))
+    readarray -t COMPREPLY < <(compgen -c "$res")
   }
   complete -F _пшеCompletion -I
 fi
