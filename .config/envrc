@@ -7,7 +7,6 @@
 
 # set PATH so it includes user's private bin if it exists
 [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
-[ -d "$HOME/.cargo/bin" ] && PATH="$HOME/.cargo/bin:$PATH"
 export PATH
 
 if command -v locale >/dev/null; then
@@ -35,6 +34,7 @@ export NPM_CONFIG_USERCONFIG="$HOME/.config/npmrc"
 export PASSWORD_STORE_DIR="$HOME/.config/password-store/"
 export CARGO_HOME="$HOME/.local/share/cargo"
 export GOPATH="$HOME/.local/share/go"
+export VIMINIT="source $HOME/.config/vim/vimrc"
 
 # less/man colors
 export LESS=-R
