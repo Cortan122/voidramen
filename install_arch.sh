@@ -36,7 +36,7 @@ bootctl install
 EOT
 
 tee /mnt/boot/loader/loader.conf <<EOF
-default  arch.conf
+default  @saved
 timeout  4
 editor   no
 EOF
@@ -64,5 +64,7 @@ Name=enp0s20f0u4u2u1
 [Network]
 DHCP=yes
 EOF
+
+# https://chiraag.me/wireless/
 
 # shutdown -h now
