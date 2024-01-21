@@ -9,7 +9,7 @@ chmod +x install.sh
 cp -r .[!.]* * ~
 
 cd ~
-rm -f ~/.bash_logout ~/.bash_profile ~/install.sh
+rm -f ~/.bash_logout ~/.bash_profile ~/install.sh ~/install_arch.sh
 rm -rf ~/.git
 chmod +x ~/.local/bin/*  ~/.local/bin/statusbar/*
 
@@ -28,7 +28,7 @@ chmod +x *.sh st-copyout
 [ -f st ] && chmod +x st
 cd ~
 
-[ -z "$PREFIX" ] || echo "include $PREFIX/share/nano/*" > ~/.nanorc
+[ -z "$PREFIX" ] || echo "include $PREFIX/share/nano/*" > ~/.config/nano/nanorc
 [ "$(uname -o)" == "Android" ] && rm -f ~/.profile #fixme
 
 command -v sudo >/dev/null || exit 0
@@ -48,7 +48,7 @@ if [[ "$(< /proc/version)" == *@(microsoft|Microsoft|WSL)* ]]; then
   popd > /dev/null
 fi
 
-sudo ln -fs ~/.nanorc /root
+sudo ln -fs ~/.config/nano/nanorc /root
 
 if command -v pacman >/dev/null && ! { command -v yay >/dev/null; }; then
   sudo pacman -Syyuu --noconfirm
@@ -91,6 +91,8 @@ if ! { command -v st >/dev/null; }; then
   cd ~
 fi
 
+# libxft-bgra (no longer needed?)
+# freetype2-cleartype (also not relevent??)
 # todo: this is slow, put it in some kind of if
 packageList="npm nodejs python3 bash-completion ffmpeg yt-dlp imagemagick php openssh python-pip feh qrencode sxiv python-numpy python-scipy python-matplotlib speedtest-cli tcc jq"
 if command -v pacman >/dev/null; then
