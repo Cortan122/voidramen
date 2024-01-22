@@ -47,14 +47,14 @@ sudo -i -u "$username" <<EOF
 if [ -d .git/ ] && git remote get-url origin | grep -q Cortan122/voidrice.git; then
   echo "Alredy in repo..."
 else
-  mkdir ~/Programs
+  mkdir -p ~/Programs
   cd ~/Programs
   git clone https://github.com/cortan122/voidrice.git
   cd ~/Programs/voidrice
 fi
 cp -r .config/ .local/ .bashrc .profile ~
 cd ~
-rm ~/.bash_logout ~/.bash_profile
+rm -f ~/.bash_logout ~/.bash_profile
 
 sudo ln -fs ~/.config/nano/nanorc /root/.nanorc
 
