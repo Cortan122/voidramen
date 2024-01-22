@@ -17,6 +17,7 @@ pkg=(
   python3 python-pip python-numpy python-matplotlib # python
   ffmpeg imagemagick yt-dlp feh sxiv # media
   speedtest-cli tcc jq qrencode htop # extra stuff
+  dust bat tree # rusted coreutils
 )
 
 # check if this is a graphical system (fixme)
