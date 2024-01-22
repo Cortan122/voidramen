@@ -12,7 +12,7 @@ pm() {
 }
 
 pkg=(
-  git sudo gcc make man-db man-pages openssh # build essentials
+  git base-devel man-db man-pages openssh # build essentials
   vim nano bash-completion # text editors
   python3 python-pip python-numpy python-matplotlib # python
   ffmpeg imagemagick yt-dlp feh sxiv # media
