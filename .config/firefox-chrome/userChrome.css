@@ -1,0 +1,65 @@
+/*** Tighten up drop-down/context/popup menu spacing (8 Sep 2021) ***/
+
+menupopup:not(.in-menulist) > menuitem,
+menupopup:not(.in-menulist) > menu {
+  padding-block: 2px !important; /* reduce to 3px, 2px, 1px or 0px as needed */
+  min-height: unset !important; /* v92.0 - for padding below 4px */
+}
+:root {
+  --arrowpanel-menuitem-padding: 4px 8px !important;
+  --inline-tab-padding: 4px !important;
+  --tab-min-height: 20px !important;
+}
+
+/*** Photon-like Menu Colors (14 Jan 2022) ***/
+
+/* Bookmarks Toolbar folders */
+#PersonalToolbar menupopup,
+/* Right-click context menus */
+#mainPopupSet menupopup,
+/* Top menu bar on Windows (not sure about others) */
+#toolbar-menubar menupopup,
+/* Sidebar/Library bookmark/history context menus */
+#placesContext,
+/* Address bar context menu (2021-10-25) */
+#urlbar-input-container menupopup,
+/* Various toolbar drop-down panels (Fx96) */
+#back-button menupopup, #forward-button menupopup,
+#identity-popup, #appMenu-popup, #downloadsPanel, #BMB_bookmarksPopup {
+  /* Text color */
+  --panel-color: #E4DEFD !important;
+  /* Background color */
+  --panel-background: #281D4E !important;
+}
+
+/*** Remove items from image context menu ***/
+/* https://searchfox.org/mozilla-release/source/browser/base/content/browser-context.inc */
+#alltabs-button, /* arrow at the end of tabs */
+#context-sendimage, #context-sendvideo, #context-sendaudio, /* Email Image... */
+#context-sendpagetodevice, /* Send Page to Device */
+#context-sendlinktodevice, /* Send Link to Device */
+#context-bookmarklink, /* Bookmark Link */
+#context-savelink, /* Save Link As... */
+#context-sep-setbackground, #context-setDesktopBackground, /* Set Image as Desktop Background... */
+#context-inspect-a11y /* Inspect Accessibility Properties */
+{
+  display: none !important;
+}
+
+/* the code here works only of if have a dark theme */
+/* for a light theme switch #000 and #fff */
+/* (color math is fucking hard) */
+#tabbrowser-tabs .tabbrowser-tab:hover:not([selected]) .tab-background {
+  background-color: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--tab-selected-bgcolor), #fff 20%),
+    #0000 20%
+  ) !important;
+}
+#tabbrowser-tabs .tabbrowser-tab:not([selected]) .tab-background {
+  background-color: color-mix(in srgb, var(--tab-selected-bgcolor), #0000 20%);
+}
+
+#titlebar .titlebar-spacer[type="post-tabs"] {
+  display: none !important;
+}

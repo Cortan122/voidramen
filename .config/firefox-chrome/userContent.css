@@ -1,0 +1,50 @@
+/* new tabs */
+@-moz-document url-prefix(about:home), url-prefix(about:newtab), url-prefix(about:privatebrowsing) {
+  body {
+    --newtab-background-image: url(https://raw.githubusercontent.com/Cortan122/voidrice/master/.config/wall.png);
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0.6) 100%)
+      center center / cover no-repeat fixed, var(--newtab-background-image) center center / cover no-repeat fixed;
+  }
+
+  .logo-and-wordmark {
+    filter: drop-shadow(0px 0px 2px white);
+  }
+}
+
+@-moz-document url-prefix(about:privatebrowsing) {
+  body {
+    --newtab-background-image: url(theme_ntp_background.jpeg);
+  }
+}
+
+@-moz-document domain("www.tumblr.com") {
+  /* avatars */
+  ._eWg9 {
+    border-radius: 10% !important;
+  }
+
+  /* notifications? */
+  .TZgeO {
+    padding: 5px 0 !important;
+    border-bottom: 1px solid lightgray !important;
+  }
+
+  .lUKCu .SAqxs {
+    display: none !important;
+  }
+
+  /* note bubbles */
+  .vE6sH {
+    border: none !important;
+    padding: 0px !important;
+  }
+
+  .xu5ZG {
+    font-weight: 700 !important;
+  }
+
+  .lJK40 {
+    color: rgba(0,0,0,0.65) !important;
+  }
+}
