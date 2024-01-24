@@ -43,37 +43,10 @@ if $sudo [ ! -f "/etc/sudoers.d/000-$username" ]; then
   $sudo chown root:root "/etc/sudoers.d/000-$username"
 fi
 
-sudo -i -u "$username" <<EOF
 if [ -d .git/ ] && git remote get-url origin | grep -q Cortan122/voidrice.git; then
-  echo "Alredy in repo..."
+  repo_path="$(pwd)"
 else
-  mkdir -p ~/Programs
-  cd ~/Programs
-  git clone https://github.com/cortan122/voidrice.git
-  cd ~/Programs/voidrice
-fi
-cp -r .config/ .local/ .bashrc .profile ~
-cd ~
-rm -f ~/.bash_logout ~/.bash_profile
-
-sudo ln -fs ~/.config/nano/nanorc /root/.nanorc
-
-if ! { command -v jitcc >/dev/null; } || [ ~/.local/bin/jitcc -ot ~/.local/bin/jitcc.c ]; then
-  gcc -lcrypto ~/.local/bin/jitcc.c -o ~/.local/bin/jitcc
+  repo_path=""
 fi
 
-if ! { command -v st >/dev/null; }; then
-  cd ~/Programs/
-  git clone https://github.com/cortan122/st.git
-  cd st
-  make
-  sudo make install
-fi
-
-if ! { command -v yay >/dev/null; }; then
-  cd ~/Programs
-  git clone https://aur.archlinux.org/yay.git
-  cd yay
-  makepkg -si --noconfirm
-fi
-EOF
+sudo -i -u "$username" ./install_as_user.sh "$repo_path"
