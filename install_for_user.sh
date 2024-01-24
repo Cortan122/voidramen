@@ -24,7 +24,7 @@ pkg=(
 if [ -e /dev/fb0 ]; then
   pkg+=(
     xorg-server xorg-xinput xorg-xrdb xf86-video-intel mesa # xorg
-    i3-wm i3blocks dmenu xclip xcompmgr xwallpaper libnotify # window manager
+    i3-wm i3blocks dmenu xclip xcompmgr libnotify # window manager
     pulseaudio # audio (todo)
   )
 fi
