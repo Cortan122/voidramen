@@ -17,7 +17,7 @@ nnoremap <C-s> :w<CR>
 nnoremap <C-Z> u
 nnoremap <C-Y> <C-R>
 nnoremap <BS> i<BS>
-nnoremap <C-x> :q!
+nnoremap <C-x> :q<CR>
 
 inoremap <C-s> <Esc>:w<CR>
 inoremap <C-Z> <C-O>u
