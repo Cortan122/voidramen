@@ -37,3 +37,6 @@ if ! { command -v yay >/dev/null; }; then
   clone https://aur.archlinux.org/yay.git
   makepkg -si --noconfirm
 fi
+
+# fonts
+yay --answerdiff=None --needed --noconfirm -S consolas-font noto-fonts-emoji-blob ttf-unifont
