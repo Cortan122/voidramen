@@ -9,6 +9,7 @@ root_partition=nvme0n1p4
 efi_partition=nvme0n1p1
 lsblk | grep "/dev/$root_partition" | grep "32.1G" || exit 1
 lsblk | grep "/dev/$efi_partition" | grep "260M" || exit 1
+# mkfs.btrfs "/dev/$root_partition"
 
 mount --mkdir "$root_partition" /mnt
 mount --mkdir "$efi_partition" /mnt/boot
@@ -65,6 +66,11 @@ Name=enp0s20f0u4u2u1
 DHCP=yes
 EOF
 
-# https://chiraag.me/wireless/
+umount /mnt/boot
+umount /mnt
+echo "Press enter to continue..."
+read dummy
 
-# shutdown -h now
+shutdown -h now
+
+# https://chiraag.me/wireless/
