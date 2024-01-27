@@ -15,7 +15,7 @@ pm() {
 
 pkg=(
   git base-devel man-db man-pages openssh # build essentials
-  vim nano bash-completion # text editors
+  vim nano bash-completion pkgfile # text editors
   python3 python-pip python-numpy python-matplotlib # python
   ffmpeg imagemagick yt-dlp feh sxiv # media
   speedtest-cli tcc jq qrencode htop # extra stuff
@@ -27,10 +27,12 @@ if [ -e /dev/fb0 ]; then
   pkg+=(
     xorg-server xorg-xinput xorg-xrdb xf86-video-intel mesa # xorg
     i3-wm i3blocks dmenu xclip xcompmgr libnotify # window manager
-    pulseaudio # audio (todo)
+    pulseaudio alsa-utils # audio
+    dunst sysstat calcurse bc lm_sensors # statusbar stuff
   )
 fi
 pm "${pkg[@]}"
+$sudo pkgfile --update
 
 # create user
 if ! { id "$username" >/dev/null 2>&1; } ; then
