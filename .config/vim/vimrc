@@ -2,6 +2,9 @@ runtime! archlinux.vim
 
 set viminfo+=n~/.config/viminfo
 
+:highlight ExtraWhitespace ctermbg=red guibg=red
+:match ExtraWhitespace /\s\+$/
+
 syntax on
 set encoding=utf-8
 set tabstop=2

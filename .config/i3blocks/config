@@ -30,7 +30,7 @@ markup=pango
 # signal=7
 
 [weather]
-command=~/.local/bin/statusbar/weather 55.57,37.04
+command=~/.local/bin/statusbar/weather
 interval=18000
 signal=5
 
