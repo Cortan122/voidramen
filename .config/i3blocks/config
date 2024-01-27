@@ -63,6 +63,10 @@ command=~/.local/bin/statusbar/disk /home 🏠
 command=~/.local/bin/statusbar/battery BAT0
 interval=5
 
+[battery]
+command=~/.local/bin/statusbar/battery BAT1
+interval=5
+
 [clock]
 label=📅
 interval=30

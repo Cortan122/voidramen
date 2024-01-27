@@ -21,6 +21,6 @@ else
   color="#ffffff"
 fi
 
-printf "<span color='%s'>%s%%</span>" "$color" "$tmp1"
+printf "<span color='%s'>%s%%</span>\n" "$color" "$tmp1"
 
 # $(sensors | awk '/Core 0/ {print $3}')
