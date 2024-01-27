@@ -46,20 +46,29 @@ menupopup:not(.in-menulist) > menu {
   display: none !important;
 }
 
-/* the code here works only of if have a dark theme */
-/* for a light theme switch #000 and #fff */
-/* (color math is fucking hard) */
-#tabbrowser-tabs .tabbrowser-tab:hover:not([selected]) .tab-background {
-  background-color: color-mix(
-    in srgb,
-    color-mix(in srgb, var(--tab-selected-bgcolor), #fff 20%),
-    #0000 20%
-  ) !important;
+.tab-background {
+  border-radius: 4px 4px 0px 0px !important;
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
 }
-#tabbrowser-tabs .tabbrowser-tab:not([selected]) .tab-background {
-  background-color: color-mix(in srgb, var(--tab-selected-bgcolor), #0000 20%);
+
+.tabbrowser-tab[selected=true] {
+  font-weight: bold;
+}
+
+.tabbrowser-tab:not([selected=true]):not([multiselected=true]) .tab-background {
+  background-color: color-mix(in srgb, currentColor 5%, transparent);
+  transition: background-color 0.5s;
+}
+
+.tabbrowser-tab:not(:hover):not([selected=true]):not([multiselected=true]) .tab-close-button {
+  display: none !important;
 }
 
 #titlebar .titlebar-spacer[type="post-tabs"] {
   display: none !important;
+}
+
+#nav-bar {
+  box-shadow: none !important;
 }
