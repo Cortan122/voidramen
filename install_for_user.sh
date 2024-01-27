@@ -5,6 +5,8 @@ cd -- "$(dirname -- "$0")"
 username="$1"
 password="$2"
 
+[ -z "$username" ] && [ "$(whoami)" != "root" ] && username="$(whoami)"
+
 sudo="sudo"
 [ "$(whoami)" == root ] && sudo=""
 pm() {
