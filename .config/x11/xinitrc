@@ -1,6 +1,11 @@
 #!/bin/sh
 
+# input settings
+setxkbmap us,ru -option grp:toggle,grp:caps_toggle,grp_led:caps
+xinput set-prop 10 "libinput Click Method Enabled" 0 0
+xinput set-prop 10 "libinput Natural Scrolling Enabled" 1
 xset r rate 500 34
+
 xrdb -merge ~/.config/x11/Xresourses
 xrandr --dpi 144
 exec i3

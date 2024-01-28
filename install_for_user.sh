@@ -29,10 +29,11 @@ if [ -e /dev/fb0 ]; then
     i3-wm i3blocks dmenu xclip xcompmgr libnotify # window manager
     pulseaudio alsa-utils # audio
     dunst sysstat calcurse bc lm_sensors # statusbar stuff
+    firefox telegram-desktop # gui apps
   )
 fi
 pm "${pkg[@]}"
-$sudo pkgfile --update
+[ -f /var/cache/pkgfile/core.files ] || $sudo pkgfile --update
 
 # create user
 if ! { id "$username" >/dev/null 2>&1; } ; then
