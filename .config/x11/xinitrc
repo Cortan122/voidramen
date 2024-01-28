@@ -1,6 +1,6 @@
 #!/bin/sh
 
-xset r rate 250 33
+xset r rate 500 34
 xrdb -merge ~/.config/x11/Xresourses
 xrandr --dpi 144
 exec i3
