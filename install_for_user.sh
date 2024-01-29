@@ -37,7 +37,8 @@ pm "${pkg[@]}"
 
 # create user
 if ! { id "$username" >/dev/null 2>&1; } ; then
-  useradd -m -g wheel -s /bin/bash "$username"
+  $sudo useradd -m -s /bin/bash "$username"
+  $sudo usermod -a -G wheel "$username"
   echo "$username:$password" | chpasswd
 fi
 
