@@ -19,6 +19,10 @@
 }
 
 @-moz-document domain("www.tumblr.com") {
+  * {
+    scrollbar-width: auto !important;
+  }
+
   /* avatars */
   ._eWg9 {
     border-radius: 10% !important;
