@@ -30,6 +30,7 @@ if [ -e /dev/fb0 ]; then
     pulseaudio alsa-utils # audio
     dunst sysstat calcurse bc lm_sensors # statusbar stuff
     firefox telegram-desktop # gui apps
+    qemu-img nbd # mounting wsl
   )
 fi
 pm "${pkg[@]}"
