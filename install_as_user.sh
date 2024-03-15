@@ -39,4 +39,4 @@ if ! { command -v yay >/dev/null; }; then
 fi
 
 # fonts
-yay --answerdiff=None --needed --noconfirm -S consolas-font noto-fonts-emoji-blob ttf-unifont
+yay --answerdiff=None --needed --noconfirm -S ttf-ms-win10-auto noto-fonts-emoji-blob ttf-unifont

@@ -29,7 +29,7 @@ if [ -e /dev/fb0 ]; then
     i3-wm i3blocks dmenu xclip xcompmgr libnotify # window manager
     pulseaudio alsa-utils # audio
     dunst sysstat calcurse bc lm_sensors # statusbar stuff
-    firefox telegram-desktop # gui apps
+    firefox telegram-desktop mpv # gui apps
     qemu-img nbd # mounting wsl
   )
 fi

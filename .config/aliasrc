@@ -11,6 +11,8 @@ mkd () {
   cd "$@"
 }
 
+alias gerp='grep'
+alias culr='curl'
 alias cls='clear'
 alias where='whereis'
 alias whitch='which'
