@@ -9,3 +9,5 @@ user_pref("browser.uidensity", 1);
 user_pref("browser.aboutConfig.showWarning", false);
 user_pref("full-screen-api.transition-duration.enter", "0 0");
 user_pref("full-screen-api.transition-duration.leave", "0 0");
+user_pref("browser.gesture.swipe.left", "");
+user_pref("browser.gesture.swipe.right", "");
