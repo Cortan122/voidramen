@@ -17,7 +17,7 @@ else
   cd "$repo_path"
 fi
 
-cp -r .config/ .local/ .bashrc .profile ~
+cp -rvu .config/ .local/ .bashrc .profile ~
 cd ~
 rm -f ~/.bash_logout ~/.bash_profile
 
@@ -39,4 +39,4 @@ if ! { command -v yay >/dev/null; }; then
 fi
 
 # fonts
-yay --answerdiff=None --needed --noconfirm -S ttf-ms-win10-auto noto-fonts-emoji-blob ttf-unifont
+yay --answerdiff=None --needed --noconfirm -S noto-fonts-emoji-blob

@@ -18,11 +18,11 @@
   }
 }
 
-@-moz-document domain("www.tumblr.com") {
-  * {
-    scrollbar-width: auto !important;
-  }
+* {
+  scrollbar-width: auto !important;
+}
 
+@-moz-document domain("www.tumblr.com") {
   /* avatars */
   ._eWg9 {
     border-radius: 10% !important;
