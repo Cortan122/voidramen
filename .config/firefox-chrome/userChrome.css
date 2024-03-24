@@ -8,7 +8,11 @@ menupopup:not(.in-menulist) > menu {
 :root {
   --arrowpanel-menuitem-padding: 4px 8px !important;
   --inline-tab-padding: 4px !important;
-  --tab-min-height: 20px !important;
+  --tab-min-height: 28px !important;
+}
+
+#tabbrowser-tabs .tab-label-container {
+  height: 24px !important;
 }
 
 /*** Photon-like Menu Colors (14 Jan 2022) ***/

@@ -95,7 +95,7 @@ fi
 # todo: this is slow, put it in some kind of if
 packageList="npm nodejs python3 bash-completion ffmpeg yt-dlp imagemagick php openssh python-pip feh qrencode sxiv python-numpy python-scipy python-matplotlib speedtest-cli tcc jq"
 if command -v pacman >/dev/null; then
-  sudo pacman --needed --noconfirm -S $packageList
+  sudo pacman --color always --needed --noconfirm -S $packageList 2>&1 | grep -vP 'warning: .* is up to date -- skipping'
 elif command -v apt >/dev/null; then
   sudo apt install -y $packageList
 fi
