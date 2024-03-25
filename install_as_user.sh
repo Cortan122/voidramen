@@ -39,4 +39,4 @@ if ! { command -v yay >/dev/null; }; then
 fi
 
 # fonts
-yay --answerdiff=None --needed --noconfirm -S noto-fonts-emoji-blob
+yay --answerdiff=None --needed --noconfirm -S alttab noto-fonts-emoji-blob

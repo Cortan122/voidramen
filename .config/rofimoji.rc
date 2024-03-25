@@ -1,0 +1,3 @@
+action = clipboard
+files = [emojis, math, currency_symbols]
+skin-tone = neutral
