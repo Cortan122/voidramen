@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Celeste
+Exec=sh -c "$HOME/Downloads/celeste/Celeste"
+Icon=Celeste
+Terminal=false

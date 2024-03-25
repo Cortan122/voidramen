@@ -20,6 +20,7 @@ pkg=(
   ffmpeg imagemagick yt-dlp feh sxiv # media
   speedtest-cli tcc jq qrencode htop # extra stuff
   dust bat tree # rusted coreutils
+  hyfetch neofetch # gay logos
 )
 
 # check if this is a graphical system (fixme)
