@@ -151,6 +151,18 @@ bindsym $mod+r exec --no-startup-id rofi -show run
 bindsym $mod+Tab exec --no-startup-id rofi -show window
 bindsym $mod+period exec --no-startup-id rofimoji
 
+# autohotkey keybindings
+bindsym Ctrl+Shift+n exec firefox-private.sh
+bindsym $alt+bracketleft exec xdotool-type.sh "¯\_(ツ)_/¯"
+bindsym $alt+bracketright exec xdotool-type.sh "👉👈"
+bindsym $alt+s exec xdotool-type.sh "ß"
+bindsym $alt+o exec xdotool-type.sh "ö"
+bindsym $alt+a exec xdotool-type.sh "ä"
+bindsym $alt+u exec xdotool-type.sh "ü"
+bindsym $alt+e exec xdotool-type.sh "é"
+bindsym $alt+slash exec xdotool-type.sh "¿"
+
+for_window [all] title_window_icon padding 1px
 workspace_auto_back_and_forth yes
 hide_edge_borders vertical
 exec_always --no-startup-id alttab -fg "#fce94f" -bg "#301828" -frame "#4e9a06" -t 128x150 -i 127x64 -d 1

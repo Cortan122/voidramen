@@ -40,3 +40,4 @@ fi
 
 # fonts
 yay --answerdiff=None --needed --noconfirm -S alttab noto-fonts-emoji-blob
+# yay -S vscodium-bin prismlauncher-bin freetube-bin
