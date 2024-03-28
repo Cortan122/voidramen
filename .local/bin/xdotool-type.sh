@@ -1,14 +1,12 @@
 #!/bin/sh
 
-sleep 0.1
-xdotool type --clearmodifiers --delay=1ms "$1"
-exit
-
 window_id="$(xdotool getactivewindow)"
-notify-send "$(xdotool getwindowname "$window_id")"
+[ "$(xdotool getwindowclassname "$window_id")" = "firefox" ] && sleep 0.1
 
-sleep 0.1
+# xdotool windowfocus --sync "$window_id" type --clearmodifiers --delay=1ms "$1"
+# exit
+
 xclip -selection clipboard -o > ~/.cache/xclip-backup
 echo -n "$1" | xclip -selection clipboard -i
-xdotool key --window "$window_id" --clearmodifiers shift+Insert
+xdotool windowfocus --sync "$window_id" key --clearmodifiers Shift+Insert sleep 0.05
 xclip -selection clipboard -i ~/.cache/xclip-backup
