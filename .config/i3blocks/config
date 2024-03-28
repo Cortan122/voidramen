@@ -74,5 +74,8 @@ interval=30
 [internet]
 interval=10
 
+[exit]
+interval=once
+
 # [help]
 # interval=once
