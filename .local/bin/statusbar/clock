@@ -3,8 +3,7 @@
 date '+%Y %b %d (%a) %H:%M%p'
 
 case $BLOCK_BUTTON in
-	1) pgrep -x dunst >/dev/null && ddspawn calcurse -D ~/.config/calcurse;;
-	2) "i3-sensible-terminal" -e calcurse -D ~/.config/calcurse ;;
+	1) pgrep -x dunst >/dev/null && ddspawn cal_less >/dev/null;;
 	3) pgrep -x dunst >/dev/null && notify-send "📅 Time/date module" "\- Left click to show upcoming appointments for the next three days via \`calcurse -d3\` and show the month via \`cal\`
 - Middle click opens calcurse if installed" ;;
 esac

@@ -2,9 +2,14 @@
 location="$1";
 # [ -z "$location" ] || { location="$location+" && rm -f "$HOME/.local/share/weatherreport" ;}
 
+error() {
+  echo "🌈 Weather error"
+  exit
+}
+
 getforecast() {
-  ping -q -c 1 1.1.1.1 >/dev/null || exit 1
-  curl -s "wttr.in/$location" > "$HOME/.local/share/weatherreport" || exit 1
+  ping -q -c 1 1.1.1.1 >/dev/null || error
+  curl -s "wttr.in/$location" > "$HOME/.local/share/weatherreport" || error
 }
 
 showweather() {

@@ -38,8 +38,8 @@ for_window [instance="dropdown_*"] sticky enable
 for_window [instance="dropdown_*"] scratchpad show
 for_window [instance="dropdown_*"] move position center
 # for_window [instance="dropdown_calcurse"] border pixel 1
-for_window [instance="dropdown_calcurse"] move position 1066 467
-for_window [instance="dropdown_calcurse"] resize set 300 280
+for_window [instance="dropdown_cal"] move position 1515 770
+for_window [instance="dropdown_cal"] resize set 300 280
 
 # start a terminal
 bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
@@ -144,6 +144,12 @@ bindsym $mod+button3 floating toggle
 
 # The middle button over a titlebar kills the window
 bindsym --release button2 kill
+
+# forcing certain windows onto certain workspaces
+assign [class="Firefox"] 1
+assign [class="TelegramDesktop"] 2
+assign [class="PrismLauncher"] 3
+assign [class="Minecraft"] 3
 
 # various rofi commands
 bindsym $mod+d exec --no-startup-id rofi -show drun
