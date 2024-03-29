@@ -36,6 +36,7 @@ export CARGO_HOME="$HOME/.local/share/cargo"
 export GOPATH="$HOME/.local/share/go"
 export VIMINIT="source $HOME/.config/vim/vimrc"
 export XINITRC="$HOME/.config/x11/xinitrc"
+export XCOMPOSEFILE="$HOME/.config/x11/XCompose"
 
 # less/man colors
 export LESS=-R

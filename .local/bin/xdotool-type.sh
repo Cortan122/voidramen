@@ -2,6 +2,7 @@
 
 window_id="$(xdotool getactivewindow)"
 [ "$(xdotool getwindowclassname "$window_id")" = "firefox" ] && sleep 0.1
+sleep 0.05
 
 # xdotool windowfocus --sync "$window_id" type --clearmodifiers --delay=1ms "$1"
 # exit
