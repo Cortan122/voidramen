@@ -1,0 +1,31 @@
+{
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+
+  "editor.tabSize": 2,
+  "editor.fontSize": 15,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.snippetSuggestions": "none",
+  "editor.acceptSuggestionOnEnter": "off",
+  "editor.emptySelectionClipboard": false,
+  "editor.minimap.enabled": false,
+  "editor.stickyScroll.enabled": false,
+  "editor.bracketPairColorization.enabled": false,
+  "editor.unicodeHighlight.allowedLocales": {
+    "_os": true,
+    "_vscode": true,
+    "ru": true,
+  },
+
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+
+  "workbench.colorTheme": "Default Dark+",
+  "workbench.editor.empty.hint": "hidden",
+  "workbench.editor.decorations.colors": false,
+  "security.workspace.trust.untrustedFiles": "open",
+  "git.enableSmartCommit": true,
+  "breadcrumbs.enabled": false,
+  "window.commandCenter": false,
+}

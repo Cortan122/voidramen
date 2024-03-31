@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# this has to be in xinitrc, otherwise firefox doesn't read it
+export USE_MOZ_XINPUT2=1
+
 # this fixes the pinentry appearing in the login tty
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
