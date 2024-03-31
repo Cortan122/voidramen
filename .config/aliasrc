@@ -5,6 +5,7 @@
 [ -x "$(command -v curl)" ] && alias wget='curl -LO'
 [ -x "$(command -v batcat)" ] && alias bat='batcat'
 [ -x "$(command -v yt-dlp)" ] && alias youtube-dl='yt-dlp'
+[ -x "$(command -v codium)" ] && alias code='codium'
 
 mkd () {
   mkdir --parents --verbose "$@"

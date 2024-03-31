@@ -38,6 +38,23 @@ if ! { command -v yay >/dev/null; }; then
   makepkg -si --noconfirm
 fi
 
+pm() {
+  yay --answerdiff=None --needed --noconfirm -S "$@"
+}
+
+if ! { command -v boomer >/dev/null; }; then
+  clone https://github.com/tsoding/boomer
+  pm nim
+  nimble -y build
+  sudo install -D boomer /usr/local/bin
+fi
+
+if ! { command -v boomer >/dev/null; }; then
+  clone https://github.com/Cortan122/ImageEditor
+  pm raylib glfw
+  sudo make install
+fi
+
 # fonts
-yay --answerdiff=None --needed --noconfirm -S alttab noto-fonts-emoji-blob
-# yay -S vscodium-bin prismlauncher-bin freetube-bin
+pm alttab noto-fonts-emoji-blob
+# pm vscodium-bin prismlauncher-bin freetube-bin
