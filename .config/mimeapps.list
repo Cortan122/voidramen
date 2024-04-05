@@ -1,0 +1,7 @@
+[Default Applications]
+text/plain=codium.desktop
+inode/directory=codium.desktop
+
+[Removed Associations]
+text/plain=codium-wayland.desktop
+inode/directory=codium-wayland.desktop

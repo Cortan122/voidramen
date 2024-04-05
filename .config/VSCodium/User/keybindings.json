@@ -87,21 +87,25 @@
         "when": "editorTextFocus && !findInputFocussed && !python.datascience.ownsSelection && !replaceInputFocussed && editorLangId == 'python'"
     },
     {
-      "key": "win+\\",
-      "command": "revealFileInOS"
+        "key": "win+\\",
+        "command": "revealFileInOS"
     },
     {
-      "key": "shift+alt+r",
-      "command": "-revealFileInOS",
-      "when": "!editorFocus"
+        "key": "shift+alt+r",
+        "command": "-revealFileInOS",
+        "when": "!editorFocus"
     },
     {
-      "key": "ctrl+`",
-      "command": "-workbench.action.terminal.toggleTerminal",
-      "when": "terminal.active"
+        "key": "ctrl+`",
+        "command": "-workbench.action.terminal.toggleTerminal",
+        "when": "terminal.active"
     },
     {
-      "key": "ctrl+`",
-      "command": "workbench.action.createTerminalEditor"
+        "key": "ctrl+`",
+        "command": "workbench.action.createTerminalEditor"
+    },
+    {
+        "key": "win+shift+t",
+        "command": "workbench.action.terminal.openNativeConsole"
     }
 ]

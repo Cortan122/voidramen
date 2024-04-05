@@ -28,4 +28,5 @@
   "git.enableSmartCommit": true,
   "breadcrumbs.enabled": false,
   "window.commandCenter": false,
+  "terminal.external.linuxExec": "i3-sensible-terminal",
 }

@@ -1,4 +1,6 @@
 configuration {
+  sort: true;
+  modes: "window,run,ssh,drun,filebrowser";
   show-icons: true;
   timeout {
     action: "kb-cancel";
