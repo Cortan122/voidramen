@@ -29,7 +29,7 @@ if [ -e /dev/fb0 ]; then
     xorg-server xorg-xinput xorg-xrdb xf86-video-intel mesa # xorg
     i3-wm i3blocks xclip xcompmgr libnotify # window manager
     rofi rofimoji xdotool # rofi (dmenu replacement)
-    pulseaudio alsa-utils # audio
+    pipewire-pulse alsa-utils pulsemixer # audio
     dunst sysstat lm_sensors brightnessctl # statusbar stuff
     firefox telegram-desktop mpv # gui apps
     qemu-img nbd # mounting wsl
