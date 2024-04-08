@@ -30,7 +30,7 @@ if [ -e /dev/fb0 ]; then
     i3-wm i3blocks xclip xcompmgr libnotify # window manager
     rofi rofimoji xdotool # rofi (dmenu replacement)
     pulseaudio alsa-utils # audio
-    dunst sysstat calcurse bc lm_sensors # statusbar stuff
+    dunst sysstat lm_sensors brightnessctl # statusbar stuff
     firefox telegram-desktop mpv # gui apps
     qemu-img nbd # mounting wsl
   )

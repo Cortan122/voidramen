@@ -4,6 +4,7 @@ location="$1";
 
 error() {
   echo "🌈 Weather error"
+  rm "$HOME/.local/share/weatherreport"
   exit
 }
 
@@ -30,6 +31,8 @@ case $BLOCK_BUTTON in
 ❄: Daily low
 🌞: Daily high" ;;
 esac
+
+[ -s "$HOME/.local/share/weatherreport" ] || rm "$HOME/.local/share/weatherreport"
 
 if [ "$(stat -c %y "$HOME/.local/share/weatherreport" | awk '{print $1}')" != "$(date '+%Y-%m-%d')" ]
 	then getforecast && showweather

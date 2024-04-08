@@ -161,6 +161,8 @@ bindsym $mod+period exec --no-startup-id rofimoji
 bindsym Ctrl+Shift+n exec firefox-private.sh
 bindsym --release $alt+bracketleft exec xdotool-type.sh "¯\_(ツ)_/¯"
 bindsym --release $alt+bracketright exec xdotool-type.sh "👉👈"
+bindsym XF86MonBrightnessDown exec notify-send -t 500 "$(brightnessctl set 10%- | grep -Po "Current brightness: .*")"
+bindsym XF86MonBrightnessUp exec notify-send -t 500 "$(brightnessctl set 10%+ | grep -Po "Current brightness: .*")"
 
 for_window [all] title_window_icon padding 1px
 workspace_layout tabbed

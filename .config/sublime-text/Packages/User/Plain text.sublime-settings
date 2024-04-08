@@ -1,0 +1,7 @@
+// These settings override both User and Default settings for the Plain text syntax
+{
+  "color_scheme": "Mariana.sublime-color-scheme",
+  "extensions": [
+    "txt"
+  ]
+}
