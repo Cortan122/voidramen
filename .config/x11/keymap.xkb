@@ -59,43 +59,43 @@ xkb_keymap {
 
 		key <AC02> {
 			type = "THREE_LEVEL_ALPHABETIC_ALT",
-			symbols[Group1] = [               s,               S ],
-			symbols[Group2] = [   Cyrillic_yeru,   Cyrillic_YERU ],
+			symbols[Group1] = [               s,               S,                s,               S ],
+			symbols[Group2] = [   Cyrillic_yeru,   Cyrillic_YERU,    Cyrillic_yeru,   Cyrillic_YERU ],
 			actions[Group1] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I255>,clearmods=Alt) ],
 			actions[Group2] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I255>,clearmods=Alt) ]
 		};
 		key <AD09> {
 			type = "THREE_LEVEL_ALPHABETIC_ALT",
-			symbols[Group1] = [               o,               O ],
-			symbols[Group2] = [  Cyrillic_shcha,  Cyrillic_SHCHA ],
+			symbols[Group1] = [               o,               O,                o,               O ],
+			symbols[Group2] = [  Cyrillic_shcha,  Cyrillic_SHCHA,   Cyrillic_shcha,  Cyrillic_SHCHA ],
 			actions[Group1] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I217>,clearmods=Alt) ],
 			actions[Group2] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I217>,clearmods=Alt) ]
 		};
 		key <AC01> {
 			type = "THREE_LEVEL_ALPHABETIC_ALT",
-			symbols[Group1] = [               a,               A ],
-			symbols[Group2] = [     Cyrillic_ef,     Cyrillic_EF ],
+			symbols[Group1] = [               a,               A,                a,               A ],
+			symbols[Group2] = [     Cyrillic_ef,     Cyrillic_EF,      Cyrillic_ef,     Cyrillic_EF ],
 			actions[Group1] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I219>,clearmods=Alt) ],
 			actions[Group2] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I219>,clearmods=Alt) ]
 		};
 		key <AD07> {
 			type = "THREE_LEVEL_ALPHABETIC_ALT",
-			symbols[Group1] = [               u,               U ],
-			symbols[Group2] = [    Cyrillic_ghe,    Cyrillic_GHE ],
+			symbols[Group1] = [               u,               U,                u,               U ],
+			symbols[Group2] = [    Cyrillic_ghe,    Cyrillic_GHE,     Cyrillic_ghe,    Cyrillic_GHE ],
 			actions[Group1] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I222>,clearmods=Alt) ],
 			actions[Group2] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I222>,clearmods=Alt) ]
 		};
 		key <AD03> {
 			type = "THREE_LEVEL_ALPHABETIC_ALT",
-			symbols[Group1] = [               e,               E ],
-			symbols[Group2] = [      Cyrillic_u,      Cyrillic_U ],
+			symbols[Group1] = [               e,               E,                e,               E ],
+			symbols[Group2] = [      Cyrillic_u,      Cyrillic_U,       Cyrillic_u,      Cyrillic_U ],
 			actions[Group1] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I230>,clearmods=Alt) ],
 			actions[Group2] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I230>,clearmods=Alt) ]
 		};
 		key <AB10> {
 			type = "THREE_LEVEL_ALT",
-			symbols[Group1] = [           slash,        question ],
-			symbols[Group2] = [          period,           comma ],
+			symbols[Group1] = [           slash,        question,            slash,        question ],
+			symbols[Group2] = [          period,           comma,           period,           comma ],
 			actions[Group1] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I248>,clearmods=Alt) ],
 			actions[Group2] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I248>,clearmods=Alt) ]
 		};
