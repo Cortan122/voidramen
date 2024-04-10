@@ -1,6 +1,0 @@
-#!/bin/sh
-
-tmp="$(mktemp)"
-mcs "$@" -out:"$tmp"
-mono "$tmp"
-rm "$tmp"

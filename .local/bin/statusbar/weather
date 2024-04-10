@@ -34,7 +34,7 @@ esac
 
 [ -s "$HOME/.local/share/weatherreport" ] || rm "$HOME/.local/share/weatherreport"
 
-if [ "$(stat -c %y "$HOME/.local/share/weatherreport" | awk '{print $1}')" != "$(date '+%Y-%m-%d')" ]
+if [ "$(stat -c %Y "$HOME/.local/share/weatherreport")" -lt "$(date -d'6 hours ago' +%s)" ]
 	then getforecast && showweather
 	else showweather
 fi
