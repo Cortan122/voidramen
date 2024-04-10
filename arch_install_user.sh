@@ -13,6 +13,7 @@ clone() {
 
 if [ -z "$repo_path" ]; then
   clone https://github.com/cortan122/voidrice.git
+  repo_path="$PWD"
 else
   cd "$repo_path"
 fi
@@ -49,11 +50,14 @@ if ! { command -v boomer >/dev/null; }; then
   sudo install -D boomer /usr/local/bin
 fi
 
-if ! { command -v boomer >/dev/null; }; then
+if ! { command -v raylid >/dev/null; }; then
   clone https://github.com/Cortan122/ImageEditor
   pm raylib glfw
   sudo make install
 fi
+
+cd "$repo_path"
+[ -d "$HOME/.mozilla/firefox" ] && ./configure_firefox.sh
 
 # fonts
 pm alttab noto-fonts-emoji-blob

@@ -58,4 +58,4 @@ else
   repo_path=""
 fi
 
-sudo -i -u "$username" "$(pwd -P)/install_as_user.sh" "$repo_path"
+sudo -i -u "$username" "$(pwd -P)/arch_install_user.sh" "$repo_path"

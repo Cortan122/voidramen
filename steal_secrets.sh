@@ -7,7 +7,7 @@ unmount=""
 wslunmount=""
 
 if ! { mountpoint /mnt/c; }; then
-  sudo mount -t ntfs3 --mkdir /dev/nvme0n1p3 /mnt/c
+  sudo mount -t ntfs3 -o "uid=$USER,gid=$USER" --mkdir /dev/nvme0n1p3 /mnt/c
   unmount="/mnt/c"
 fi
 

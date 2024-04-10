@@ -3,6 +3,13 @@
 # git pull --recurse-submodules
 
 cd -- "$(dirname -- "$0")"
+if [[ "$(uname -r)" == *arch* ]]; then
+  # this will check if the kernel version contains the string "arch"
+  # and will only be true on real (non-WSL) arch
+  ./arch_install_root.sh
+  exit
+fi
+
 find . -type d -name '.git' -prune -o -type f -exec chmod 644 {} \;
 find . -type d -name '.git' -prune -o -type d -exec chmod 755 {} \;
 chmod +x install.sh
