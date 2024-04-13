@@ -13,5 +13,6 @@ esac
 [ "$(cat /sys/class/net/w*/operstate)" = 'down' ] && wifiicon="📡"
 
 [ ! -n "${wifiicon+var}" ] && wifiicon=$(grep "^\s*w" /proc/net/wireless | awk '{ print "📶", int($3 * 100 / 70) "%" }')
+wifiicon="$(echo "$wifiicon" | sed 's/ 100%//')"
 
 printf "%s %s" "$wifiicon" "$(cat /sys/class/net/e*/operstate | sed "s/down/❎/;s/up/🌐/")"

@@ -1,29 +1,30 @@
 #!/bin/sh
 location="$1";
+weatherreport="$HOME/.local/share/weatherreport"
 # [ -z "$location" ] || { location="$location+" && rm -f "$HOME/.local/share/weatherreport" ;}
 
 error() {
   echo "🌈 Weather error"
-  rm "$HOME/.local/share/weatherreport"
+  rm "$weatherreport"
   exit
 }
 
 getforecast() {
   ping -q -c 1 1.1.1.1 >/dev/null || error
-  curl -s "wttr.in/$location" > "$HOME/.local/share/weatherreport" || error
+  curl -s "wttr.in/$location" > "$weatherreport" || error
 }
 
 showweather() {
-  printf "%s" "$(sed '16q;d' "$HOME/.local/share/weatherreport" | grep -wo "[0-9]*%" | sort -n | sed -e '$!d' | sed -e "s/^/☔ /g" | tr -d '\n')"
-  sed '13q;d' "$HOME/.local/share/weatherreport" | grep -o "m\\(-\\)*[0-9]\\+" | sort -n -t 'm' -k 2n | sed -e 1b -e '$!d' | tr '\n|m' ' ' | awk '{print " ❄️",$1 "°","🌞",$2 "°"}'
+  printf "%s" "$(sed '16q;d' "$weatherreport" | grep -wo "[0-9]*%" | sort -n | sed -e '$!d' | sed -e "s/^/☔ /g" | tr -d '\n')"
+  sed '13q;d' "$weatherreport" | grep -o "m\\(-\\)*[0-9]\\+" | sort -n -t 'm' -k 2n | sed -e 1b -e '$!d' | tr '\n|m' ' ' | awk '{print " ❄️",$1 "°","🌞",$2 "°"}'
 }
 
 getTitle() {
-  echo "wttr.in/$location" "($(date -r "$HOME/.local/share/weatherreport" +'%a %H:%M:%S'))"
+  echo "wttr.in/$location" "($(date -r "$weatherreport" +'%a %H:%M:%S'))"
 }
 
 case $BLOCK_BUTTON in
-    1) i3-sensible-terminal -T "$(getTitle)" -e less -RS "$HOME/.local/share/weatherreport" ;;
+    1) i3-sensible-terminal -T "$(getTitle)" -e less -RS "$weatherreport" ;;
     2) getforecast && showweather ;;
     3) pgrep -x dunst >/dev/null && notify-send "🌈 Weather module" "\- Left click for full forecast.
 - Middle click to update forecast.
@@ -32,9 +33,9 @@ case $BLOCK_BUTTON in
 🌞: Daily high" ;;
 esac
 
-[ -s "$HOME/.local/share/weatherreport" ] || rm "$HOME/.local/share/weatherreport"
+[ -s "$weatherreport" ] || rm "$weatherreport"
 
-if [ "$(stat -c %Y "$HOME/.local/share/weatherreport")" -lt "$(date -d'6 hours ago' +%s)" ]
+if [ ! -f "$weatherreport" ] || [ "$(stat -c %Y "$weatherreport")" -lt "$(date -d'6 hours ago' +%s)" ]
 	then getforecast && showweather
 	else showweather
 fi

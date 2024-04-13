@@ -150,6 +150,8 @@ assign [class="Firefox"] 1
 assign [class="TelegramDesktop"] 2
 assign [class="PrismLauncher"] 3
 assign [class="Minecraft"] 3
+assign [class="FreeTube"] 4
+for_window [class="TelegramDesktop" title="Media viewer"] fullscreen enable
 
 # various rofi commands
 bindsym $mod+d exec --no-startup-id rofi -show drun

@@ -61,4 +61,4 @@ cd "$repo_path"
 
 # fonts
 pm alttab noto-fonts-emoji-blob
-# pm vscodium-bin prismlauncher-bin freetube-bin sublime-text-4 zoom
+# pm vscodium-bin prismlauncher freetube-bin sublime-text-4

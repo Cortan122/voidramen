@@ -17,7 +17,28 @@ DHCP=yes
 IgnoreCarrierLoss=3s
 EOF
 
-wpa_passphrase "$(pass bonn-tplink-wifi-name)" "$(pass bonn-tplink-wifi)" | $sudo tee /etc/wpa_supplicant/wpa_supplicant-wlp3s0.conf
+print_eduroam() {
+  ssid="$1"
+  cat <<EOF
+network={
+  ssid="$ssid"
+  key_mgmt=WPA-EAP
+  eap=PEAP
+  phase2="autheap=MSCHAPV2"
+  identity="$(pass bonn-eduroam-login)"
+  password="$(pass bonn-eduroam-pass)"
+}
+EOF
+}
+
+(
+  wpa_passphrase "$(pass bonn-tplink-wifi-name)" "$(pass bonn-tplink-wifi)"
+  print_eduroam eduroam
+  print_eduroam eduroam-cs
+  print_eduroam eduroam-stw
+) | $sudo tee /etc/wpa_supplicant/wpa_supplicant-wlp3s0.conf
+$sudo chown root:root /etc/wpa_supplicant/wpa_supplicant-wlp3s0.conf
+$sudo chmod 600 /etc/wpa_supplicant/wpa_supplicant-wlp3s0.conf
 
 $sudo systemctl restart systemd-networkd.service
 $sudo systemctl start wpa_supplicant@wlp3s0.service

@@ -33,6 +33,7 @@ if [ -e /dev/fb0 ]; then
     dunst sysstat lm_sensors brightnessctl # statusbar stuff
     firefox telegram-desktop mpv # gui apps
     qemu-img nbd # mounting wsl
+    cpupower tlp thermald # cpu throttling stuff
   )
 fi
 pm "${pkg[@]}"
