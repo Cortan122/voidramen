@@ -5,7 +5,7 @@ case $BLOCK_BUTTON in
 	3) pgrep -x dunst >/dev/null && notify-send "🌐 Internet module" "\- Click to connect
 📡: no wifi connection
 📶: wifi connection with quality
-❎: no ethernet
+🦖: no ethernet
 🌐: ethernet working
 " ;;
 esac
@@ -15,4 +15,4 @@ esac
 [ ! -n "${wifiicon+var}" ] && wifiicon=$(grep "^\s*w" /proc/net/wireless | awk '{ print "📶", int($3 * 100 / 70) "%" }')
 wifiicon="$(echo "$wifiicon" | sed 's/ 100%//')"
 
-printf "%s %s" "$wifiicon" "$(cat /sys/class/net/e*/operstate | sed "s/down/❎/;s/up/🌐/")"
+printf "%s %s\n" "$wifiicon" "$(cat /sys/class/net/e*/operstate | sed "s/down/🦖/;s/up/🌐/" | head -n 1)"

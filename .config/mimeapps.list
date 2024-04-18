@@ -1,6 +1,8 @@
 [Default Applications]
 text/plain=codium.desktop
-inode/directory=codium.desktop
+text/xml=codium.desktop
+application/json=codium.desktop
+inode/directory=thunar.desktop
 
 [Removed Associations]
 text/plain=codium-wayland.desktop
