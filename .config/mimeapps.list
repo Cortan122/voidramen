@@ -3,6 +3,7 @@ text/plain=codium.desktop
 text/xml=codium.desktop
 application/json=codium.desktop
 inode/directory=thunar.desktop
+application/zip=xarchiver.desktop
 
 [Removed Associations]
 text/plain=codium-wayland.desktop
