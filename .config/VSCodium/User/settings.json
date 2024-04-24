@@ -12,6 +12,8 @@
   "editor.minimap.enabled": false,
   "editor.stickyScroll.enabled": false,
   "editor.bracketPairColorization.enabled": false,
+  "editor.inlayHints.enabled": "offUnlessPressed",
+  "editor.unicodeHighlight.nonBasicASCII": false,
   "editor.unicodeHighlight.allowedLocales": {
     "_os": true,
     "_vscode": true,
