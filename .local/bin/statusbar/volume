@@ -75,12 +75,12 @@ esac
 vol1="$(volume | format)"
 vol="$(echo $vol1 | sed 's/[^0-9\.]//g')"
 
-if [ "$vol" -gt "70" ]; then
+if [ "$vol1" = "🔇" ]; then
+  icon=""
+elif [ "$vol" -gt "70" ]; then
   icon="🔊 "
 elif [ "$vol" -lt "30" ]; then
   icon="🔈 "
-elif [ "$vol1" = "🔇" ]; then
-  icon=""
 else
   icon="🔉 "
 fi

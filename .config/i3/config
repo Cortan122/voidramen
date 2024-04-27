@@ -139,7 +139,7 @@ bindsym $mod+Ctrl+Left move workspace to output left
 bindsym $mod+Ctrl+Right move workspace to output right
 
 # The right button toggles floating
-bindsym button3 floating toggle
+# bindsym button3 floating toggle
 bindsym $mod+button3 floating toggle
 
 # The middle button over a titlebar kills the window
@@ -158,6 +158,7 @@ bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+r exec --no-startup-id rofi -show run
 bindsym $mod+Tab exec --no-startup-id rofi -show window
 bindsym $mod+period exec --no-startup-id rofimoji
+bindsym --release Super_L exec --no-startup-id rofi -show loc
 
 # autohotkey keybindings
 bindsym Ctrl+Shift+n exec firefox-private.sh
@@ -165,6 +166,7 @@ bindsym --release $alt+bracketleft exec xdotool-type.sh "¯\_(ツ)_/¯"
 bindsym --release $alt+bracketright exec xdotool-type.sh "👉👈"
 bindsym XF86MonBrightnessDown exec notify-send -t 500 "$(brightnessctl set 10%- | grep -Po "Current brightness: .*")"
 bindsym XF86MonBrightnessUp exec notify-send -t 500 "$(brightnessctl set 10%+ | grep -Po "Current brightness: .*")"
+bindsym XF86AudioMute exec mute-and-reload.sh
 
 for_window [all] title_window_icon padding 1px
 workspace_layout tabbed

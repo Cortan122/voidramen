@@ -23,8 +23,16 @@ getTitle() {
   echo "wttr.in/$location" "($(date -r "$weatherreport" +'%a %H:%M:%S'))"
 }
 
+updateWeather() {
+  [ -s "$weatherreport" ] || rm "$weatherreport"
+
+  if [ ! -f "$weatherreport" ] || [ "$(stat -c %Y "$weatherreport")" -lt "$(date -d'6 hours ago' +%s)" ]; then
+    getforecast
+  fi
+}
+
 case $BLOCK_BUTTON in
-    1) i3-sensible-terminal -T "$(getTitle)" -e less -RS "$weatherreport" ;;
+    1) updateWeather && i3-sensible-terminal -T "$(getTitle)" -e less -RS "$weatherreport" ;;
     2) getforecast && showweather ;;
     3) pgrep -x dunst >/dev/null && notify-send "🌈 Weather module" "\- Left click for full forecast.
 - Middle click to update forecast.
@@ -33,9 +41,4 @@ case $BLOCK_BUTTON in
 🌞: Daily high" ;;
 esac
 
-[ -s "$weatherreport" ] || rm "$weatherreport"
-
-if [ ! -f "$weatherreport" ] || [ "$(stat -c %Y "$weatherreport")" -lt "$(date -d'6 hours ago' +%s)" ]
-	then getforecast && showweather
-	else showweather
-fi
+updateWeather && showweather

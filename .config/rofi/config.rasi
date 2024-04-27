@@ -1,7 +1,7 @@
 configuration {
   sort: true;
   sorting-method: "fzf";
-  modes: "window,run,ssh,drun,filebrowser";
+  modes: "window,run,drun,loc:rofi-locate.sh";
   show-icons: true;
   timeout {
     action: "kb-cancel";
@@ -11,5 +11,9 @@ configuration {
     directories-first: true;
     sorting-method:    "name";
   }
+  kb-element-next: "";
+  kb-element-prev: "";
+  kb-mode-next: "Shift+Right,Tab";
+  kb-mode-previous: "Shift+Left,ISO_Left_Tab";
 }
 @theme "/usr/share/rofi/themes/Arc-Dark.rasi"

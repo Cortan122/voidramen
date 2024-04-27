@@ -1,0 +1,16 @@
+# this must be run as a system service
+# https://unix.stackexchange.com/a/492497
+# sudo ln --symbolic ~/.config/systemd/user/i3-reload-blocks.service /etc/systemd/system/
+# sudo systemctl enable i3-reload-blocks
+
+[Unit]
+Description=Run reload-blocks.sh
+After=suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target
+
+[Service]
+ExecStart=/home/green/.local/bin/reload-blocks.sh
+User=green
+#Environment=DISPLAY=:0
+
+[Install]
+WantedBy=suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target
