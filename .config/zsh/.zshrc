@@ -36,6 +36,7 @@ setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
 # Basic auto/tab complete:
 autoload -U compinit
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 zmodload zsh/complist

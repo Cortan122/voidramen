@@ -158,7 +158,7 @@ bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+r exec --no-startup-id rofi -show run
 bindsym $mod+Tab exec --no-startup-id rofi -show window
 bindsym $mod+period exec --no-startup-id rofimoji
-bindsym --release Super_L exec --no-startup-id rofi -show loc
+# bindsym --release Super_L exec --no-startup-id rofi -show loc
 
 # autohotkey keybindings
 bindsym Ctrl+Shift+n exec firefox-private.sh
