@@ -34,6 +34,11 @@ text/plain=codium.desktop
 text/xml=codium.desktop
 application/json=codium.desktop
 
+text/html=firefox.desktop
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
+application/pdf=firefox.desktop
+
 [Removed Associations]
 text/plain=codium-wayland.desktop
 inode/directory=codium-wayland.desktop

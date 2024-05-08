@@ -60,7 +60,7 @@ EOF
 
 tee /mnt/etc/systemd/network/20-wired.network <<EOF
 [Match]
-Name=enp0s20f0u4u2u1
+Name=enp0s20f0u4u2u1 enp0s31f6
 
 [Network]
 DHCP=yes
