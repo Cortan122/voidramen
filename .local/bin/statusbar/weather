@@ -1,17 +1,18 @@
 #!/bin/sh
-location="$1";
+location="$1"
 weatherreport="$HOME/.local/share/weatherreport"
 # [ -z "$location" ] || { location="$location+" && rm -f "$HOME/.local/share/weatherreport" ;}
 
 error() {
   echo "🌈 Weather error"
-  rm "$weatherreport"
+  rm -f "$weatherreport"
+  notify-send "🌈 Weather error" "$1"
   exit
 }
 
 getforecast() {
-  ping -q -c 1 1.1.1.1 >/dev/null || error
-  curl -s "wttr.in/$location" > "$weatherreport" || error
+  errors="$( { ping -q -c 1 -W 1 8.8.8.8 >/dev/null; } 2>&1 )" || error "$errors"
+  errors="$( { curl -s "wttr.in/$location" > "$weatherreport"; } 2>&1 )" || error "$errors"
 }
 
 showweather() {
@@ -24,7 +25,7 @@ getTitle() {
 }
 
 updateWeather() {
-  [ -s "$weatherreport" ] || rm "$weatherreport"
+  [ -s "$weatherreport" ] || rm -f "$weatherreport"
 
   if [ ! -f "$weatherreport" ] || [ "$(stat -c %Y "$weatherreport")" -lt "$(date -d'6 hours ago' +%s)" ]; then
     getforecast
