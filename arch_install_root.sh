@@ -8,7 +8,7 @@ password="$2"
 [ -z "$username" ] && [ "$(whoami)" != "root" ] && username="$(whoami)"
 
 sudo="sudo"
-[ "$(whoami)" == root ] && sudo=""
+[ "$(whoami)" = root ] && sudo=""
 pm() {
   $sudo pacman --color always --needed --noconfirm -S "$@" 2>&1 | grep -vP 'warning: .* is up to date -- skipping'
 }

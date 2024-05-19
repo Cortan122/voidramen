@@ -35,7 +35,7 @@ chmod +x *.sh st-copyout
 cd ~
 
 [ -z "$PREFIX" ] || echo "include $PREFIX/share/nano/*" > ~/.config/nano/nanorc
-[ "$(uname -o)" == "Android" ] && rm -f ~/.profile #fixme
+[ "$(uname -o)" = "Android" ] && rm -f ~/.profile #fixme
 
 command -v sudo >/dev/null || exit 0
 
@@ -109,4 +109,4 @@ fi
 
 # sudo pip install gTTS
 
-[ "$1" == "--delete" ] && rm -rf -- "$(dirname -- $0)"
+[ "$1" = "--delete" ] && rm -rf -- "$(dirname -- "$0")"

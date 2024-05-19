@@ -1,10 +1,11 @@
 /* new tabs */
 @-moz-document url-prefix(about:home), url-prefix(about:newtab), url-prefix(about:privatebrowsing) {
   body {
+    /* --newtab-background-image: url(theme_ntp_wall.png) */
     --newtab-background-image: url(https://raw.githubusercontent.com/Cortan122/voidrice/master/.config/wall.png);
     background:
       linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0.6) 100%)
-      center center / cover no-repeat fixed, var(--newtab-background-image) center center / cover no-repeat fixed;
+      center center / cover no-repeat fixed, var(--newtab-background-image) center center / cover no-repeat fixed !important;
   }
 
   .logo-and-wordmark {
