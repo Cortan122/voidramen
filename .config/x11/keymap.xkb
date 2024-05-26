@@ -45,7 +45,7 @@ xkb_keymap {
 
 		key <CAPS> {
 			type = "TWO_LEVEL",
-			symbols[Group1] = [  ISO_Next_Group,       Multi_key ]
+			symbols[Group1] = [  space,       Multi_key ]
 		};
 
 		key <RTSH> { [ Shift_R, Shift_R ] };

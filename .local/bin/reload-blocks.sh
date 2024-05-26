@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for i in `seq 1 10`; do
+for i in $(seq 1 10); do
   grep -q up /sys/class/net/[we]*/operstate && break
   echo "Waiting for network..."
   sleep "$i"

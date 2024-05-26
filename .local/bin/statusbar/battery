@@ -35,6 +35,6 @@ if [ "$1" = BAT0 ]; then
   total_capacity="$(cat /sys/class/power_supply/BAT*/capacity | awk '{acc += $1} END{print acc}')"
   if [ "$total_capacity" -le 20 ] && cat /sys/class/power_supply/BAT*/status | grep -q Discharging; then
     notify-send --urgency=critical "🔋 Battery module" "Battery low!!
-  Total capacity is at $total_capacity%"
+Total capacity is at $total_capacity%"
   fi
 fi

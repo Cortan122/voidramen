@@ -20,6 +20,7 @@ export TERMINAL="st"
 [ -z "$DISPLAY" ] && export DISPLAY=127.0.0.1:0
 export NODE_PATH=/usr/lib/node_modules:/usr/local/lib/node_modules
 export BAT_PAGER="less -RS"
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
 
 # ~/ Clean-up:
 # export HISTFILE="$HOME/.config/bash_history"
