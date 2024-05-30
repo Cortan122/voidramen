@@ -12,13 +12,15 @@ error() {
 
 getforecast() {
   reason="curl"
+  newline="
+"
   if errors="$( { ping -q -c 1 -W 1 8.8.8.8; } 2>&1 )"; then
     errors=""
+    newline=""
   else
     reason="ping"
   fi
-  errors="$errors
-$( {
+  errors="$errors$newline$( {
     curl --no-progress-meter --fail "wttr.in/$location" > "$weatherreport";
   } 2>&1 )" || error "$reason" "$errors"
 }

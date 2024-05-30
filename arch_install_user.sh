@@ -44,7 +44,7 @@ pm() {
 }
 
 if ! { command -v boomer >/dev/null; }; then
-  clone https://github.com/tsoding/boomer
+  clone https://github.com/Cortan122/boomer
   pm nim
   nimble -y build
   sudo install -D boomer /usr/local/bin
