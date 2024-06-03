@@ -48,24 +48,12 @@ bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
 bindsym $mod+q kill
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
-
-# alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
-
-# alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
@@ -177,6 +165,8 @@ exec_always --no-startup-id alttab -fg "#fce94f" -bg "#301828" -frame "#4e9a06" 
 exec --no-startup-id dunst
 exec --no-startup-id xcompmgr
 exec --no-startup-id feh --bg-fill --no-fehbg ~/.config/wall.png
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -i ~/.config/wall.png --nofork
+bindsym $mod+l exec i3lock -i ~/.config/wall.png
 bindsym $mod+m workspace M
 
 bindsym $mod+o exec --no-startup-id ffmpeg-record.sh

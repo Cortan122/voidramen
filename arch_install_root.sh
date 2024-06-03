@@ -20,14 +20,14 @@ pkg=(
   ffmpeg imagemagick yt-dlp feh sxiv # media
   speedtest-cli tcc jq qrencode htop # extra stuff
   dust bat tree # rusted coreutils
-  hyfetch neofetch # gay logos
+  hyfetch fastfetch # gay logos
 )
 
 # check if this is a graphical system (fixme)
 if [ -e /dev/fb0 ]; then
   pkg+=(
     xorg-server xorg-xinput xorg-xrdb xf86-video-intel mesa # xorg
-    i3-wm i3blocks xclip xcompmgr libnotify # window manager
+    i3-wm i3blocks xclip xcompmgr libnotify i3lock xss-lock # window manager
     rofi rofimoji xdotool # rofi (dmenu replacement)
     pipewire-pulse alsa-utils pulsemixer # audio
     dunst sysstat lm_sensors brightnessctl # statusbar stuff

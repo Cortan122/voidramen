@@ -18,7 +18,7 @@ else
   cd "$repo_path"
 fi
 
-cp -rvu .config/ .local/ .bashrc .profile ~
+cp -drvu .config/ .local/ .bashrc .profile ~
 cd ~
 rm -f ~/.bash_logout ~/.bash_profile
 

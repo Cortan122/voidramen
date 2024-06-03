@@ -13,3 +13,4 @@ user_pref("browser.gesture.swipe.left", "");
 user_pref("browser.gesture.swipe.right", "");
 user_pref("widget.non-native-theme.scrollbar.style", 1);
 user_pref("full-screen-api.warning.timeout", 500);
+user_pref("print.print_paper_name", "iso_a4");
