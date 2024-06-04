@@ -34,6 +34,7 @@ if [ -e /dev/fb0 ]; then
     firefox telegram-desktop mpv # gui apps
     qemu-img nbd # mounting wsl
     cpupower tlp thermald # cpu throttling stuff
+    parcellite # clipboard manager
   )
 fi
 pm "${pkg[@]}"
