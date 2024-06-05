@@ -11,6 +11,7 @@
 
 set $mod Mod4
 set $alt Mod1
+set $hotkeys ~/.local/bin/hotkeys
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -149,12 +150,12 @@ bindsym $mod+period exec --no-startup-id rofimoji
 # bindsym --release Super_L exec --no-startup-id rofi -show loc
 
 # autohotkey keybindings
-bindsym Ctrl+Shift+n exec firefox-private.sh
-bindsym --release $alt+bracketleft exec xdotool-type.sh "¯\_(ツ)_/¯"
-bindsym --release $alt+bracketright exec xdotool-type.sh "👉👈"
+bindsym Ctrl+Shift+n exec $hotkeys/firefox-private.sh
+bindsym --release $alt+bracketleft exec $hotkeys/xdotool-type.sh "¯\_(ツ)_/¯"
+bindsym --release $alt+bracketright exec $hotkeys/xdotool-type.sh "👉👈"
 bindsym XF86MonBrightnessDown exec notify-send -t 500 "$(brightnessctl set 10%- | grep -Po "Current brightness: .*")"
 bindsym XF86MonBrightnessUp exec notify-send -t 500 "$(brightnessctl set 10%+ | grep -Po "Current brightness: .*")"
-bindsym XF86AudioMute exec mute-and-reload.sh
+bindsym XF86AudioMute exec $hotkeys/mute-and-reload.sh
 
 for_window [all] title_window_icon padding 1px
 workspace_layout tabbed
@@ -170,7 +171,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -i ~/.config/wall.
 bindsym $mod+l exec i3lock -i ~/.config/wall.png
 bindsym $mod+m workspace M
 
-bindsym $mod+o exec --no-startup-id ffmpeg-record.sh
+bindsym $mod+o exec --no-startup-id $hotkeys/ffmpeg-record.sh
 bindsym $mod+z exec --no-startup-id raylid
 bindsym $mod+s exec --no-startup-id boomer
 bindsym Print exec import -window root ~/.cache/screenshot.png && xclip -selection clipboard -t image/png -i ~/.cache/screenshot.png
