@@ -1,9 +1,9 @@
 #!/bin/sh
 
 case $BLOCK_BUTTON in
-	1) notify-send "🖥 CPU hogs" "$(ps axch -o cmd:15,%cpu --sort=-%cpu | head)" ;;
+  1) notify-send "🖥 CPU hogs" "$(ps axch -o cmd:15,%cpu --sort=-%cpu | head)" ;;
   2) notify-send "🌡️ CPU temperature" "$(sensors | awk '/Core 0/ {print $3}')" ;;
-	3) notify-send "🖥 CPU module " "\- Shows CPU <s>temperature</s>.
+  3) notify-send "🖥 CPU module " "\- Shows CPU <s>temperature</s>.
 - Click to show intensive processes.
 - Middle click to show CPU temperature.
 - % is of single core." ;;

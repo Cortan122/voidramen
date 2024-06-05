@@ -41,7 +41,7 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 zmodload zsh/complist
 compinit -C
-_comp_options+=(globdots)		# Include hidden files.
+_comp_options+=(globdots)    # Include hidden files.
 unsetopt BEEP
 
 bindkey "^[[H" beginning-of-line

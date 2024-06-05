@@ -79,7 +79,7 @@ void catChar(uint8_t ch){
 
 void cat(FILE* fp){
   /* Reset EOF condition on stdin. */
-	if(fp == stdin && feof(stdin))clearerr(stdin);
+  if(fp == stdin && feof(stdin))clearerr(stdin);
 
   uint32_t utf8codepoint;
   int utf8state = 0;
