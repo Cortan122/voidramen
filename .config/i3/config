@@ -153,9 +153,11 @@ bindsym $mod+period exec --no-startup-id rofimoji
 bindsym Ctrl+Shift+n exec $hotkeys/firefox-private.sh
 bindsym --release $alt+bracketleft exec $hotkeys/xdotool-type.sh "¯\_(ツ)_/¯"
 bindsym --release $alt+bracketright exec $hotkeys/xdotool-type.sh "👉👈"
-bindsym XF86MonBrightnessDown exec notify-send -t 500 "$(brightnessctl set 10%- | grep -Po "Current brightness: .*")"
-bindsym XF86MonBrightnessUp exec notify-send -t 500 "$(brightnessctl set 10%+ | grep -Po "Current brightness: .*")"
-bindsym XF86AudioMute exec $hotkeys/mute-and-reload.sh
+bindsym XF86MonBrightnessDown exec $hotkeys/change-brightness.sh 10%-
+bindsym XF86MonBrightnessUp exec $hotkeys/change-brightness.sh 10%+
+bindsym XF86AudioMute exec $hotkeys/change-volume.sh mute
+bindsym XF86AudioLowerVolume exec $hotkeys/change-volume.sh down
+bindsym XF86AudioRaiseVolume exec $hotkeys/change-volume.sh up
 
 for_window [all] title_window_icon padding 1px
 workspace_layout tabbed
@@ -174,8 +176,8 @@ bindsym $mod+m workspace M
 bindsym $mod+o exec --no-startup-id $hotkeys/ffmpeg-record.sh
 bindsym $mod+z exec --no-startup-id raylid
 bindsym $mod+s exec --no-startup-id boomer
-bindsym Print exec import -window root ~/.cache/screenshot.png && xclip -selection clipboard -t image/png -i ~/.cache/screenshot.png
-bindsym $mod+Shift+s exec --no-startup-id sleep 0.2 && notify-send "$(import ~/.cache/screenshot.png 2>&1 && xclip -selection clipboard -t image/png -i ~/.cache/screenshot.png 2>&1)"
+bindsym Print exec screenshot.sh --full-screen
+bindsym $mod+Shift+s exec --no-startup-id screenshot.sh --interactive
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
