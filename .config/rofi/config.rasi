@@ -13,6 +13,7 @@ configuration {
   }
   kb-element-next: "";
   kb-element-prev: "";
+  kb-row-select: "Ctrl+Tab,Ctrl+space";
   kb-mode-next: "Shift+Right,Tab";
   kb-mode-previous: "Shift+Left,ISO_Left_Tab";
 }

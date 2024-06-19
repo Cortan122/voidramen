@@ -16,7 +16,6 @@ while true; do
     ;;
     '-i'|'--interactive')
       mode="interactive"
-      delay="0.2"
       shift
     ;;
     '-s'|'--full-screen')

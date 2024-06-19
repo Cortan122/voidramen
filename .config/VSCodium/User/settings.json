@@ -31,4 +31,8 @@
   "breadcrumbs.enabled": false,
   "window.commandCenter": false,
   "terminal.external.linuxExec": "i3-sensible-terminal",
+
+  "cSpell.language": "en,ru",
+  "cSpell.enableFiletypes": ["shellscript"],
+  "latex-workshop.latex.outDir": "%TMPDIR%",
 }

@@ -26,7 +26,7 @@ if [ "$ROFI_RETV" = 0 ]; then
 elif [ -e "$1" ]; then
   open "$1"
 else
-  results="$(locate --ignore-case --limit 100 -- "$1" | filter-results)" || echo "Nothing found..."
+  results="$(locate --ignore-case --limit 2000 -- "$1" | filter-results)" || echo "Nothing found..."
   if [ "$(wc -l <<<"$results")" == 1 ]; then
     open "$results"
   else
