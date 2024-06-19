@@ -60,5 +60,5 @@ cd "$repo_path"
 [ -d "$HOME/.mozilla/firefox" ] && ./configure_firefox.sh
 
 # fonts
-pm alttab noto-fonts-emoji-blob
+pm alttab noto-fonts-emoji-blob snixembed talon-bin
 # pm vscodium-bin prismlauncher freetube-bin sublime-text-4

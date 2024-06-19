@@ -168,6 +168,7 @@ exec_always --no-startup-id alttab -fg "#fce94f" -bg "#301828" -frame "#4e9a06" 
 exec --no-startup-id dunst
 exec --no-startup-id parcellite --no-icon
 exec --no-startup-id xcompmgr
+exec --no-startup-id snixembed --fork
 exec --no-startup-id feh --bg-fill --no-fehbg ~/.config/wall.png
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -i ~/.config/wall.png --nofork
 bindsym $mod+l exec i3lock -i ~/.config/wall.png
