@@ -27,6 +27,7 @@ text/x-moc=codium.desktop
 text/x-pascal=codium.desktop
 text/x-tcl=codium.desktop
 text/x-tex=codium.desktop
+text/x-shellscript=codium.desktop
 application/x-shellscript=codium.desktop
 text/x-c=codium.desktop
 text/x-c++=codium.desktop

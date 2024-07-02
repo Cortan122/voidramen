@@ -141,6 +141,7 @@ assign [class="PrismLauncher"] 3
 assign [class="Minecraft"] 3
 assign [class="FreeTube"] 4
 for_window [class="TelegramDesktop" title="Media viewer"] fullscreen enable
+for_window [title="raylib image editor"] focus; floating enable
 
 # various rofi commands
 bindsym $mod+d exec --no-startup-id rofi -show drun
