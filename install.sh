@@ -42,7 +42,6 @@ command -v sudo >/dev/null || exit 0
 if [[ "$(< /proc/version)" == *@(microsoft|Microsoft|WSL)* ]]; then
   pushd /mnt/c > /dev/null
   ln -Tfs /mnt/b/apache/www ~/www
-  # ln -Tfs /mnt/b/костя/видухи ~/Videos
   ln -Tfs "$(wslpath "$(cmd.exe /c echo %USERPROFILE%\\Downloads)" | tr -d '\r')" ~/Downloads
   ln -Tfs "$(wslpath "$(cmd.exe /c echo %USERPROFILE%\\Desktop)" | tr -d '\r')" ~/Desktop
   ln -Tfs "$(wslpath "$(cmd.exe /c echo %USERPROFILE%\\OneDrive\\microrice)" | tr -d '\r')" ~/Programs/microrice
