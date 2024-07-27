@@ -64,6 +64,7 @@ Name=enp0s*
 
 [Network]
 DHCP=yes
+LLMNR=false
 EOF
 
 umount /mnt/boot

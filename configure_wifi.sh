@@ -15,6 +15,7 @@ Name=wlp3s0
 [Network]
 DHCP=yes
 IgnoreCarrierLoss=3s
+LLMNR=false
 EOF
 
 print_eduroam() {
