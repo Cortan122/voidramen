@@ -6,7 +6,7 @@ history="$HOME/.config/locate_history"
 [ -f "$history" ] || touch "$history"
 
 function filter-results {
-  grep -Ev -e '/\.cache/' -e '\.lnk$' -e '/\.Trash-1000/' |
+  grep -Ev -e '/\.cache/' -e '\.lnk$' -e '/\.Trash-1000/' -e '/diffpatch/diary/' |
     awk -v 'x=^$' '$0 ~ x {}; $0 !~ x {x = "^"$0"/"; print $0;}'
 }
 

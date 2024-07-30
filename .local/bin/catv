@@ -118,6 +118,68 @@ void cat(FILE* fp){
   }
 }
 
+char* findInPath(const char* file){
+  // duplicate just to make sure we own the memory and can edit it
+  char* path_dup = strdup(getenv("PATH"));
+
+  char* next_str = NULL;
+  for(char* str = path_dup; str; str = next_str){
+    next_str = strchr(str, ':');
+    if(next_str){
+      *next_str = '\0';
+      next_str++;
+    }
+
+    // now `str` hold the path of one of the folders in PATH
+    char* buffer = calloc(strlen(str) + strlen(file) + 2, 1);
+    if(buffer == NULL){
+      fprintf(stderr, "malloc: buy more ram lol\n");
+      exit(1);
+    }
+    strcat(buffer, str);
+    strcat(buffer, "/");
+    strcat(buffer, file);
+    // hopefully we have no overflow here...
+    // strncat can't really help us here, because it takes the wrong size 🫠
+
+    // check if it's executable for good measure
+    if(access(buffer, X_OK) == 0){
+      free(path_dup);
+      return buffer;
+    }
+    free(buffer);
+  }
+
+  free(path_dup);
+  return NULL;
+}
+
+void tryCatting(const char* file){
+  FILE* fp = stdin;
+  if(strcmp(file, "-") != 0){
+    fp = fopen(file, "r");
+  }
+
+  if(fp == NULL){
+    if(errno == ENOENT && strchr(file, '/') == NULL){
+      char* found_path = findInPath(file);
+      if(found_path){
+        tryCatting(found_path);
+        free(found_path);
+        return;
+      }
+    }
+
+    if(hasLine)printf("\n");
+    fprintf(stderr, "can't open %s\n", file);
+    perror(file);
+    exit(3);
+  }else{
+    cat(fp);
+    fclose(fp);
+  }
+}
+
 int main(int argc, char *argv[]){
   argv[0] = "catv";
   istty = isatty(1);
@@ -169,25 +231,7 @@ int main(int argc, char *argv[]){
     cat(stdin);
   }else{
     for(int i = 1; i < argc; i++){
-      FILE* fp = stdin;
-      if(strcmp(argv[i], "-") != 0){
-        fp = fopen(argv[i], "r");
-      }
-
-      if(fp == NULL){
-        if(errno == ENOENT && strchr(argv[i], '/') == NULL){
-          setenv("file", argv[i], 1);
-          system("catv \"$(which \"$file\")\"");
-        }else{
-          if(hasLine)printf("\n");
-          fprintf(stderr, "can't open %s\n", argv[i]);
-          perror(argv[i]);
-          exit(3);
-        }
-      }else{
-        cat(fp);
-        fclose(fp);
-      }
+      tryCatting(argv[i]);
     }
   }
 
