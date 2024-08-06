@@ -141,7 +141,6 @@ for_window [title="raylib image editor"] focus; floating enable
 # various rofi commands
 bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+r exec --no-startup-id rofi -show run
-bindsym $mod+Tab exec --no-startup-id rofi -show window
 bindsym $mod+period exec --no-startup-id rofimoji
 # bindsym --release Super_L exec --no-startup-id rofi -show loc
 

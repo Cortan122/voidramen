@@ -1,7 +1,7 @@
 configuration {
   sort: true;
   sorting-method: "fzf";
-  modes: "window,run,drun,loc:rofi-locate.sh";
+  modes: "drun,loc:rofi-locate.sh";
   show-icons: true;
   timeout {
     action: "kb-cancel";
