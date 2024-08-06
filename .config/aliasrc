@@ -7,6 +7,7 @@
 [ -x "$(command -v yt-dlp)" ] && alias youtube-dl='yt-dlp'
 [ -x "$(command -v codium)" ] && alias code='codium'
 [ -x "$(command -v hyfetch)" ] && alias neofetch='hyfetch'
+[ ! -x "$(command -v node)" ] && alias node='python3'
 
 mkd () {
   mkdir --parents --verbose "$@"

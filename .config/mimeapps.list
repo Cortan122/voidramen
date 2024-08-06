@@ -34,6 +34,7 @@ text/x-c++=codium.desktop
 text/plain=codium.desktop
 text/xml=codium.desktop
 application/json=codium.desktop
+application/javascript=codium.desktop
 
 text/html=firefox.desktop
 x-scheme-handler/http=firefox.desktop
