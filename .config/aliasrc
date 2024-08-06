@@ -13,6 +13,21 @@ mkd () {
   cd "$@"
 }
 
+chained_grep () {
+  pattern="$1"
+  if [ -z "$pattern" ]; then
+    cat
+    return
+  fi
+
+  shift
+  grep --color=always -- "$pattern" | chained_grep "$@"
+}
+
+h () {
+  history | chained_grep "$@" | less +G
+}
+
 alias gerp='grep'
 alias culr='curl'
 alias cls='clear'
@@ -39,7 +54,6 @@ alias df='df --human-readable'
 alias yt='youtube-dl --add-metadata --ignore-errors'
 alias yta='yt -x -f bestaudio/best --embed-thumbnail --convert-thumbnails jpg --ppa "ThumbnailsConvertor:-q:v 1"'
 alias ytx='yta'
-alias h='history | less +G'
 alias tree='tree --gitignore'
 alias xclip='xclip -selection clipboard'
 alias grasstouch='install --mode=644 -D /dev/null'
