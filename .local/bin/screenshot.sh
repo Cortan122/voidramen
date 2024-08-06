@@ -5,6 +5,7 @@ set -e
 location="$HOME/.cache/screenshot.png"
 mode="screen"
 copy="true"
+clear_clip="true"
 delay="0"
 report_errors="true"
 
@@ -24,6 +25,10 @@ while true; do
     ;;
     '-n'|'--no-copy')
       copy="false"
+      shift
+    ;;
+    '-p'|'--preserve-clip')
+      clear_clip="false"
       shift
     ;;
     '-q'|'--no-errors')
@@ -46,6 +51,7 @@ Takes a screenshot and then copies it to the clipboard
   -s, --full-screen     Capture the entire screen (default)
 
   -n, --no-copy         Do not copy the image into the clipboard
+  -p, --preserve-clip   Do not preemptively clear the clipboard
   -q, --no-errors       Do not send a notification in case of an error
   -d, --delay  %f       Delay, in seconds, before taking the screenshot
 '
@@ -60,6 +66,13 @@ Takes a screenshot and then copies it to the clipboard
     ;;
   esac
 done
+
+clear_clipboard () {
+  [ "$copy" = false ] && return
+  [ "$clear_clip" = false ] && return
+
+  xclip -selection clipboard -i /dev/null
+}
 
 do_copy () {
   [ "$copy" = false ] && return
@@ -84,6 +97,8 @@ do_error () {
 }
 
 [ -n "$1" ] && location="$1"
+
+clear_clipboard
 [ "$delay" != 0 ] && sleep "$delay"
 
 error="$(do_screenshot 2>&1)" || do_error
