@@ -6,16 +6,7 @@ export MOZ_USE_XINPUT2=1
 # this fixes the pinentry appearing in the login tty
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
-# input settings
-if [ -f ~/.config/x11/keymap.xkb ]; then
-  xkbcomp -w2 ~/.config/x11/keymap.xkb "$DISPLAY"
-else
-  setxkbmap us,ru -option grp:toggle,grp:caps_toggle,grp:alt_shift_toggle,grp_led:caps
-fi
-xinput set-prop "Synaptics TM3276-022" "libinput Click Method Enabled" 0 0
-xinput set-prop "Synaptics TM3276-022" "libinput Natural Scrolling Enabled" 1
-xset r rate 500 34
-
+~/.local/bin/unfuck-keyboard.sh
 xrdb -merge ~/.config/x11/Xresourses
 xrandr --dpi 144 # does this actually do anything??
 exec i3
