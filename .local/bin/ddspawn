@@ -7,13 +7,17 @@
 
 [ -z "$1" ] && exit
 
-script=$1
-shift
-if xwininfo -tree -root | grep "(\"dropdown_$script\" ";
-then
+script="$1"
+command="$2"
+
+if xwininfo -tree -root | grep "(\"dropdown_$script\" "; then
 	echo "Window detected."
-	i3 "[instance=\"dropdown_$script\"] scratchpad show"
+	i3 "[instance=\"dropdown_$script\"] kill"
 else
 	echo "Window not detected... spawning."
-	i3 "exec --no-startup-id i3-sensible-terminal -n dropdown_$script -e $script $@"
+	if [ -z "$command" ]; then
+		i3 "exec --no-startup-id i3-sensible-terminal -n dropdown_$script -e $script"
+	else
+		i3 "exec --no-startup-id i3-sensible-terminal -n dropdown_$script -e /bin/sh -c \"$command\""
+	fi
 fi

@@ -1,3 +1,0 @@
-#!/bin/sh
-
-cal --color=always | less

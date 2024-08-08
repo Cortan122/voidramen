@@ -3,7 +3,7 @@
 date '+%Y %b %d (%a) %H:%M%p'
 
 case $BLOCK_BUTTON in
-  1) pgrep -x dunst >/dev/null && ddspawn cal_less >/dev/null;;
+  1) pgrep -x dunst >/dev/null && ddspawn cal "cal --color=always | less" >/dev/null;;
   3) pgrep -x dunst >/dev/null && notify-send "📅 Time/date module" "\- Left click to show show the month via \`cal\`
 - Does nothing!!" ;;
 esac
