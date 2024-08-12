@@ -18,6 +18,6 @@ else
 	if [ -z "$command" ]; then
 		i3 "exec --no-startup-id i3-sensible-terminal -n dropdown_$script -e $script"
 	else
-		i3 "exec --no-startup-id i3-sensible-terminal -n dropdown_$script -e /bin/sh -c \"$command\""
+		i3 "exec --no-startup-id i3-sensible-terminal -n dropdown_$script -t $script -e /bin/sh -c \"$command\""
 	fi
 fi

@@ -6,7 +6,7 @@ export MOZ_USE_XINPUT2=1
 # this fixes the pinentry appearing in the login tty
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
-~/.local/bin/unfuck-keyboard.sh
+~/.local/bin/hotkeys/unfuck-keyboard.sh
 xrdb -merge ~/.config/x11/Xresourses
 xrandr --dpi 144 # does this actually do anything??
 exec i3
