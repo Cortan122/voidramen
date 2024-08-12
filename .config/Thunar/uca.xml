@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Open Terminal Here</name>
+	<submenu></submenu>
+	<unique-id>1713469089098780-1</unique-id>
+	<command>i3-sensible-terminal</command>
+	<description>Example for a custom action</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon>sxiv</icon>
+	<name>Open Folder in Sxiv</name>
+	<submenu></submenu>
+	<unique-id>1723502476941361-1</unique-id>
+	<command>sxiv %d</command>
+	<description></description>
+	<range></range>
+	<patterns>*</patterns>
+	<image-files/>
+</action>
+</actions>
