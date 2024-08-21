@@ -1,25 +1,28 @@
 #!/bin/sh
 
 set -e
-window_id="$(xdotool getactivewindow)"
-name="$(xdotool getwindowclassname "$window_id")"
+name="$(xdotool getactivewindow getwindowclassname)"
 
 send_key () {
-  xdotool windowfocus --sync "$window_id" key --clearmodifiers Super+Shift+T
+  xdotool key --clearmodifiers Super+Shift+T
+}
+
+start_term () {
+  exec i3-sensible-terminal
 }
 
 case "$1" in
   press)
     case "$name" in
       Thunar|VSCodium|VSCode) ;;
-      *) exec i3-sensible-terminal ;;
+      *) start_term ;;
     esac ;;
   release)
     case "$name" in
       Thunar|VSCodium|VSCode) send_key ;;
       *) ;;
     esac ;;
-  *) exec i3-sensible-terminal ;;
+  *) start_term ;;
 esac
 
 
