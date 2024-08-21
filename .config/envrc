@@ -2,7 +2,7 @@
 
 # This file sets environmental variables.
 
-# Return if we alredy have all the vars.
+# Return if we already have all the vars.
 [ -z "$TERMINAL" ] || return
 
 # set PATH so it includes user's private bin if it exists

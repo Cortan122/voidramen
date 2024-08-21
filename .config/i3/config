@@ -38,7 +38,8 @@ for_window [instance="dropdown_cal"] move position 1515 770
 for_window [instance="dropdown_cal"] resize set 300 280
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
+bindsym $mod+Return exec $hotkeys/smart-terminal.sh press
+bindsym $mod+Return --release exec $hotkeys/smart-terminal.sh release
 
 # kill focused window
 bindsym $mod+q kill

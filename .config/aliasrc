@@ -29,6 +29,8 @@ h () {
   history | chained_grep "$@" | less +G
 }
 
+alias lld='ldd'
+alias xdd='xxd'
 alias gerp='grep'
 alias culr='curl'
 alias cls='clear'
