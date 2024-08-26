@@ -1,7 +1,6 @@
 #!/bin/sh
 
 set -e
-name="$(xdotool getactivewindow getwindowclassname)"
 
 send_key () {
   xdotool key --clearmodifiers Super+Shift+T
@@ -10,6 +9,11 @@ send_key () {
 start_term () {
   exec i3-sensible-terminal
 }
+
+if ! name="$(xdotool getactivewindow getwindowclassname)"; then
+  [ "$1" = "press" ] && start_term
+  exit
+fi
 
 case "$1" in
   press)
@@ -24,5 +28,3 @@ case "$1" in
     esac ;;
   *) start_term ;;
 esac
-
-
