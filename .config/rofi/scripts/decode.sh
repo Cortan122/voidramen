@@ -39,6 +39,8 @@ function process_text {
 function process_image {
   xclip -selection clipboard -t image/png ~/.cache/screenshot.png >/dev/null
 
+  identify -precision 4 -format '%m %G %g %b\n' ~/.cache/screenshot.png
+  printf '\x1c'
   zbarimg -q -1 ~/.cache/screenshot.png || warning "No qr-code found..."
   printf '\x1c'
 
