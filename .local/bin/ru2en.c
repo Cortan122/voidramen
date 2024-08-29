@@ -3,15 +3,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
 
-char* layout_rom[] = {
+static const char* ru2en_rom[] = {
   ['"'] = "@",
   [','] = "?",
   ['.'] = "/",
   [':'] = "^",
   ['?'] = "&",
   [';'] = "$",
-  ['/'] = "|", // or not?
   [0x0401] = "~",
   [0x0410] = "F",
   [0x0411] = "<",
@@ -81,6 +81,80 @@ char* layout_rom[] = {
   [0x2116] = "#"
 };
 
+static const char* en2ru_rom[] = {
+  ['"'] = "Э",
+  ['#'] = "№",
+  [','] = "б",
+  ['.'] = "ю",
+  [':'] = "Ж",
+  [';'] = "ж",
+  ['<'] = "Б",
+  ['>'] = "Ю",
+  ['A'] = "Ф",
+  ['B'] = "И",
+  ['C'] = "С",
+  ['D'] = "В",
+  ['E'] = "У",
+  ['F'] = "А",
+  ['G'] = "П",
+  ['H'] = "Р",
+  ['I'] = "Ш",
+  ['J'] = "О",
+  ['K'] = "Л",
+  ['L'] = "Д",
+  ['M'] = "Ь",
+  ['N'] = "Т",
+  ['O'] = "Щ",
+  ['P'] = "З",
+  ['Q'] = "Й",
+  ['R'] = "К",
+  ['S'] = "Ы",
+  ['T'] = "Е",
+  ['U'] = "Г",
+  ['V'] = "М",
+  ['W'] = "Ц",
+  ['X'] = "Ч",
+  ['Y'] = "Н",
+  ['Z'] = "Я",
+  ['['] = "х",
+  ['\''] = "э",
+  [']'] = "ъ",
+  ['`'] = "ё",
+  ['a'] = "ф",
+  ['b'] = "и",
+  ['c'] = "с",
+  ['d'] = "в",
+  ['e'] = "у",
+  ['f'] = "а",
+  ['g'] = "п",
+  ['h'] = "р",
+  ['i'] = "ш",
+  ['j'] = "о",
+  ['k'] = "л",
+  ['l'] = "д",
+  ['m'] = "ь",
+  ['n'] = "т",
+  ['o'] = "щ",
+  ['p'] = "з",
+  ['q'] = "й",
+  ['r'] = "к",
+  ['s'] = "ы",
+  ['t'] = "е",
+  ['u'] = "г",
+  ['v'] = "м",
+  ['w'] = "ц",
+  ['x'] = "ч",
+  ['y'] = "н",
+  ['z'] = "я",
+  ['{'] = "Х",
+  ['}'] = "Ъ",
+  ['~'] = "Ё",
+};
+
+#define ARR_LEN(arr) (sizeof(arr)/sizeof(*(arr)))
+#define ROM_GET(rom, i) (char*)(i >= ARR_LEN(rom) ? NULL : rom[i])
+
+
 #define UTF8_ACCEPT 0
 #define UTF8_REJECT 12
 
@@ -117,6 +191,23 @@ int decode(int* state, uint32_t* codep, uint8_t byte){
 }
 
 int isShellHelper = 0;
+int isRevMode = 0;
+
+void revCallback(char* en2ru, char* ru2en, char* utf8buf){
+  static int currentSelection = 1;
+  if(!en2ru && !ru2en){
+    printf("%s", utf8buf);
+    return;
+  }
+
+  if(currentSelection){
+    if(!en2ru)currentSelection = 0;
+  }else{
+    if(!ru2en)currentSelection = 1;
+  }
+
+  printf("%s", currentSelection ? en2ru : ru2en);
+}
 
 void convertChar(uint8_t ch){
   static uint32_t utf8codepoint;
@@ -140,14 +231,25 @@ void convertChar(uint8_t ch){
     isShellHelper = 0;
 
     utf8buf[utf8bufind++] = '\0';
-    if(utf8codepoint >= sizeof(layout_rom)/sizeof(char*) || layout_rom[utf8codepoint] == NULL)printf("%s", utf8buf);
-    else printf("%s", layout_rom[utf8codepoint]);
+
+    char* en2ru = ROM_GET(en2ru_rom, utf8codepoint);
+    char* ru2en = ROM_GET(ru2en_rom, utf8codepoint);
+    if(isRevMode){
+      revCallback(en2ru, ru2en, (char*)utf8buf);
+    }else{
+      printf("%s", ru2en ? ru2en : (char*)utf8buf);
+    }
+
     utf8bufind = utf8state = utf8codepoint = 0;
   }
 }
 
 int main(int argc, char *argv[]){
   if(argc == 1){
+    int t;
+    while((t = getc(stdin)) != EOF)convertChar((uint8_t)t);
+  }else if(argc == 2 && strcmp(argv[1], "--rev") == 0){
+    isRevMode = 1;
     int t;
     while((t = getc(stdin)) != EOF)convertChar((uint8_t)t);
   }else{
@@ -160,4 +262,6 @@ int main(int argc, char *argv[]){
     }
     putc('\n', stdout);
   }
+
+  return 0;
 }
