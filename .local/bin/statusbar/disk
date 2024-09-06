@@ -11,11 +11,11 @@ icon="$2"
 
 case $BLOCK_BUTTON in
   1) pgrep -x dunst >/dev/null && notify-send "💽 Disk space" "$(
-    df -h --output=target,used,size,pcent | awk 'NR==1 {print "Mounted on;Used;Size;Use%"}; $3~/G/ && +$3 > 4 {
-      if (+$4 > 80) color="#ff0000"
-      else if (+$4 > 50) color="#fffc00"
+    df -h --output=target,used,size,avail,pcent | awk 'NR==1 {print "Mounted on;Used;Size;Free;Use%"}; $3~/G/ && +$3 > 4 {
+      if (+$5 > 80) color="#ff0000"
+      else if (+$5 > 50) color="#fffc00"
       else color="#ffffff"
-      print $1 ";" $2 ";" $3 ";<span color=\"" color "\">" $4 "</span>"
+      print $1 ";" $2 ";" $3 ";" $4 ";<span color=\"" color "\">" $5 "</span>"
     }' | column -t -s';'
   )" ;;
   3) pgrep -x dunst >/dev/null && notify-send "💽 Disk module" "\- Shows used hard drive space.

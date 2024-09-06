@@ -2,6 +2,7 @@
 
 set -ex
 
+# note: also decodes c string escapes
 function urldecode { : "${*//+/ }"; echo -e "${_//%/\\x}"; }
 
 function warning {
@@ -32,7 +33,11 @@ function process_text {
   printf '\x1c'
   recode html..utf8 <<<"$clipboard" # todo: this will fail for chars above 0xffff
   printf '\x1c'
-  xxd -r -p <<<"$clipboard"
+  xxd -r -p <<<"$clipboard" | catv -u
+  printf '\x1c'
+  catv -U <<<"$clipboard"
+  printf '\x1c'
+  catv <<<"$clipboard"
   printf '\x1c'
 }
 
