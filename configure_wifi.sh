@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 sudo="sudo"
 [ "$(whoami)" = root ] && sudo=""
 pm() {
@@ -34,7 +36,32 @@ network={
 EOF
 }
 
+parse_qrcode_str() {
+  text="$1"
+  if echo "$text" | grep -qvF "WIFI:"; then
+    return
+  fi
+
+  trimmed_text="$(echo "$text" | grep -oP '(?<=WIFI:).*(?=;)')"
+  uuid="$(echo "$trimmed_text" | grep -oP '(?<=S:).*?[^\\](?=;)' | sed 's/\\;/;/g' | sed 's/\\\\/\\/g')"
+  pass="$(echo "$trimmed_text" | grep -oP '(?<=P:).*?[^\\](?=;)' | sed 's/\\;/;/g' | sed 's/\\\\/\\/g')"
+  wpa_passphrase "$uuid" "$pass"
+}
+
+parse_qrcode() {
+  targets="$(xclip -selection clipboard -target TARGETS -out)"
+
+  if echo "$targets" | grep -q UTF8_STRING; then
+    parse_qrcode_str "$(xclip -selection clipboard -out)"
+  fi
+  if echo "$targets" | grep -q image/png; then
+    xclip -selection clipboard -t image/png ~/.cache/screenshot.png >/dev/null
+    parse_qrcode_str "$(zbarimg -q -1 ~/.cache/screenshot.png)"
+  fi
+}
+
 (
+  parse_qrcode
   wpa_passphrase "$(pass bonn-tplink-wifi-name)" "$(pass bonn-tplink-wifi)"
   print_eduroam Studentenheim nika-wifi-login nika-wifi-pass
   print_eduroam eduroam
