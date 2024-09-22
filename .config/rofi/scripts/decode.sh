@@ -27,6 +27,8 @@ function process_text {
 
   ru2en.c --rev <<<"$clipboard"
   printf '\x1c'
+  printf '%s\x1c' "${clipboard,,}"
+  printf '%s\x1c' "${clipboard^^}"
   urldecode "$clipboard"
   printf '\x1c'
   base64_smart "$clipboard"
