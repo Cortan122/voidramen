@@ -1,12 +1,12 @@
 #!/bin/sh
 
 theNumber="$#"
-while [ `factor $theNumber | tr -dc ' ' | wc -c` = 1 ]; do
-  theNumber=`jq -n "$theNumber+1"`
+while [ "$(factor "$theNumber" | tr -dc ' ' | wc -c)" = 1 ]; do
+  theNumber="$(jq -n "$theNumber+1")"
 done
 desiredRatio="$(jq -n "(16/9)/($(identify -format '%w/%h\n' "$1"))")"
 pairs="$(
-python - $theNumber <<EOF
+python - "$theNumber" <<EOF
 import sys
 n = int(sys.argv[1])
 
@@ -22,6 +22,6 @@ cols="$(echo "$pairs" | jq -s '
       .[0]
     ]
   ) | sort_by(.[0]) | .[0][1]
-' --argjson dr $desiredRatio)"
+' --argjson dr "$desiredRatio")"
 
-glue.sh $cols "$@"
+glue.sh "$cols" "$@"

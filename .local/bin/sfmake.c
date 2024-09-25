@@ -653,7 +653,7 @@ void callCallgrind(int argc, char** argv, char** output){
 
   execvp("callgrind_annotate", (char*[]){"callgrind_annotate", outfile, NULL});
   perror("execvp");
-  fprintf(stderr, "can't run %s\n", output);
+  fprintf(stderr, "can't run %s (callgrind_annotate)\n", *output);
   exit(1);
 }
 

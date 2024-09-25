@@ -1,5 +1,0 @@
-#!/bin/sh
-
-ifinstalled qrencode feh || exit 1
-
-qrencode "$(echo "$@")" -o - | feh - -Z -g 500x500
