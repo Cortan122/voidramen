@@ -50,6 +50,7 @@ if [[ "$(< /proc/version)" == *@(microsoft|Microsoft|WSL)* ]]; then
   ln -Tfs "$(wslpath "$(cmd.exe /c echo %USERPROFILE%\\OneDrive\\dz2021)" | tr -d '\r')" ~/dz2021
   ln -Tfs "$(wslpath "$(cmd.exe /c echo %USERPROFILE%\\OneDrive\\dz2022)" | tr -d '\r')" ~/dz2022
   ln -Tfs "$(wslpath "$(cmd.exe /c echo %USERPROFILE%\\OneDrive\\dz2023)" | tr -d '\r')" ~/dz2023
+  ln -Tfs "$(wslpath "$(cmd.exe /c echo %USERPROFILE%\\OneDrive\\dz2024)" | tr -d '\r')" ~/dz2024
   popd > /dev/null
 fi
 
