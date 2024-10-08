@@ -3,7 +3,7 @@
 
 case $BLOCK_BUTTON in
     3) pgrep -x dunst >/dev/null && notify-send "🔋 Battery module" "🔋: discharging
-🛑: not charging
+🟢: not charging
 ♻: stagnant charge
 🔌: charging
 ⚡: charged
@@ -29,7 +29,7 @@ fi
 
 [ "$status" = "Charging" ] && color="#ffffff"
 
-printf "<span color='%s'>%s%s%s</span>\n" "$color" "$(echo "$status" | sed -e "s/,//;s/Discharging/🔋/i;s/Not Charging/🛑/i;s/Charging/🔌/i;s/Unknown/♻️/i;s/Full/⚡/i;s/ 0*/ /g;s/ :/ /g")" "$warn" "$(echo "$capacity" | sed -e 's/$/%/')"
+printf "<span color='%s'>%s%s%s</span>\n" "$color" "$(echo "$status" | sed -e "s/,//;s/Discharging/🔋/i;s/Not Charging/🟢/i;s/Charging/🔌/i;s/Unknown/♻️/i;s/Full/⚡/i;s/ 0*/ /g;s/ :/ /g")" "$warn" "$(echo "$capacity" | sed -e 's/$/%/')"
 
 if [ "$1" = BAT0 ]; then
   total_capacity="$(cat /sys/class/power_supply/BAT*/capacity | awk '{acc += $1} END{print acc}')"

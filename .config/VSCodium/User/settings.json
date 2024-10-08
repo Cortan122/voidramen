@@ -28,6 +28,7 @@
   "workbench.editor.decorations.colors": false,
   "security.workspace.trust.untrustedFiles": "open",
   "git.enableSmartCommit": true,
+  "git.confirmSync": false,
   "breadcrumbs.enabled": false,
   "window.commandCenter": false,
   "terminal.external.linuxExec": "i3-sensible-terminal",
@@ -35,4 +36,5 @@
   "cSpell.language": "en,ru",
   "cSpell.enableFiletypes": ["shellscript"],
   "latex-workshop.latex.outDir": "%TMPDIR%",
+  "shellcheck.ignorePatterns": { "**/PKGBUILD": true },
 }
