@@ -45,5 +45,7 @@ if (( "${#to_build[@]}" != 0 )); then
     )
   done
 
-  [ "$stash_not_needed" = "false" ] && git stash pop
+  if [ "$stash_not_needed" = "false" ]; then
+    git stash pop
+  fi
 fi
