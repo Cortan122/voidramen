@@ -3,13 +3,19 @@
 set -e
 cd -- "$(dirname -- "$0")"
 
-list="$(pacman -Qq)"
+list="$(pacman -Q)"
 to_build=()
 
 function check-pkgname {
   name="$(grep -Po '(?<=pkgname=).*' "$1"/PKGBUILD)"
   if ! grep -q "$name" <<<"$list"; then
     to_build+=("$1")
+  else
+    commit="$(git log -n 1 --pretty=format:%H -- "$1"/PKGBUILD)"
+    rev="r$(git rev-list --count "$commit").$(git rev-parse --short=7 "$commit")"
+    if ! grep -q "$name $rev" <<<"$list"; then
+      to_build+=("$1")
+    fi
   fi
 }
 
