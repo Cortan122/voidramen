@@ -77,15 +77,23 @@ clear_clipboard () {
 do_copy () {
   [ "$copy" = false ] && return
 
-  xclip -selection clipboard -t image/png -i "$location"
+  if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    wl-copy <"$location"
+  else
+    xclip -selection clipboard -t image/png -i "$location"
+  fi
 }
 
 do_screenshot () {
-  case "$mode" in
-    ffmpeg) ffmpeg -y -loglevel error -f x11grab -i :0 -vframes 1 -update 1 "$location" ;;
-    screen) import -window root "$location" ;;
-    interactive) import "$location" ;;
-  esac
+  if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    grim "$location"
+  else
+    case "$mode" in
+      ffmpeg) ffmpeg -y -loglevel error -f x11grab -i :0 -vframes 1 -update 1 "$location" ;;
+      screen) import -window root "$location" ;;
+      interactive) import "$location" ;;
+    esac
+  fi
 
   # todo: warn if import is taking longer than expected
   # https://stackoverflow.com/a/11056286
