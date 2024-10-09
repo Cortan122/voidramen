@@ -17,6 +17,13 @@
 
 #------------------------------------------------------------------------
 
+# note:
+# all this could probably be rewritten to use wpctl
+#   wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+#   wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+#   wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+#   wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+
 # The second parameter overrides the mixer selection
 # For PulseAudio users, use "pulse"
 # For Jack/Jack2 users, use "jackplug"
