@@ -1,10 +1,11 @@
 pkgname=cortan122-graphical
 arch=('x86_64')
 depends=(
-  xorg-server xorg-xinput xorg-xrdb # xorg
+  xorg-server xorg-xinput xorg-xrdb xorg-xinit # xorg
   xf86-video-intel intel-media-driver mesa # drivers
   i3-wm i3blocks xclip xcompmgr libnotify i3lock xss-lock # window manager
   rofi rofimoji xdotool # rofi (dmenu replacement)
+  pass-otp recode plocate # dependencies of rofi scripts
   pipewire-pulse alsa-utils pulsemixer # audio
   dunst sysstat lm_sensors brightnessctl # statusbar stuff
   firefox mpv # gui apps

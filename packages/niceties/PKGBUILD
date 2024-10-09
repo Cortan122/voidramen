@@ -1,0 +1,21 @@
+pkgname=cortan122-niceties
+arch=('x86_64')
+depends=(
+  xarchiver thunar thunar-archive-plugin thunar-media-tags-plugin ffmpegthumbnailer tumbler # file manager
+  gimp inkscape openscad # funny editors
+  yay downgrade # aur helpies
+  valgrind clang cmake strace # c development
+  raylib glfw # graphical libs
+  android-file-transfer # mount phones
+  figlet lolcat cmatrix # silly programs
+)
+url='https://github.com/cortan122/voidrice'
+license=('Unlicense')
+pkgdesc="A dummy package of things i sometimes like to use."
+pkgrel=1
+pkgver=r197.8792201
+
+pkgver() {
+  cd "$srcdir"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short=7 HEAD)"
+}
