@@ -4,7 +4,7 @@ depends=(
   alttab noto-fonts-emoji-blob # aur components of i3
   talon-bin snixembed # talon
   vscodium-bin freetube-bin sublime-text-4 # big aur blobs
-  telegram-desktop prismlauncher signal-desktop # normal big apps
+  telegram-desktop prismlauncher signal-desktop thunderbird # normal big apps
 )
 url='https://github.com/cortan122/voidrice'
 license=('Unlicense')

@@ -1,7 +1,8 @@
 pkgname=cortan122-graphical
 arch=('x86_64')
 depends=(
-  xorg-server xorg-xinput xorg-xrdb xf86-video-intel mesa # xorg
+  xorg-server xorg-xinput xorg-xrdb # xorg
+  xf86-video-intel intel-media-driver mesa # drivers
   i3-wm i3blocks xclip xcompmgr libnotify i3lock xss-lock # window manager
   rofi rofimoji xdotool # rofi (dmenu replacement)
   pipewire-pulse alsa-utils pulsemixer # audio
@@ -14,7 +15,7 @@ url='https://github.com/cortan122/voidrice'
 license=('Unlicense')
 pkgdesc="A dummy package with all of my window manager stuff in one place."
 pkgrel=1
-pkgver=r191.a9fd359
+pkgver=r192.fa7fcf5
 
 pkgver() {
   cd "$srcdir"

@@ -28,6 +28,7 @@ function build {
     makepkg -si --noconfirm
   else
     yay --answerdiff=None --noconfirm -Bi .
+    git restore PKGBUILD
   fi
 }
 
