@@ -70,7 +70,7 @@ EOF
 umount /mnt/boot
 umount /mnt
 echo "Press enter to continue..."
-read dummy
+read -r _dummy
 
 shutdown -h now
 
