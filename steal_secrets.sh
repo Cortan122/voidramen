@@ -2,6 +2,9 @@
 
 set -e
 
+# needed:
+# qemu-img nbd
+
 VHDX_IMG="/mnt/c/Arch/ext4.vhdx"
 unmount=""
 wslunmount=""

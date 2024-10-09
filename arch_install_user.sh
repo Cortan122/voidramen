@@ -63,6 +63,6 @@ fi
 cd "$repo_path"
 [ -d "$HOME/.mozilla/firefox" ] && ./configure_firefox.sh
 
-# fonts
-pm alttab noto-fonts-emoji-blob snixembed talon-bin
-# pm vscodium-bin prismlauncher freetube-bin sublime-text-4
+# we lost the dependency on ttf-unifont long ago
+# maybe that's a good thing...
+./packages/install_packages.sh

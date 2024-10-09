@@ -1,0 +1,22 @@
+pkgname=cortan122-base
+arch=('x86_64')
+depends=(
+  git base-devel man-db man-pages openssh # build essentials
+  vim nano bash-completion pkgfile # text editors
+  python3 python-pip python-numpy python-matplotlib # python
+  ffmpeg imagemagick yt-dlp feh sxiv # media
+  speedtest-cli tcc jq qrencode htop # extra stuff
+  dust bat tree # rusted coreutils
+  hyfetch fastfetch # gay logos
+)
+url='https://github.com/cortan122/voidrice'
+license=('Unlicense')
+install=cortan122-base.install
+pkgdesc="A dummy package with all of my dependencies in one place."
+pkgrel=1
+pkgver=r191.a9fd359
+
+pkgver() {
+  cd "$srcdir"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short=7 HEAD)"
+}

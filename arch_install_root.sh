@@ -9,36 +9,10 @@ password="$2"
 
 sudo="sudo"
 [ "$(whoami)" = root ] && sudo=""
-pm() {
-  $sudo pacman --color always --needed --noconfirm -S "$@" 2>&1 | grep -vP 'warning: .* is up to date -- skipping'
-}
 
-pkg=(
-  git base-devel man-db man-pages openssh # build essentials
-  vim nano bash-completion pkgfile # text editors
-  python3 python-pip python-numpy python-matplotlib # python
-  ffmpeg imagemagick yt-dlp feh sxiv # media
-  speedtest-cli tcc jq qrencode htop # extra stuff
-  dust bat tree # rusted coreutils
-  hyfetch fastfetch # gay logos
-)
-
-# check if this is a graphical system (fixme)
-if [ -e /dev/fb0 ]; then
-  pkg+=(
-    xorg-server xorg-xinput xorg-xrdb xf86-video-intel mesa # xorg
-    i3-wm i3blocks xclip xcompmgr libnotify i3lock xss-lock # window manager
-    rofi rofimoji xdotool # rofi (dmenu replacement)
-    pipewire-pulse alsa-utils pulsemixer # audio
-    dunst sysstat lm_sensors brightnessctl # statusbar stuff
-    firefox telegram-desktop mpv # gui apps
-    qemu-img nbd # mounting wsl
-    cpupower tlp thermald # cpu throttling stuff
-    parcellite # clipboard manager
-  )
-fi
-pm "${pkg[@]}"
-[ -f /var/cache/pkgfile/core.files ] || $sudo pkgfile --update
+pkg=(base)
+[ -e /dev/fb0 ] && pkg+=(graphical)
+./packages/install_packages.sh "${pkg[@]}"
 
 # create user
 if ! { id "$username" >/dev/null 2>&1; } ; then

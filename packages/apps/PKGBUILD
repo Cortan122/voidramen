@@ -1,0 +1,18 @@
+pkgname=cortan122-apps
+arch=('x86_64')
+depends=(
+  alttab noto-fonts-emoji-blob # aur components of i3
+  talon-bin snixembed # talon
+  vscodium-bin freetube-bin sublime-text-4 # big aur blobs
+  telegram-desktop prismlauncher signal-desktop # normal big apps
+)
+url='https://github.com/cortan122/voidrice'
+license=('Unlicense')
+pkgdesc="A dummy package with all of my aur dependencies and big apps."
+pkgrel=1
+pkgver=r191.a9fd359
+
+pkgver() {
+  cd "$srcdir"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short=7 HEAD)"
+}
