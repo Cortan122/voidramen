@@ -4,3 +4,4 @@
 # so that's what i'm gonna do...
 # fuck all that old code!
 firefox --private-window &
+i3-msg '[class="firefox"] focus'

@@ -7,6 +7,10 @@ send_key () {
 }
 
 start_term () {
+  (
+    sleep 0.2
+    i3-msg '[class="st"] focus'
+  ) &
   exec i3-sensible-terminal
 }
 

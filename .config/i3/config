@@ -131,7 +131,7 @@ bindsym $mod+button3 floating toggle
 bindsym --release button2 kill
 
 # forcing certain windows onto certain workspaces
-assign [class="Firefox"] 1
+assign [class="firefox"] 1
 assign [class="TelegramDesktop"] 2
 assign [class="Signal"] 2
 assign [class="PrismLauncher"] 3
@@ -149,6 +149,7 @@ bindsym $mod+period exec --no-startup-id rofimoji
 
 # autohotkey keybindings
 bindsym Ctrl+Shift+n exec $hotkeys/firefox-private.sh
+bindsym $mod+Shift+g exec $hotkeys/german-wiktionary.sh
 bindsym --release $alt+bracketleft exec $hotkeys/xdotool-type.sh "¯\_(ツ)_/¯"
 bindsym --release $alt+bracketright exec $hotkeys/xdotool-type.sh "👉👈"
 bindsym XF86MonBrightnessDown exec $hotkeys/change-brightness.sh 10%-
