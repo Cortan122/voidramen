@@ -2,6 +2,6 @@
 Type=Application
 Version=1.0
 Name=Celeste
-Exec=sh -c "$HOME/Downloads/celeste/Celeste"
+Exec=sh -c "$HOME/Games/celeste/Celeste"
 Icon=Celeste
 Terminal=false

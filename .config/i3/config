@@ -184,5 +184,5 @@ bindsym $mod+Shift+s --release exec --no-startup-id screenshot.sh --interactive
 bar {
   status_command i3blocks
   mode dock
-  modifier None
+  modifier none
 }
