@@ -36,5 +36,6 @@
   "cSpell.language": "en,ru",
   "cSpell.enableFiletypes": ["shellscript"],
   "latex-workshop.latex.outDir": "%TMPDIR%",
+  "latex-workshop.view.pdf.viewer": "browser",
   "shellcheck.ignorePatterns": { "**/PKGBUILD": true },
 }
