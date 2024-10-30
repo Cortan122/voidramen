@@ -29,6 +29,10 @@ h () {
   history | chained_grep "$@" | less +G
 }
 
+touchx () {
+  touch "$1" && chmod +x "$1" && code "$1"
+}
+
 alias lld='ldd'
 alias xdd='xxd'
 alias gerp='grep'
