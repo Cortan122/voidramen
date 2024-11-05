@@ -1,5 +1,8 @@
 include "%L"
 
 <Multi_key> <u> <w> <u> : "👉👈"
+<Multi_key> <c> <u> <t> <e> : "🥰"
 <Multi_key> <bracketleft> <p> : "¯\\_(ツ)_/¯"
 <Multi_key> <c> <c> <c> <p> : "☭"
+<Multi_key> <p> <minus> : "₽"
+<Multi_key> <P> <minus> : "₽"

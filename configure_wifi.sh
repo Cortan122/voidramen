@@ -60,10 +60,15 @@ parse_qrcode() {
   fi
 }
 
+print_wifi() {
+  wpa_passphrase "$(pass "$1"-wifi-name)" "$(pass "$1"-wifi-pass)"
+}
+
 (
   parse_qrcode
-  wpa_passphrase "$(pass bonn-tplink-wifi-name)" "$(pass bonn-tplink-wifi)"
-  print_eduroam Studentenheim nika-wifi-login nika-wifi-pass
+  print_wifi "redmi-T9"
+  print_wifi "bonn-tplink"
+  print_wifi "nika-roof"
   print_eduroam eduroam
   print_eduroam eduroam-cs
   print_eduroam eduroam-stw
