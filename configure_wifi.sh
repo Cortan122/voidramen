@@ -64,6 +64,8 @@ print_wifi() {
   wpa_passphrase "$(pass "$1"-wifi-name)" "$(pass "$1"-wifi-pass)"
 }
 
+# todo: set `scan_freq=2462` for `nika-roof`
+
 (
   parse_qrcode
   print_wifi "redmi-T9"

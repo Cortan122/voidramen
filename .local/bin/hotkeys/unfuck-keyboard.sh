@@ -1,6 +1,8 @@
 #!/bin/sh
 
-if [ -f ~/.config/x11/keymap.xkb ]; then
+if [ "$1" = "--colemak" ]; then
+  setxkbmap us,us -variant ,colemak_dh -option grp:toggle,grp:caps_toggle,grp:alt_shift_toggle,grp_led:caps
+elif [ -f ~/.config/x11/keymap.xkb ]; then
   xkbcomp -w2 ~/.config/x11/keymap.xkb "$DISPLAY"
 else
   setxkbmap us,ru -option grp:toggle,grp:caps_toggle,grp:alt_shift_toggle,grp_led:caps
