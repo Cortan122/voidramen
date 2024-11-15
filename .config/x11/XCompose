@@ -1,5 +1,4 @@
 include "%L"
-include "/usr/share/keyd/keyd.compose"
 
 <Multi_key> <u> <w> <u> : "👉👈"
 <Multi_key> <c> <u> <t> <e> : "🥰"

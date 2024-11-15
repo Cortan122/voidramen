@@ -28,17 +28,6 @@ xkb_keymap {
 			level_name[Level2] = "Shift";
 			level_name[Level3] = "Alt";
 		};
-		type "ALPHABETIC_2" {
-			modifiers= Shift+Lock+Control;
-			map[Shift]= Level2;
-			map[Lock]= Level2;
-			map[Control]= Level3;
-			map[Control]= Level3;
-			map[Shift+Control]= Level4;
-			map[Lock+Control]= Level4;
-			level_name[Level1]= "Base";
-			level_name[Level2]= "Caps";
-		};
 	};
 	xkb_compat    {
 		include "complete+ledcaps(group_lock)"
@@ -50,9 +39,13 @@ xkb_keymap {
 			useModMapMods = level1;
 			action = SetMods(modifiers=Alt,clearLocks);
 		};
+
+		interpret ISO_Last_Group+AnyOfOrNone(all) {
+			action= LockGroup(group=3);
+		};
 	};
 	xkb_symbols   {
-		include "pc+us+ru:2+inet(evdev)+group(caps_toggle)+group(alt_shift_toggle)+group(toggle):1+group(toggle):2"
+		include "pc+us+ru:2+us(colemak_dh):3+inet(evdev)"
 
 		key <CAPS> {
 			type = "TWO_LEVEL",
@@ -60,6 +53,25 @@ xkb_keymap {
 		};
 
 		key <RTSH> { [ Shift_R, Shift_R ] };
+
+		key <LFSH> {
+			type= "PC_ALT_LEVEL2",
+			symbols[Group1]= [         Shift_L,  ISO_Last_Group ],
+			symbols[Group2]= [         Shift_L,  ISO_Last_Group ],
+			symbols[Group3]= [         Shift_L,  ISO_First_Group ]
+    };
+		key <LALT> {
+			type= "TWO_LEVEL",
+			symbols[Group1]= [           Alt_L,  ISO_Last_Group ],
+			symbols[Group2]= [           Alt_L,  ISO_Last_Group ],
+			symbols[Group3]= [           Alt_L,  ISO_First_Group ]
+		};
+		key <RALT> {
+			type= "ONE_LEVEL",
+			symbols[Group1]= [  ISO_Next_Group ],
+			symbols[Group2]= [  ISO_Prev_Group ],
+			symbols[Group3]= [  ISO_Next_Group ]
+    };
 
 		key <I255> { type="ALPHABETIC", [U00df, U1E9E] }; // "ß"
 		key <I217> { type="ALPHABETIC", [U00f6, U00D6] }; // "ö"
@@ -72,6 +84,7 @@ xkb_keymap {
 			type = "THREE_LEVEL_ALPHABETIC_ALT",
 			symbols[Group1] = [               s,               S,                s,               S ],
 			symbols[Group2] = [   Cyrillic_yeru,   Cyrillic_YERU,    Cyrillic_yeru,   Cyrillic_YERU ],
+			symbols[Group3] = [               r,               R ],
 			actions[Group1] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I255>,clearmods=Alt) ],
 			actions[Group2] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I255>,clearmods=Alt) ]
 		};
@@ -79,6 +92,7 @@ xkb_keymap {
 			type = "THREE_LEVEL_ALPHABETIC_ALT",
 			symbols[Group1] = [               o,               O,                o,               O ],
 			symbols[Group2] = [  Cyrillic_shcha,  Cyrillic_SHCHA,   Cyrillic_shcha,  Cyrillic_SHCHA ],
+			symbols[Group3] = [               y,               Y ],
 			actions[Group1] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I217>,clearmods=Alt) ],
 			actions[Group2] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I217>,clearmods=Alt) ]
 		};
@@ -86,6 +100,7 @@ xkb_keymap {
 			type = "THREE_LEVEL_ALPHABETIC_ALT",
 			symbols[Group1] = [               a,               A,                a,               A ],
 			symbols[Group2] = [     Cyrillic_ef,     Cyrillic_EF,      Cyrillic_ef,     Cyrillic_EF ],
+			symbols[Group3] = [               a,               A ],
 			actions[Group1] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I219>,clearmods=Alt) ],
 			actions[Group2] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I219>,clearmods=Alt) ]
 		};
@@ -93,6 +108,7 @@ xkb_keymap {
 			type = "THREE_LEVEL_ALPHABETIC_ALT",
 			symbols[Group1] = [               u,               U,                u,               U ],
 			symbols[Group2] = [    Cyrillic_ghe,    Cyrillic_GHE,     Cyrillic_ghe,    Cyrillic_GHE ],
+			symbols[Group3] = [               l,               L ],
 			actions[Group1] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I222>,clearmods=Alt) ],
 			actions[Group2] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I222>,clearmods=Alt) ]
 		};
@@ -100,6 +116,7 @@ xkb_keymap {
 			type = "THREE_LEVEL_ALPHABETIC_ALT",
 			symbols[Group1] = [               e,               E,                e,               E ],
 			symbols[Group2] = [      Cyrillic_u,      Cyrillic_U,       Cyrillic_u,      Cyrillic_U ],
+			symbols[Group3] = [               f,               F ],
 			actions[Group1] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I230>,clearmods=Alt) ],
 			actions[Group2] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I230>,clearmods=Alt) ]
 		};
@@ -107,6 +124,7 @@ xkb_keymap {
 			type = "THREE_LEVEL_ALT",
 			symbols[Group1] = [           slash,        question,            slash,        question ],
 			symbols[Group2] = [          period,           comma,           period,           comma ],
+			symbols[Group3] = [           slash,        question ],
 			actions[Group1] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I248>,clearmods=Alt) ],
 			actions[Group2] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I248>,clearmods=Alt) ]
 		};
