@@ -9,6 +9,13 @@ menupopup:not(.in-menulist) > menu {
   --arrowpanel-menuitem-padding: 4px 8px !important;
   --inline-tab-padding: 4px !important;
   --tab-min-height: 28px !important;
+  --tabstrip-min-height: 28px !important;
+  --urlbar-min-height: 25px !important;
+  --tab-inline-padding: 6px !important;
+}
+
+#urlbar-container[breakout] {
+  min-height: 30px !important;
 }
 
 #tabbrowser-tabs .tab-label-container {
