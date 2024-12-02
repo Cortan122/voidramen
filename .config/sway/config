@@ -1,0 +1,14 @@
+# shellcheck disable=all
+
+include ~/.config/i3/config
+
+# class                 border  backgr. text    magenta child_border
+client.focused          #212921 #008400 #ffffff #ff00ff #008400
+hide_edge_borders both
+
+output eDP-1 scale 1.5
+output eDP-1 bg ~/.config/wall.png fill
+
+input 1:1:AT_Translated_Set_2_keyboard xkb_file ~/.config/x11/keymap.xkb
+input 1:1:AT_Translated_Set_2_keyboard repeat_delay 500
+input 1:1:AT_Translated_Set_2_keyboard repeat_rate 34
