@@ -163,7 +163,7 @@ exec --no-startup-id feh --bg-fill --no-fehbg ~/.config/wall.png
 bindsym $mod+l exec --no-startup-id $hotkeys/lock-screen.sh
 bindsym $mod+m workspace M
 
-bindsym $mod+o exec --no-startup-id $hotkeys/ffmpeg-record.sh
+bindsym $mod+Shift+o exec --no-startup-id $hotkeys/ffmpeg-record.sh
 bindsym $mod+z exec --no-startup-id raylid
 bindsym $mod+s exec --no-startup-id boomer
 bindsym Print  exec --no-startup-id screenshot.sh --full-screen

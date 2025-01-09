@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <object class="GtkMenu" id="menu">
-      <child>
+    <child>
       <object class="GtkMenuItem" id="exit">
         <property name="label">Exit Hyprland</property>
       </object>
