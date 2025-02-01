@@ -7,4 +7,8 @@ include "%L"
 <Multi_key> <p> <minus> : "₽"
 <Multi_key> <P> <minus> : "₽"
 <Multi_key> <asciicircum> <minus> : "⬑"
+<Multi_key> <asciicircum> <j> : "ʲ"
 <Multi_key> <6> <minus> : "⬑"
+
+<Multi_key> <less> <plus>      : "≤" U2264 # LESS-THAN OR EQUAL TO
+<Multi_key> <greater> <plus>   : "≥" U2265 # GREATER-THAN OR EQUAL TO

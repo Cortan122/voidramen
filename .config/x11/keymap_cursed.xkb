@@ -45,7 +45,7 @@ xkb_keymap {
 		};
 	};
 	xkb_symbols   {
-		include "pc+us+ru:2+us(colemak_dh):3+inet(evdev)"
+		include "pc+us+ru:2+us(colemak):3+inet(evdev)"
 
 		key <CAPS> {
 			type = "TWO_LEVEL",
@@ -86,7 +86,7 @@ xkb_keymap {
 			type = "THREE_LEVEL_ALPHABETIC_ALT",
 			symbols[Group1] = [               s,               S,                s,               S ],
 			symbols[Group2] = [   Cyrillic_yeru,   Cyrillic_YERU,    Cyrillic_yeru,   Cyrillic_YERU ],
-			symbols[Group3] = [               r,               R ],
+			symbols[Group3] = [               s,               S ],
 			actions[Group1] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I255>,clearmods=Alt) ],
 			actions[Group2] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I255>,clearmods=Alt) ]
 		};
@@ -129,6 +129,52 @@ xkb_keymap {
 			symbols[Group3] = [           slash,        question ],
 			actions[Group1] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I248>,clearmods=Alt) ],
 			actions[Group2] = [      NoAction(),      NoAction(), RedirectKey(keycode=<I248>,clearmods=Alt) ]
+		};
+
+		// left had is almost qwerty
+		key <AD04> {
+			type = "ALPHABETIC",
+			symbols[Group1] = [               r,               R ],
+			symbols[Group2] = [     Cyrillic_ka,     Cyrillic_KA ],
+			symbols[Group3] = [               r,               R ]
+		};
+		key <AD05> {
+			type = "ALPHABETIC",
+			symbols[Group1] = [               t,               T ],
+			symbols[Group2] = [     Cyrillic_ie,     Cyrillic_IE ],
+			symbols[Group3] = [               b,               B ]
+		};
+		key <AC03> {
+			type = "ALPHABETIC",
+			symbols[Group1] = [               d,               D ],
+			symbols[Group2] = [     Cyrillic_ve,     Cyrillic_VE ],
+			symbols[Group3] = [               d,               D ]
+		};
+		key <AC05> {
+			type = "ALPHABETIC",
+			symbols[Group1] = [               g,               G ],
+			symbols[Group2] = [     Cyrillic_pe,     Cyrillic_PE ],
+			symbols[Group3] = [               g,               G ]
+		};
+		key <AB05> {
+			type = "ALPHABETIC",
+			symbols[Group1]= [               b,               B ],
+			symbols[Group2]= [      Cyrillic_i,      Cyrillic_I ],
+			symbols[Group3]= [               p,               P ]
+		};
+
+		// colemak dh for the rigth hand
+		key <AC06> {
+			type = "ALPHABETIC",
+			symbols[Group1] = [               h,               H ],
+			symbols[Group2] = [     Cyrillic_er,     Cyrillic_ER ],
+			symbols[Group3] = [               m,               M ]
+		};
+		key <AB07> {
+			type = "ALPHABETIC",
+			symbols[Group1] = [               m,               M ],
+			symbols[Group2] = [ Cyrillic_softsign, Cyrillic_SOFTSIGN ],
+			symbols[Group3] = [               h,               H ]
 		};
 	};
 	xkb_geometry  { include "pc(pc105)"	};
