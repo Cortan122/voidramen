@@ -24,14 +24,16 @@ print_eduroam() {
   ssid="$1"
   login="$2"; [ -z "$login" ] && login="bonn-eduroam-login"
   pass="$3"; [ -z "$pass" ] && pass="bonn-eduroam-pass"
+  word_login="$(pass "$login")" || word_login="$login"
+  word_pass="$(pass "$pass")" || word_pass="$pass"
   cat <<EOF
 network={
   ssid="$ssid"
   key_mgmt=WPA-EAP
   eap=PEAP
   phase2="autheap=MSCHAPV2"
-  identity="$(pass "$login")"
-  password="$(pass "$pass")"
+  identity="$word_login"
+  password="$word_pass"
 }
 EOF
 }

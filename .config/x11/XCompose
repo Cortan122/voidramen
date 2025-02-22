@@ -10,5 +10,14 @@ include "%L"
 <Multi_key> <asciicircum> <j> : "ʲ"
 <Multi_key> <6> <minus> : "⬑"
 
+<Multi_key> <o> <x> : "⊗"
+<Multi_key> <O> <x> : "⊗"
+<Multi_key> <o> <X> : "⊗"
+<Multi_key> <O> <X> : "⊗"
+<Multi_key> <o> <plus> : "⊕"
+<Multi_key> <O> <plus> : "⊕"
+<Multi_key> <o> <equal> : "⊕"
+<Multi_key> <O> <equal> : "⊕"
+
 <Multi_key> <less> <plus>      : "≤" U2264 # LESS-THAN OR EQUAL TO
 <Multi_key> <greater> <plus>   : "≥" U2265 # GREATER-THAN OR EQUAL TO
