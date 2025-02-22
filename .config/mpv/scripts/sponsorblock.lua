@@ -399,12 +399,12 @@ function file_loaded()
         "/embed/([%w-_]+).*"
     }
     youtube_id = nil
-    for i, url in ipairs(urls) do 
+    for i, url in ipairs(urls) do
         youtube_id = youtube_id or string.match(video_path, url) or string.match(video_referer, url)
         if youtube_id then break end
     end
     youtube_id = youtube_id or string.match(video_path, options.local_pattern)
-    
+
     if not youtube_id or string.len(youtube_id) < 11 or (local_pattern and string.len(youtube_id) ~= 11) then return end
     youtube_id = string.sub(youtube_id, 1, 11)
     mp.msg.debug("Found YouTube ID: " .. youtube_id)
@@ -558,10 +558,10 @@ function submit_segment(category)
 end
 
 mp.register_event("file-loaded", file_loaded)
-mp.add_key_binding("g", "set_segment", set_segment)
-mp.add_key_binding("G", "submit_segment", submit_segment)
-mp.add_key_binding("h", "upvote_segment", function() return vote("1") end)
-mp.add_key_binding("H", "downvote_segment", function() return vote("0") end)
+-- mp.add_key_binding("g", "set_segment", set_segment)
+-- mp.add_key_binding("G", "submit_segment", submit_segment)
+-- mp.add_key_binding("h", "upvote_segment", function() return vote("1") end)
+-- mp.add_key_binding("H", "downvote_segment", function() return vote("0") end)
 -- Bindings below are for backwards compatibility and could be removed at any time
 mp.add_key_binding(nil, "sponsorblock_set_segment", set_segment)
 mp.add_key_binding(nil, "sponsorblock_submit_segment", submit_segment)
