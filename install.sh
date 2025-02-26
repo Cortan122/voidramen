@@ -2,7 +2,9 @@
 
 # git pull --recurse-submodules
 
+set -e
 cd -- "$(dirname -- "$0")"
+
 if [[ "$(uname -r)" == *arch* ]]; then
   # this will check if the kernel version contains the string "arch"
   # and will only be true on real (non-WSL) arch

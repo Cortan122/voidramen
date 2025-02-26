@@ -37,7 +37,7 @@ interval=5
 
 [clock]
 label=📅
-interval=30
+interval=5
 signal=7
 
 [internet]
