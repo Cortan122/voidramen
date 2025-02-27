@@ -32,6 +32,13 @@ if [ ~/.local/bin/getty/fb_png -ot ~/.local/bin/getty/fb_png.c ]; then
   gcc -lpng -O3 ~/.local/bin/getty/fb_png.c -o ~/.local/bin/getty/fb_png
 fi
 
+if ! { command -v alttab >/dev/null; }; then
+  clone https://github.com/cortan122/alttab.git
+  ./configure
+  make
+  sudo make install
+fi
+
 if ! { command -v st >/dev/null; }; then
   clone https://github.com/cortan122/st.git
   make

@@ -5,7 +5,7 @@ depends=(
   vim nano bash-completion pkgfile # text editors
   python3 python-pip python-numpy python-matplotlib # python
   ffmpeg imagemagick yt-dlp feh sxiv # media
-  speedtest-cli tcc jq htop # extra stuff
+  speedtest-cli tcc jq htop moreutils # extra stuff
   dust bat tree # rusted coreutils
   hyfetch fastfetch # gay logos
 )

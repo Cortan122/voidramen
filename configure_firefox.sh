@@ -11,10 +11,11 @@ cp -vu .config/firefox-chrome/user.js "$profile/user.js"
 presdict=.config/firefox-chrome/persdict.dat
 if [ "$profile/persdict.dat" -ot "$presdict" ]; then
   perl -ne 'print unless $seen{$_}++' "$presdict" | sponge "$presdict"
+  cp -u "$presdict" ~/"$presdict"
 fi
 
-cp -vu .config/firefox-chrome/persdict.dat "$profile/persdict.dat"
-cp -vu .config/firefox-chrome/persdict.dat ~/.local/share/TelegramDesktop/tdata/dictionaries/custom
+cp -vu "$presdict" "$profile/persdict.dat"
+cp -vu "$presdict" ~/.local/share/TelegramDesktop/tdata/dictionaries/custom
 
 # converting the dict for sublime text
 presdict_subl=~/.config/sublime-text/Packages/Persdict/Preferences.sublime-settings
