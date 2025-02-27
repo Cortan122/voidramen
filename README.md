@@ -1,5 +1,5 @@
 # Voidramen
-<small>made with soba and spaghetti code</small>
+_(made with soba and spaghetti code)_
 
 This is my dotfiles repository.
 In its current iteration, it is designed to work on Arch Linux.
