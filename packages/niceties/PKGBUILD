@@ -13,7 +13,7 @@ depends=(
   fbgrab plymouth # low level graphics
   shellcheck rust-src # langauge server stuff
 )
-url='https://github.com/cortan122/voidrice'
+url='https://github.com/cortan122/voidramen'
 license=('Unlicense')
 pkgdesc="A dummy package of things i sometimes like to use."
 pkgrel=1

@@ -13,7 +13,7 @@ depends=(
   cpupower tlp thermald # cpu throttling stuff
   wpa_supplicant # wifi
 )
-url='https://github.com/cortan122/voidrice'
+url='https://github.com/cortan122/voidramen'
 license=('Unlicense')
 pkgdesc="A dummy package with all of my window manager stuff in one place."
 pkgrel=1

@@ -28,7 +28,7 @@ if $sudo [ ! -f "/etc/sudoers.d/000-$username" ]; then
   $sudo chown root:root "/etc/sudoers.d/000-$username"
 fi
 
-if [ -d .git/ ] && git remote get-url origin | grep -iq Cortan122/voidrice; then
+if [ -d .git/ ] && git remote get-url origin | grep -iq Cortan122/voidramen; then
   repo_path="$(pwd)"
 else
   repo_path=""

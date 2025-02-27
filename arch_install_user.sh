@@ -12,7 +12,7 @@ clone() {
 }
 
 if [ -z "$repo_path" ]; then
-  clone https://github.com/cortan122/voidrice.git
+  clone https://github.com/cortan122/voidramen.git
   repo_path="$PWD"
 else
   cd "$repo_path"

@@ -9,7 +9,7 @@ depends=(
   dust bat tree # rusted coreutils
   hyfetch fastfetch # gay logos
 )
-url='https://github.com/cortan122/voidrice'
+url='https://github.com/cortan122/voidramen'
 license=('Unlicense')
 install=cortan122-base.install
 pkgdesc="A dummy package with all of my dependencies in one place."
