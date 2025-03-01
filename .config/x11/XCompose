@@ -1,4 +1,4 @@
-include "%L"
+include "/usr/share/X11/locale/en_US.UTF-8/Compose"
 
 <Multi_key> <u> <w> <u> : "👉👈"
 <Multi_key> <c> <u> <t> <e> : "🥰"
