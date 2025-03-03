@@ -1,0 +1,9 @@
+{
+    "Ctrl-d": "SpawnMultiCursor",
+    "Ctrl-x": "Quit",
+		"\u001b[3;5~": "DeleteWordRight",
+    "\u0008": "DeleteWordLeft", // doesn't work...
+    "\u001b[127;6u": "DeleteWordLeft",
+    "MouseRight": "MousePress,Paste",
+    "\u001b[46;5u": "CommandMode",
+}

@@ -15,7 +15,7 @@ if command -v locale >/dev/null; then
   export LC_ALL=
 fi
 
-export EDITOR="nano"
+export EDITOR="micro"
 export TERMINAL="st"
 [ -z "$DISPLAY" ] && export DISPLAY=127.0.0.1:0
 export NODE_PATH=/usr/lib/node_modules:/usr/local/lib/node_modules
