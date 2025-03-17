@@ -76,6 +76,7 @@ print_wifi() {
   print_eduroam eduroam
   print_eduroam eduroam-cs
   print_eduroam eduroam-stw
+  print_eduroam CCCAC cccac 23cccac42
 ) | $sudo tee /etc/wpa_supplicant/wpa_supplicant-wlp3s0.conf
 $sudo chown root:root /etc/wpa_supplicant/wpa_supplicant-wlp3s0.conf
 $sudo chmod 600 /etc/wpa_supplicant/wpa_supplicant-wlp3s0.conf

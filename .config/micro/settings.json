@@ -1,5 +1,11 @@
 {
     "colorscheme": "atom-dark",
     "tabsize": 2,
+    "tabmovement": true,
+    "tabstospaces": true,
+    "hltaberrors": true,
     "diffgutter": true,
+    "hltrailingws": true,
+    "rmtrailingws": true,
+    "indentchar": "·",
 }
