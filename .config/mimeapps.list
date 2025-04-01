@@ -15,6 +15,7 @@ image/x-portable-bitmap=sxiv.desktop
 image/x-portable-graymap=sxiv.desktop
 image/x-tga=sxiv.desktop
 image/x-xpixmap=sxiv.desktop
+image/webp=sxiv.desktop
 
 text/english=codium.desktop
 text/x-makefile=codium.desktop
@@ -44,3 +45,23 @@ application/pdf=firefox.desktop
 [Removed Associations]
 text/plain=codium-wayland.desktop
 inode/directory=codium-wayland.desktop
+text/plain=micro.desktop
+text/x-chdr=micro.desktop
+text/x-csrc=micro.desktop
+text/x-c++hdr=micro.desktop
+text/x-c++src=micro.desktop
+text/x-java=micro.desktop
+text/x-dsrc=micro.desktop
+text/x-pascal=micro.desktop
+text/x-perl=micro.desktop
+text/x-python=micro.desktop
+application/x-php=micro.desktop
+application/x-httpd-php3=micro.desktop
+application/x-httpd-php4=micro.desktop
+application/x-httpd-php5=micro.desktop
+application/xml=micro.desktop
+text/html=micro.desktop
+text/css=micro.desktop
+text/x-sql=micro.desktop
+text/x-diff=micro.desktop
+
