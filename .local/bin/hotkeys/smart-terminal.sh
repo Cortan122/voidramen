@@ -11,7 +11,7 @@ start_term () {
     sleep 0.2
     i3-msg '[class="st"] focus'
   ) &
-  exec i3-sensible-terminal
+  exec systemd-cat -t st -- i3-sensible-terminal
 }
 
 if ! name="$(xdotool getactivewindow getwindowclassname)"; then

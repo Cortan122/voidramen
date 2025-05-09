@@ -7,6 +7,7 @@
 
 # set PATH so it includes user's private bin if it exists
 [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
+[ -d "$HOME/.local/bin/hotkeys" ] && PATH="$HOME/.local/bin/hotkeys:$PATH"
 export PATH
 
 if command -v locale >/dev/null; then

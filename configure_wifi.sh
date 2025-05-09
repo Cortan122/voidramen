@@ -69,7 +69,11 @@ print_wifi() {
 # todo: set `scan_freq=2462` for `nika-roof`
 
 (
+  if [ -n "$1" ]; then
+    wpa_passphrase "$1" "$2"
+  fi
   parse_qrcode
+  wpa_passphrase CCCAC_PSK_2.4GHz 23cccac42
   print_wifi "redmi-T9"
   print_wifi "bonn-tplink"
   print_wifi "nika-roof"
