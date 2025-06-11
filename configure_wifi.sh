@@ -70,7 +70,16 @@ print_wifi() {
 
 (
   if [ -n "$1" ]; then
-    wpa_passphrase "$1" "$2"
+    if [ -n "$2" ]; then
+      wpa_passphrase "$1" "$2"
+    else
+        cat <<EOF
+network={
+  ssid="$1"
+  key_mgmt=NONE
+}
+EOF
+    fi
   fi
   parse_qrcode
   wpa_passphrase CCCAC_PSK_2.4GHz 23cccac42
