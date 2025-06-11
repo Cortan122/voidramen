@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Baba Is You
+Exec=sh -c "$HOME/Games/'Baba Is You'/run.sh"
+Icon=Baba-Is-You
+Terminal=false

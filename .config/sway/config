@@ -4,6 +4,9 @@ include ~/.config/i3/config
 titlebar_padding 2
 titlebar_border_thickness 1
 
+xwayland disable
+exec --no-startup-id xwayland-satellite :12
+
 # class                 border  backgr. text    magenta child_border
 client.focused          #212921 #008400 #ffffff #ff00ff #008400
 hide_edge_borders both
