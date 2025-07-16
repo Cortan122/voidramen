@@ -51,6 +51,7 @@ parse_qrcode_str() {
 }
 
 parse_qrcode() {
+  # todo: if the clipboard is literally empty, this crashes
   targets="$(xclip -selection clipboard -target TARGETS -out)"
 
   if echo "$targets" | grep -q UTF8_STRING; then

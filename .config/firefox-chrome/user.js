@@ -16,3 +16,6 @@ user_pref("full-screen-api.warning.timeout", 500);
 user_pref("print.print_paper_name", "iso_a4");
 user_pref("browser.toolbars.bookmarks.visibility", "newtab");
 user_pref("bintl.regional_prefs.use_os_locales", true);
+
+user_pref("middlemouse.paste", false);
+user_pref("general.autoScroll", true);
