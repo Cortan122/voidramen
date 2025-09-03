@@ -11,7 +11,7 @@ depends=(
   rlwrap pup tmux # terminal utils
   ripgrep fd # more rust coreutils
   fbgrab plymouth # low level graphics
-  shellcheck rust-src # langauge server stuff
+  shellcheck # langauge server stuff
 )
 url='https://github.com/cortan122/voidramen'
 license=('Unlicense')

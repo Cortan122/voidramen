@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Paquerette Down the Bunburrows
+Comment=Play this game on Steam
+Exec=xdg-open steam://rungameid/1628610
+Icon=steam_icon_1628610
+Terminal=false
+Type=Application
+Categories=Game;
