@@ -2,6 +2,7 @@
 application/x-zerosize=sublime_text.desktop
 inode/directory=thunar.desktop
 application/zip=xarchiver.desktop
+audio/mpeg=mpv.desktop
 
 image/bmp=sxiv.desktop
 image/gif=sxiv.desktop
@@ -28,6 +29,8 @@ text/x-moc=codium.desktop
 text/x-pascal=codium.desktop
 text/x-tcl=codium.desktop
 text/x-tex=codium.desktop
+text/x-python=codium.desktop
+text/x-script.python=codium.desktop
 text/x-shellscript=codium.desktop
 application/x-shellscript=codium.desktop
 text/x-c=codium.desktop
