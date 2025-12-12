@@ -123,8 +123,11 @@ bindsym --release button2 kill
 assign [class="firefox"] 1
 assign [class="TelegramDesktop"] 2
 assign [class="Signal"] 2
+assign [class="Celeste"] 3
+assign [class="vampiresurvivors.exe"] 3
 assign [class="PrismLauncher"] 3
 assign [class="Minecraft"] 3
+assign [class="Vintage Story"] 3
 assign [class="FreeTube"] 4
 for_window [class="TelegramDesktop" title="Media viewer"] fullscreen enable
 for_window [title="raylib image editor"] focus; floating enable
@@ -140,6 +143,7 @@ bindsym $mod+period exec --no-startup-id rofimoji
 bindsym Ctrl+Shift+n exec $hotkeys/firefox-private.sh
 bindsym $mod+Shift+g exec $hotkeys/german-wiktionary.sh
 bindsym $mod+Shift+p exec $hotkeys/add-to-persdict.sh
+bindsym --release $mod+Shift+l exec $hotkeys/print-date-indicator.sh
 bindsym --release $alt+bracketleft exec $hotkeys/xdotool-type.sh "¯\_(ツ)_/¯"
 bindsym --release $alt+bracketright exec $hotkeys/xdotool-type.sh "👉👈"
 bindsym XF86MonBrightnessDown exec $hotkeys/change-brightness.sh 10%-

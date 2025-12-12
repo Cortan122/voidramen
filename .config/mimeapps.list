@@ -2,7 +2,10 @@
 application/x-zerosize=sublime_text.desktop
 inode/directory=thunar.desktop
 application/zip=xarchiver.desktop
+
 audio/mpeg=mpv.desktop
+audio/flac=mpv.desktop
+audio/ogg=mpv.desktop
 
 image/bmp=sxiv.desktop
 image/gif=sxiv.desktop
