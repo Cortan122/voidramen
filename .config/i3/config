@@ -152,6 +152,7 @@ bindsym XF86AudioMute exec $hotkeys/change-volume.sh mute
 bindsym XF86AudioMicMute exec $hotkeys/change-volume.sh mic-mute
 bindsym XF86AudioLowerVolume exec $hotkeys/change-volume.sh down
 bindsym XF86AudioRaiseVolume exec $hotkeys/change-volume.sh up
+bindsym XF86Bluetooth exec $hotkeys/toggle-bluetooth.sh
 
 for_window [all] title_window_icon padding 1px
 workspace_layout tabbed

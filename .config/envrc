@@ -23,6 +23,12 @@ export NODE_PATH=/usr/lib/node_modules:/usr/local/lib/node_modules
 export BAT_PAGER="less -RS"
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
 
+# Explicit xdg homes
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+
 # $HOME/ Clean-up:
 # https://wiki.archlinux.org/title/XDG_Base_Directory
 # export HISTFILE="$HOME/.config/bash_history"
@@ -43,6 +49,7 @@ export XCOMPOSEFILE="$HOME/.config/x11/XCompose"
 export XAUTHORITY="$HOME/.local/share/Xauthority"
 export RUSTUP_HOME="$HOME/.local/share/rustup"
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 
 # less/man colors
 export LESS=-R
@@ -54,6 +61,12 @@ export LESS_TERMCAP_se=$'\x1b[0m'
 export LESS_TERMCAP_us=$'\x1b[1;32m'
 export LESS_TERMCAP_ue=$'\x1b[0m'
 export GROFF_NO_SGR=1
+
+# vscode marketplace
+export VSCODE_GALLERY_SERVICE_URL="https://marketplace.visualstudio.com/_apis/public/gallery"
+export VSCODE_GALLERY_ITEM_URL="https://marketplace.visualstudio.com/items"
+export VSCODE_GALLERY_CACHE_URL="https://vscode.blob.core.windows.net/gallery/index"
+export VSCODE_GALLERY_CONTROL_URL=""
 
 # ssh over gpg
 export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
