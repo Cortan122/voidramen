@@ -4,8 +4,9 @@ include ~/.config/i3/config
 titlebar_padding 2
 titlebar_border_thickness 1
 
-xwayland disable
-exec --no-startup-id xwayland-satellite :12
+# Does not work:
+# xwayland disable
+# exec --no-startup-id xwayland-satellite :12
 
 # class                 border  backgr. text    magenta child_border
 client.focused          #212921 #008400 #ffffff #ff00ff #008400
@@ -13,6 +14,8 @@ hide_edge_borders both
 
 output eDP-1 scale 1.5
 output eDP-1 bg ~/.config/wall.png fill
+output eDP-1 subpixel rgb
+output eDP-1 scale_filter smart
 
 input 1:1:AT_Translated_Set_2_keyboard xkb_file ~/.config/x11/keymap.xkb
 input 1:1:AT_Translated_Set_2_keyboard repeat_delay 500

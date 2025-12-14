@@ -1,0 +1,15 @@
+// Binds for running programs.
+binds {
+    Mod+Return { spawn "st"; }
+    Mod+T { spawn "alacritty"; }
+    Mod+D { spawn "rofi" "-show" "drun"; }
+    Mod+X { spawn "rofi" "-x11" "-show" "drun"; }
+    Mod+L { spawn "swaylock"; }
+
+    Mod+Shift+d { spawn "rofi" "-show" "decode" "-modes" "decode"; }
+    Mod+r { spawn "rofi" "-show" "run"; }
+    Mod+period { spawn "rofimoji"; }
+
+    Mod+z { spawn "raylid"; }
+    Mod+s { spawn "boomer"; }
+}
