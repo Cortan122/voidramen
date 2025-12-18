@@ -22,4 +22,6 @@ if echo "$list_of_speakers" | grep -q "$speaker_id"; then
 else
   notify-send "🟦 Bluetooth" "Connecting bluetooth..."
   notify-send "🔵 Bluetooth Speaker" "$(bluetoothctl connect "$speaker_id" | strip_codes)"
+  sleep 2
+  notify-send "🔋 Speaker Battery" "$(bluetoothctl info F4:4E:FC:1C:45:96 | grep "Battery Percentage" | grep -Po "\([0-9]*\)" | tr --del '()' || echo "NaN")%"
 fi

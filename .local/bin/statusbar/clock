@@ -4,6 +4,7 @@ date '+%Y %b %d (%a) %H:%M%p'
 
 case $BLOCK_BUTTON in
   1) pgrep -x dunst >/dev/null && ddspawn cal "cal --color=always | less" >/dev/null;;
+  2) i3-sensible-terminal -e sh -c "cal $(date '+%Y') --color=always | less" ;;
   3) pgrep -x dunst >/dev/null && notify-send "📅 Time/date module" "\- Left click to show show the month via \`cal\`
 - Does nothing!!" ;;
 esac
