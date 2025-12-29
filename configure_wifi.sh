@@ -67,6 +67,21 @@ print_wifi() {
   wpa_passphrase "$(pass "$1"-wifi-name)" "$(pass "$1"-wifi-pass)"
 }
 
+print_39c3() {
+  cat <<EOF
+network={
+  ssid="39C3"
+  key_mgmt=WPA-EAP
+  eap=TTLS
+  identity="39C3"
+  password="39C3"
+  ca_cert="/etc/ssl/certs/ISRG_Root_X1.pem"
+  altsubject_match="DNS:radius.c3noc.net"
+  phase2="auth=PAP"
+}
+EOF
+}
+
 # todo: set `scan_freq=2462` for `nika-roof`
 
 (
@@ -83,6 +98,7 @@ EOF
     fi
   fi
   parse_qrcode
+  print_39c3
   wpa_passphrase CCCAC_PSK_2.4GHz 23cccac42
   print_wifi "redmi-T9"
   print_wifi "bonn-tplink"
