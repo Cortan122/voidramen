@@ -73,8 +73,8 @@ network={
   ssid="39C3"
   key_mgmt=WPA-EAP
   eap=TTLS
-  identity="39C3"
-  password="39C3"
+  identity="allowany"
+  password="allowany"
   ca_cert="/etc/ssl/certs/ISRG_Root_X1.pem"
   altsubject_match="DNS:radius.c3noc.net"
   phase2="auth=PAP"

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Dwellers Empty Path
+Exec=sh -c "proton.sh $HOME/Games/'Dwellers Empty Path'/Dweller\'s' Empty Path'.exe"
+Icon=Dwellers-Empty-Path
+Terminal=false

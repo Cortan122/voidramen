@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=minit
+Exec=sh -c "cd $HOME/Games/minit_win/; wine minit.exe"
+Icon=minit
+Terminal=false
