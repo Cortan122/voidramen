@@ -6,9 +6,18 @@ history="$HOME/.config/locate_history"
 [ -f "$history" ] || touch "$history"
 
 function filter-results {
-  grep -Ev -e '/\.cache/' -e '\.lnk$' -e '/\.Trash-1000/' -e '/diffpatch/diary/' |
+  grep -Ev -e '/\.cache/' -e '\.lnk$' -e '/\.Trash-1000/' -e '\.trashinfo$' -e '/diffpatch/diary/' |
     sort |
     awk -v 'x=^$' '$0 ~ x {}; $0 !~ x {x = "^"$0"/"; print $0;}'
+}
+
+function add_extra_history {
+  basename="$(basename -- "$1")"
+  basename_results="$(locate --ignore-case --limit 2000 -- "$basename" | filter-results)"
+  if [ "$(wc -l <<<"$basename_results")" -gt 1 ]; then
+    longer_name="$(basename -- "$(dirname -- "$1")")/$basename"
+    echo "$longer_name" >> "$history"
+  fi
 }
 
 function open {
@@ -18,6 +27,7 @@ function open {
   else
     coproc xdg-open "$1" >/dev/null 2>&1
   fi
+  add_extra_history "$1"
 }
 
 if [ "$ROFI_RETV" = 0 ]; then
