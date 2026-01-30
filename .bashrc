@@ -95,3 +95,6 @@ if [[ "$TERM" != linux* ]]; then
     trap 'printf "\033]0;{%s} %s\007" "${BASH_COMMAND//[^[:print:]]/}" "${PS1_TITLE@P}"' DEBUG
   fi
 fi
+
+# todo: remove this, its fucking silly
+rmdir ~/Thunderbird/ 2>/dev/null || true
