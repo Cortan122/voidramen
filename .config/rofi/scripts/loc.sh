@@ -27,7 +27,7 @@ function open {
   else
     coproc xdg-open "$1" >/dev/null 2>&1
   fi
-  add_extra_history "$1"
+  coproc add_extra_history "$1" >/dev/null 2>&1
 }
 
 if [ "$ROFI_RETV" = 0 ]; then
