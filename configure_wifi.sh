@@ -98,11 +98,9 @@ EOF
     fi
   fi
   parse_qrcode
-  print_39c3
   wpa_passphrase CCCAC_PSK_2.4GHz 23cccac42
   print_wifi "redmi-T9"
   print_wifi "bonn-tplink"
-  print_wifi "nika-roof"
   print_eduroam eduroam
   print_eduroam eduroam-cs
   print_eduroam eduroam-stw

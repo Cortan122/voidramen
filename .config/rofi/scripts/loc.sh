@@ -14,14 +14,26 @@ function filter-results {
 function add_extra_history {
   basename="$(basename -- "$1")"
   basename_results="$(locate --ignore-case --limit 2000 -- "$basename" | filter-results)"
+
   if [ "$(wc -l <<<"$basename_results")" -gt 1 ]; then
     longer_name="$(basename -- "$(dirname -- "$1")")/$basename"
+
+    if [[ "$longer_name" == ./* ]]; then
+      echo "$basename" >> "$history"
+      return
+    fi
+
+    if ! grep -q -F --line-regexp "$basename" "$history"; then
+      echo "$basename" >> "$history"
+    fi
+
     echo "$longer_name" >> "$history"
+  else
+    echo "$basename" >> "$history"
   fi
 }
 
 function open {
-  basename -- "$1" >> "$history"
   if [[ "$1" == *".txt" ]]; then
     coproc subl "$1" >/dev/null 2>&1
   else
