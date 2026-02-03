@@ -27,7 +27,10 @@ shopt -s histappend
 shopt -s globstar
 HISTSIZE= HISTFILESIZE=
 HISTCONTROL=ignoreboth:erasedups
-[ -f "$HOME/.config/bash_history" ] || cp .bash_history "$HOME/.config/bash_history"
+[ -f "$HOME/.config/bash_history" ] || {
+  mkdir -p "$HOME/.config"
+  [ -f ~/.bash_history ] && cp ~/.bash_history "$HOME/.config/bash_history"
+}
 HISTFILE="$HOME/.config/bash_history"
 stty -ixon # Disable ctrl-s and ctrl-q.
 
