@@ -3,6 +3,7 @@
 set -e
 
 send_key () {
+  # note: do to funky timings, this command gets the windows key stuck sometimes
   xdotool key --clearmodifiers Super+Shift+T
 }
 
