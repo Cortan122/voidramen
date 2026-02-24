@@ -28,6 +28,9 @@ if $sudo [ ! -f "/etc/sudoers.d/000-$username" ]; then
   $sudo chown root:root "/etc/sudoers.d/000-$username"
 fi
 
+# todo: check if pacman messed with the files
+$sudo cp -rvu --no-target-directory overlay/ /
+
 if [ -d .git/ ] && git remote get-url origin | grep -iq Cortan122/voidramen; then
   repo_path="$(pwd)"
 else
