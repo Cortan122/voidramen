@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Opus Magnum
+Comment=Play this game on Steam
+Exec=xdg-open steam://rungameid/558990
+Icon=steam_icon_558990
+Terminal=false
+Type=Application
+Categories=Game;
