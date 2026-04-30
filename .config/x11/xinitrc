@@ -11,5 +11,5 @@ gpg-connect-agent updatestartuptty /bye >/dev/null
 xrdb -merge ~/.config/x11/Xresourses
 xrandr --dpi 144 # does this actually do anything??
 
-systemctl --user import-environment XAUTHORITY
+systemctl --user import-environment XAUTHORITY DISPLAY
 exec i3
