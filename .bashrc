@@ -101,3 +101,4 @@ fi
 
 # todo: remove this, its fucking silly
 rmdir ~/Thunderbird/ 2>/dev/null || true
+rmdir ~/thunderbird/ 2>/dev/null || true
