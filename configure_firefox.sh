@@ -25,3 +25,6 @@ if [ "$presdict_subl" -ot "$presdict" ]; then
   jq -Rs '{added_words: [.|split("\n")|.[]|select(length > 0)]}' "$presdict" \
     | install -Dv /dev/stdin "$presdict_subl"
 fi
+
+# theme url:
+# https://color.firefox.com/?theme=XQAAAAIaAQAAAAAAAABBqYhm849SCia2CaaEGccwS-xMDPr79BBHBoBDHBn11sKixxJ8nCuRy8nck1kUU--KOrTBHK3glVCXfb60aH3vNwXpOTQzbhGZLbT_s75p6W3HPI3lf2pI-5TO1joyuib8YSPmwqfOpKqyFLihUYUzEU9wXo6wYK3ZWzZHcxV4UVKdrlxvSCC4VRWwSg7APa9qnlQ8jaWBmTP2TIjPmqX_8B02lKrJIwCg1DrL8QMALc0lOf_pI6uA

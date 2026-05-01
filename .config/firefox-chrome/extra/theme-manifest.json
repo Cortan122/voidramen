@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+  "version": "1.0",
+  "name": "Green's Blue Firefox",
+  "theme": {
+    "images": {},
+    "properties": {},
+    "colors": {
+      "toolbar": "rgb(50, 37, 96)",
+      "toolbar_text": "rgb(255, 255, 255)",
+      "frame": "rgb(25, 22, 47)",
+      "tab_background_text": "rgb(255, 255, 255)",
+      "toolbar_field": "rgb(18, 11, 56)",
+      "toolbar_field_text": "rgb(255, 255, 255)",
+      "tab_line": "rgba(0, 0, 0, 0)",
+      "popup": "rgb(40, 29, 78)",
+      "popup_text": "rgb(255, 255, 255)",
+      "tab_loading": "rgba(0, 0, 0, 0)"
+    }
+  }
+}

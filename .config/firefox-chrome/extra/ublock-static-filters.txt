@@ -1,0 +1,34 @@
+! 2024-04-25 https://discord.com
+discord.com##li.container__3792d.channel__0aef5:nth-of-type(2) > .linkButton__9da2c.interactive__3e804.interactive__0786a > .link__3a950 > .layout__59abc.avatarWithText__3fb83
+discord.com##li.container__3792d.channel__0aef5:nth-of-type(3) > .linkButton__9da2c.interactive__3e804.interactive__0786a > .link__3a950 > .layout__59abc.avatarWithText__3fb83
+
+! 2024-05-25 https://old.reddit.com
+old.reddit.com##.listingsignupbar.infobar
+old.reddit.com##.cookie-infobar.with-btn.with-icon.md-container-small.reddit-infobar
+||www.redditstatic.com/gold/premium/premium-title.png$image
+old.reddit.com##.premium-banner
+
+! May 26, 2024 https://discord.com
+discord.com##li.container__3792d.channel__0aef5:nth-of-type(3) > .linkButton__9da2c.interactive__3e804.interactive__0786a > .link__3a950
+
+! Jul 6, 2024 https://discord.com
+discord.com##.botTagCompact_f9f2ca
+
+*.web3modal.org
+
+! Oct 31, 2024 https://en.wikipedia.org
+wikipedia.org###wmde-banner-app
+wikipedia.org###siteNotice
+
+||accounts.google.com/gsi/iframe
+
+! 24 апр. 2025 г. https://snac.122.hu
+||cofe.rocks/emoji/the-embassy/bsteliousintnt.png$image
+
+! 29 мая 2025 г. https://mk.absturztau.be
+mk.absturztau.be##.navbar-subButtons-3coK
+
+! 24 июл. 2025 г. https://codenames.game
+codenames.game##.max-h-\[470px\].min-h-\[400px\].h-full.w-\[340px\].relative
+
+marketplace.visualstudio.com##+js(rpnt, script, /"(DisableVSCodeDownloadButtonEnabled|Microsoft\\.VisualStudio\\.Services\\.Gallery\\.DisableVSCodeDownloadButton)":true/, "$1":false)
