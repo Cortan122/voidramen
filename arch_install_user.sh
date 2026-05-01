@@ -68,7 +68,7 @@ if ! { command -v raylid >/dev/null; }; then
 fi
 
 cd "$repo_path"
-[ -d "$HOME/.mozilla/firefox" ] && ./configure_firefox.sh
+[ -d "$HOME/.config/mozilla/firefox" ] && ./configure_firefox.sh
 
 # we lost the dependency on ttf-unifont long ago
 # maybe that's a good thing...
