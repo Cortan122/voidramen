@@ -51,6 +51,7 @@ export XAUTHORITY="$HOME/.local/share/Xauthority"
 export RUSTUP_HOME="$HOME/.local/share/rustup"
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 
 # less/man colors
 export LESS=-R

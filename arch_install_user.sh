@@ -69,6 +69,7 @@ fi
 
 cd "$repo_path"
 [ -d "$HOME/.config/mozilla/firefox" ] && ./configure_firefox.sh
+echo "hsts-file = $HOME/.local/state/wget-hsts" > "$HOME/.config/wgetrc"
 
 # we lost the dependency on ttf-unifont long ago
 # maybe that's a good thing...
