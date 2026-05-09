@@ -12,6 +12,7 @@ environment {
 
     // sublime text is blury on wayland, but not on x11 ._.
     GDK_BACKEND "x11"
+    GDK_DEBUG "gl-no-fractional"
 }
 
 
