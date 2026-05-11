@@ -2,6 +2,8 @@
 
 set -e
 
+persdict="$HOME/Programs/voidramen/.config/firefox-chrome/persdict.dat"
+
 selection="$(xclip -o -selection primary)"
 
 # remove whitespace characters
@@ -18,9 +20,13 @@ elif [[ "${#selection}" -lt 3 ]]; then
 elif ! [[ $selection =~ ^[[:alnum:]-]*$ ]]; then
   notify-send "📕 Persdict" "String '<span color=\"#f00\">$selection</span>' is not alphanumeric"
 else
+  if grep -F -- "$selection" "$persdict"; then
+    notify-send "📘 Persdict" "Word '<span color=\"#f80\">$selection</span>' already added"
+    exit
+  fi
   notify-send "📗 Persdict" "Adding '<span color=\"#0f0\">$selection</span>' to persdict"
 
-  echo "$selection" >> ~/Programs/voidramen/.config/firefox-chrome/persdict.dat
+  echo "$selection" >> "$persdict"
   cd ~/Programs/voidramen/
   ./install.sh
 fi
