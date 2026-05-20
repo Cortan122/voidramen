@@ -22,7 +22,6 @@ bind '"\C-e":glob-expand-word'
 
 set +H # disable ! style history substitution
 shopt -s checkwinsize
-shopt -s autocd
 shopt -s histappend
 shopt -s globstar
 HISTSIZE= HISTFILESIZE=
