@@ -1,5 +1,9 @@
 #!/bin/sh
 
+set -e
+
+plymouth quit || true
+
 clear
 export TERM="st"
 sudo -u green hyfetch
