@@ -1,0 +1,8 @@
+[global]
+    max_icon_size = 64
+
+[urgency_low]
+    default_icon = none
+
+[urgency_normal]
+    default_icon = none
