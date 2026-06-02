@@ -1,5 +1,9 @@
-# ~/.profile: executed by the command interpreter for login shells.
-# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login exists.
+#!/bin/bash
 
 # include .bashrc if it exists
 [ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
+
+# ssh over gpg
+export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+gpgconf --launch gpg-agent
+gpg-connect-agent updatestartuptty /bye >/dev/null

@@ -3,7 +3,7 @@
 # This file sets environmental variables.
 
 # Return if we already have all the vars.
-[ -z "$TERMINAL" ] || return
+[ -z "$EDITOR" ] || return
 
 # set PATH so it includes user's private bin if it exists
 [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
@@ -69,8 +69,3 @@ export VSCODE_GALLERY_SERVICE_URL="https://marketplace.visualstudio.com/_apis/pu
 export VSCODE_GALLERY_ITEM_URL="https://marketplace.visualstudio.com/items"
 export VSCODE_GALLERY_CACHE_URL="https://vscode.blob.core.windows.net/gallery/index"
 export VSCODE_GALLERY_CONTROL_URL=""
-
-# ssh over gpg
-export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-gpgconf --launch gpg-agent
-gpg-connect-agent updatestartuptty /bye >/dev/null
