@@ -19,7 +19,8 @@ user_pref("bintl.regional_prefs.use_os_locales", true);
 
 user_pref("middlemouse.paste", false);
 user_pref("general.autoScroll", true);
-user_pref("browser.privatebrowsing.felt-privacy-v1", false)
+user_pref("browser.privatebrowsing.felt-privacy-v1", false);
+user_pref("browser.tabs.splitView.enabled", false);
 
 user_pref("browser.ai.control.default", "blocked");
 user_pref("browser.ai.control.translations", "available");
