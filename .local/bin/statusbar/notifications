@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+case $BLOCK_BUTTON in
+  1) dunstctl set-paused toggle ;;
+  3) notify-send "♻ Notification toggle module " "\- Lets you toggle dunst notifications.
+- Click to toggle notification." ;;
+esac
+
+status="$(dunstctl is-paused)"
+case $status in
+  false) echo "🔔";;
+  true) echo "🔕";;
+esac

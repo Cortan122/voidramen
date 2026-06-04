@@ -43,6 +43,9 @@ signal=7
 [internet]
 interval=10
 
+[notifications]
+interval=60
+signal=12
+
 [exit]
 interval=once
-
