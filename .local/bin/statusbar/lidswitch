@@ -1,0 +1,28 @@
+#!/bin/sh
+
+set -e
+
+config_path="/etc/systemd/logind.conf"
+status="$(awk '/HandleLidSwitch=/' "$config_path" | cut -d'=' -f2)"
+
+toggle() {
+  case $status in
+    suspend-then-hibernate) sudo sed -i '/HandleLidSwitch=/c HandleLidSwitch=ignore' "$config_path";;
+    ignore) sudo sed -i '/HandleLidSwitch=/c HandleLidSwitch=suspend-then-hibernate' "$config_path";;
+  esac
+
+  status="$(awk '/HandleLidSwitch=/' "$config_path" | cut -d'=' -f2)"
+}
+
+case $BLOCK_BUTTON in
+  1) toggle ;;
+  3) notify-send "💤 Lid switch mode " "\- Lets you toggle the lid switch action.
+- Click to toggle." ;;
+esac
+
+case $status in
+  suspend-then-hibernate) echo "💤";;
+  ignore) echo "🤖";;
+  lock) echo "🔐";;
+  *) echo "❓";;
+esac

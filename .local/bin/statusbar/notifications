@@ -4,7 +4,7 @@ set -e
 
 case $BLOCK_BUTTON in
   1) dunstctl set-paused toggle ;;
-  3) notify-send "♻ Notification toggle module " "\- Lets you toggle dunst notifications.
+  3) notify-send "🔔 Notification toggle module " "\- Lets you toggle dunst notifications.
 - Click to toggle notification." ;;
 esac
 

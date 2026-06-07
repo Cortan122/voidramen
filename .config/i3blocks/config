@@ -47,5 +47,8 @@ interval=10
 interval=60
 signal=12
 
+[lidswitch]
+interval=once
+
 [exit]
 interval=once
