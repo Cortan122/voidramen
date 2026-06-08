@@ -8,9 +8,11 @@ status="$(awk '/HandleLidSwitch=/' "$config_path" | cut -d'=' -f2)"
 toggle() {
   case $status in
     suspend-then-hibernate) sudo sed -i '/HandleLidSwitch=/c HandleLidSwitch=ignore' "$config_path";;
-    ignore) sudo sed -i '/HandleLidSwitch=/c HandleLidSwitch=suspend-then-hibernate' "$config_path";;
+    ignore) sudo sed -i '/HandleLidSwitch=/c HandleLidSwitch=lock' "$config_path";;
+    lock) sudo sed -i '/HandleLidSwitch=/c HandleLidSwitch=suspend-then-hibernate' "$config_path";;
   esac
 
+  sudo systemctl kill -s HUP systemd-logind
   status="$(awk '/HandleLidSwitch=/' "$config_path" | cut -d'=' -f2)"
 }
 
