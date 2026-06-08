@@ -14,19 +14,25 @@ toggle() {
 
   sudo systemctl kill -s HUP systemd-logind
   status="$(awk '/HandleLidSwitch=/' "$config_path" | cut -d'=' -f2)"
+}
 
-  if [ "$status" = "lock" ]; then
-    systemctl --user enable --now xss-lock.service
-  else
-    systemctl --user disable --now xss-lock.service
+ensure_lock_state() {
+  if pgrep xss-lock >/dev/null; then
+    if [ "$status" != "lock" ]; then
+      killall xss-lock
+    fi
+  elif [ "$status" = "lock" ]; then
+    setsid xss-lock -- ~/.local/bin/hotkeys/lock-screen.sh >/dev/null 2>&1 </dev/null &
   fi
 }
 
 case $BLOCK_BUTTON in
   1) toggle ;;
-  3) notify-send "💤 Lid switch mode " "\- Lets you toggle the lid switch action.
+  3) notify-send "💤 Lid switch module" "\- Lets you toggle the lid switch action.
 - Click to toggle." ;;
 esac
+
+ensure_lock_state
 
 case $status in
   suspend-then-hibernate) echo "💤";;
