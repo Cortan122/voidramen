@@ -1,0 +1,9 @@
+[Unit]
+Description=X11 screen locker
+
+[Service]
+Type=simple
+ExecStart=/bin/xss-lock --transfer-sleep-lock -- ${HOME}/.local/bin/hotkeys/lock-screen.sh
+
+[Install]
+WantedBy=default.target

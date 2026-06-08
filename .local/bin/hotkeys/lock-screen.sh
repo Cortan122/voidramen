@@ -2,15 +2,7 @@
 
 set -e
 
-if [ "$1" = "optional" ]; then
-  config_path="/etc/systemd/logind.conf"
-  status="$(awk '/HandleLidSwitch=/' "$config_path" | cut -d'=' -f2)"
-
-  if [ "$status" != "lock" ]; then
-    sleep 10
-    exit
-  fi
-fi
+sleep 1 && xdotool click 1 &
 
 # todo: force it to redraw itself
 dunstctl set-paused true

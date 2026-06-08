@@ -14,6 +14,12 @@ toggle() {
 
   sudo systemctl kill -s HUP systemd-logind
   status="$(awk '/HandleLidSwitch=/' "$config_path" | cut -d'=' -f2)"
+
+  if [ "$status" = "lock" ]; then
+    systemctl --user enable --now xss-lock.service
+  else
+    systemctl --user disable --now xss-lock.service
+  fi
 }
 
 case $BLOCK_BUTTON in
