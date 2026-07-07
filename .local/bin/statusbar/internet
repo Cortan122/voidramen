@@ -1,18 +1,50 @@
 #!/bin/sh
 
+vpn_service_name="wg-quick@nl-ams-wg-002.service"
+
+show_error () {
+  notify-send "$(journalctl -n 10 -o cat -u "$vpn_service_name")"
+}
+
+toggle_vpn () {
+  if systemctl is-active "$vpn_service_name" --quiet; then
+    systemctl stop "$vpn_service_name" || show_error
+  else
+    systemctl start "$vpn_service_name" || show_error
+  fi
+}
+
 case $BLOCK_BUTTON in
   1) i3-sensible-terminal -e nmtui ;;
+  2) toggle_vpn ;;
   3) pgrep -x dunst >/dev/null && notify-send "🌐 Internet module" "\- Click to connect
+- Middle click to toggle VPN
 📡: no wifi connection
 📶: wifi connection with quality
 🦖: no ethernet
 🌐: ethernet working
+🦫: mullvad vpn connected
+🔮: openvpn connected
 " ;;
 esac
 
-[ "$(cat /sys/class/net/w*/operstate)" = 'down' ] && wifiicon="📡"
+icon_if_not_down () {
+  if [ -f "$1" ]; then
+    if ! grep -Fq down "$1"; then
+      echo "$2"
+    fi
+  fi
+}
 
-[ ! -n "${wifiicon+var}" ] && wifiicon=$(grep "^\s*w" /proc/net/wireless | awk '{ print "📶", int($3 * 100 / 70) "%" }')
-wifiicon="$(echo "$wifiicon" | sed 's/ 100%//')"
+if [ "$(cat /sys/class/net/w*/operstate)" = 'down' ]; then
+  wifi_icon="📡"
+else
+  wifi_icon="$(grep "^\s*w" /proc/net/wireless | awk '{ print "📶", int($3 * 100 / 70) "%" }' | sed 's/ 100%//')"
+fi
 
-printf "%s %s\n" "$wifiicon" "$(cat /sys/class/net/e*/operstate | sort -r | sed "s/down/🦖/;s/up/🌐/" | head -n 1)"
+ethernet_icon="$(cat /sys/class/net/e*/operstate | sort -r | sed "s/down/🦖/;s/up/🌐/" | head -n 1)"
+
+vpn_icon="$(icon_if_not_down /sys/class/net/*-wg-*/operstate ' 🦫')"
+vpn_icon="$vpn_icon$(icon_if_not_down /sys/class/net/tun*/operstate ' 🔮')"
+
+printf "%s %s%s\n" "$wifi_icon" "$ethernet_icon" "$vpn_icon"
