@@ -23,12 +23,12 @@ fi
 case "$1" in
   press)
     case "$name" in
-      Thunar|VSCodium|VSCode) ;;
+      Thunar|VSCodium|VSCode|codium) ;;
       *) start_term ;;
     esac ;;
   release)
     case "$name" in
-      Thunar|VSCodium|VSCode) send_key ;;
+      Thunar|VSCodium|VSCode|codium) send_key ;;
       *) ;;
     esac ;;
   *) start_term ;;
