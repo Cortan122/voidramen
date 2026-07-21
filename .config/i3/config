@@ -122,13 +122,13 @@ bindsym --release button2 kill
 # forcing certain windows onto certain workspaces
 assign [class="firefox"] 1
 assign [class="TelegramDesktop"] 2
-assign [class="Signal"] 2
+assign [class="signal"] 2
 assign [class="Celeste"] 3
 assign [class="vampiresurvivors.exe"] 3
 assign [class="PrismLauncher"] 3
 assign [class="Minecraft"] 3
 assign [class="Vintage Story"] 3
-assign [class="FreeTube"] 4
+assign [class="freetube"] 4
 for_window [class="TelegramDesktop" title="Media viewer"] fullscreen enable
 for_window [title="raylib image editor"] focus; floating enable
 
