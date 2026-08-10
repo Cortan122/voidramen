@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Factorio (steam)
+Exec=xdg-open steam://rungameid/427520
+Icon=Factorio
+Terminal=false

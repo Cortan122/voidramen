@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Pokemon Black
+Exec=sh -c "desmume $HOME/Games/ROMs/'Pokemon - Black Version (USA, Europe) (NDSi Enhanced).nds'"
+Icon=Snivy
+Terminal=false
