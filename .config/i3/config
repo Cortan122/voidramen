@@ -142,6 +142,7 @@ bindsym $mod+period exec --no-startup-id rofimoji
 # autohotkey keybindings
 bindsym Ctrl+Shift+n exec $hotkeys/firefox-private.sh
 bindsym $mod+Shift+g exec $hotkeys/german-wiktionary.sh
+bindsym $mod+Shift+h exec $hotkeys/wikipedia.sh
 bindsym $mod+Shift+p exec $hotkeys/add-to-persdict.sh
 bindsym --release $mod+Shift+l exec $hotkeys/print-date-indicator.sh
 bindsym --release $alt+bracketleft exec $hotkeys/xdotool-type.sh "¯\_(ツ)_/¯"
