@@ -20,12 +20,45 @@ IgnoreCarrierLoss=3s
 LLMNR=false
 EOF
 
+# does not work
+print_bit_802() {
+  cat <<EOF
+network={
+  ssid="802.1X"
+  key_mgmt=WPA-EAP
+  eap=TTLS
+  phase2="autheap=PAP"
+  anonymous_identity="anonymous@wlan.informatik.uni-bonn.de"
+  ca_cert="/etc/ssl/certs/ISRG_Root_X1.pem"
+  altsubject_match="DNS:radius.informatik.uni-bonn.de"
+  identity="$(pass 802.1X-wifi-login)"
+  password="$(pass 802.1X-wifi)"
+}
+EOF
+}
+
+print_wpa_eap() {
+  ssid="$1"
+  login="$2"
+  pass="$3"
+  cat <<EOF
+network={
+  ssid="$ssid"
+  key_mgmt=WPA-EAP
+  eap=PEAP
+  phase2="autheap=MSCHAPV2"
+  identity="$login"
+  password="$pass"
+}
+EOF
+}
+
 print_eduroam() {
   ssid="$1"
   login="$2"; [ -z "$login" ] && login="bonn-eduroam-login"
   pass="$3"; [ -z "$pass" ] && pass="bonn-eduroam-pass"
-  word_login="$(pass "$login")" || word_login="$login"
-  word_pass="$(pass "$pass")" || word_pass="$pass"
+  word_login="$(pass "$login")"
+  word_pass="$(pass "$pass")"
   cat <<EOF
 network={
   ssid="$ssid"
@@ -34,6 +67,7 @@ network={
   phase2="autheap=MSCHAPV2"
   identity="$word_login"
   password="$word_pass"
+  ca_cert="/etc/ssl/certs/uni-bonn-eduroam.pem"
 }
 EOF
 }
@@ -97,13 +131,19 @@ network={
 EOF
     fi
   fi
+cat <<EOF
+ctrl_interface=/run/wpa_supplicant
+update_config=1
+
+EOF
   parse_qrcode
   print_wifi "redmi-T9"
   print_wifi "fritzbox"
+  # print_bit_802
   print_eduroam eduroam
   print_eduroam eduroam-cs
   print_eduroam eduroam-stw
-  print_eduroam CCCAC cccac 23cccac42
+  print_wpa_eap CCCAC cccac 23cccac42
 ) | $sudo tee /etc/wpa_supplicant/wpa_supplicant-wlp3s0.conf
 $sudo chown root:root /etc/wpa_supplicant/wpa_supplicant-wlp3s0.conf
 $sudo chmod 600 /etc/wpa_supplicant/wpa_supplicant-wlp3s0.conf
