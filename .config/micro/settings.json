@@ -8,4 +8,5 @@
     "hltrailingws": true,
     "rmtrailingws": true,
     "indentchar": "·",
+    "mkparents": true,
 }
