@@ -137,7 +137,8 @@ update_config=1
 
 EOF
   parse_qrcode
-  print_wifi "redmi-T9"
+  print_wifi "fairphone"
+  # print_wifi "redmi-T9"
   print_wifi "fritzbox"
   # print_bit_802
   print_eduroam eduroam

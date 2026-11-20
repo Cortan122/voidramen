@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Message From Aliens
+Comment=Play this game on Steam
+Exec=steam steam://rungameid/1858720
+Icon=steam_icon_1858720
+Terminal=false
+Type=Application
+Categories=Game;

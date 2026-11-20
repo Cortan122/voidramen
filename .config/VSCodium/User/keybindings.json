@@ -107,5 +107,25 @@
     {
         "key": "win+shift+t",
         "command": "workbench.action.terminal.openNativeConsole"
+    },
+    {
+        "key": "alt+i",
+        "command": "clangd.switchheadersource",
+        "when": "editorTextFocus && resourceLangId == 'c' || editorTextFocus && resourceLangId == 'cpp' || editorTextFocus && resourceLangId == 'cuda-cpp' || editorTextFocus && resourceLangId == 'objective-c' || editorTextFocus && resourceLangId == 'objective-cpp'"
+    },
+    {
+        "key": "alt+o",
+        "command": "-clangd.switchheadersource",
+        "when": "editorTextFocus && resourceLangId == 'c' || editorTextFocus && resourceLangId == 'cpp' || editorTextFocus && resourceLangId == 'cuda-cpp' || editorTextFocus && resourceLangId == 'objective-c' || editorTextFocus && resourceLangId == 'objective-cpp'"
+    },
+    {
+        "key": "end",
+        "command": "cursorLineEnd",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "home",
+        "command": "cursorLineStart",
+        "when": "textInputFocus"
     }
 ]
